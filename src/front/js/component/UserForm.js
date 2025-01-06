@@ -21,7 +21,7 @@ import React, { useState } from 'react'
     // try {
     //     const response = await fetch()
     // }
-};
+;
 
 // Datos formulario
 
