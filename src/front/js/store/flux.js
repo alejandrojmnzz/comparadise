@@ -5,7 +5,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 		actions: {
 			register: async (user) => {
 				try {
-					let response = await fetch(`${process.env.BACKEND_URL}/api/register`,
+					let response = await fetch(`${process.env.BACKEND_URL}/register`,
 						{
 						method: 'POST',
 						headers: {
@@ -14,6 +14,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						body: JSON.stringify(user)
 						}
 					)
+
 					return response.status
 				}
 				catch (error) {

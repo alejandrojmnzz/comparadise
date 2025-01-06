@@ -8,13 +8,13 @@ export const Home = () => {
 
 	return (
 		<div>
-			{
+			{/* {
 				store.games.map((item) => {
 					return (
 						<h1>{item.name}</h1>
 					)
 				})
-			}
+			} */}
 		</div>
 	);
 };

@@ -22,15 +22,20 @@ def add_new_user():
     name = body.get("name", None)
     email = body.get("email",  None)
     password = body.get("password", None)
+    print(password)
+    print(body)
 
     if name is None or email is None or password is None:
+        return jsonify('Name, email and password are required'), 400
+    
+    if name.strip() == "" or email.strip() == "" or password.strip() == "": 
         return jsonify('All credentials are required'), 400
     else:
         user = User()
         user_exist = user.query.filter_by(email = email).one_or_none()
 
         if user_exist is not None:
-            return jsonify('User with that email already exists')
+            return jsonify('User with that email already exists'), 409
         else:
             salt = b64encode(os.urandom(32)).decode('utf-8')
             hashed_password = generate_password_hash(f'{password}{salt}')
@@ -43,7 +48,7 @@ def add_new_user():
             db.session.add(user)
             try:
                 db.session.commit()
-                return jsonify('User created'), 200
+                return jsonify('User created'), 201
             except Exception as error:
 
                 print(error.args)
