@@ -10,6 +10,8 @@ from api.models import db
 from api.routes import api
 from api.admin import setup_admin
 from api.commands import setup_commands
+from flask_jwt_extended import JWTManager
+
 
 # from models import Person
 
@@ -49,6 +51,9 @@ def handle_invalid_usage(error):
 
 # generate sitemap with all your endpoints
 
+# Setup the Flask-JWT-Extended extension
+app.config["JWT_SECRET_KEY"] = os.getenv("JWT_SECRET_KEY")
+jwt = JWTManager(app)
 
 @app.route('/')
 def sitemap():
