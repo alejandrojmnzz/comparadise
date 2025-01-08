@@ -1,9 +1,12 @@
 import React from "react"
 import { useState, useContext } from "react"
 import { Context } from "../store/appContext"
+import { NavLink } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 
 export function Register() {
     const { actions } = useContext(Context)
+    const navigate = useNavigate()
     const [user, setUser] = useState({
         name: "",
         email: "",
@@ -25,6 +28,7 @@ export function Register() {
             const response = await actions.register(user)
             if (response == 201) {
                 alert("User created")
+                navigate("/login")
             }
             if (response == 409) {
                 alert("User already exists")
@@ -49,8 +53,9 @@ export function Register() {
                     <label for="exampleInputPassword1" className="form-label">Password</label>
                     <input name="password" type="password" onChange={handleChange} className="form-control" id="exampleInputPassword1" />
                 </div>
-                <button type="submit" className="btn btn-primary">Submit</button>
+                <button type="submit" className="btn btn-primary mb-2">Submit</button>
             </form>
+            <NavLink to="/login">Already have an account?</NavLink>
         </div>
     )
 }
