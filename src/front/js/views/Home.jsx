@@ -8,6 +8,13 @@ export const Home = () => {
 
 	return (
 		<div>
-			</div>
+			{/* {
+				store.games.map((item) => {
+					return (
+						<h1>{item.name}</h1>
+					)
+				})
+			} */}
+		</div>
 	);
 };
