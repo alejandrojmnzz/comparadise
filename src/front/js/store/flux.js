@@ -47,6 +47,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 			logout: () => {
 				setStore({token: null})
+			},
+			recentGames: () => {
+				
 			}
 		}
 	};

@@ -77,8 +77,13 @@ def login():
             print(error.args)
             return jsonify('Error'), 500
 
-@api.route('/get-games', methods=['GET'])
+@api.route('/get-recent-games', methods=['GET'])
 def get_games():
-    user = User()
+    try:
+        user = User.query.order_by(User.id.desc()).limit(10).all() 
+        print(user)
 
-    return user.serialize()
+        return jsonify("hecho")
+    except Exception as error:
+        print(error.args)
+        return jsonify(error.args)
