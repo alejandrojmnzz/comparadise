@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User
+from api.models import db, User, Game
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
 from base64 import b64encode
@@ -77,8 +77,39 @@ def login():
             print(error.args)
             return jsonify('Error'), 500
 
-@api.route('/get-games', methods=['GET'])
-def get_games():
-    user = User()
+@api.route('/api/games', methods=['POST'])
+def add_game():
+    try:
+        # Accede a los datos enviados desde el frontend
+        data = request.form
+        image = request.files.get('image')  # Obtén la imagen (si se envió)
 
-    return user.serialize()
+        # Guarda la imagen en un directorio si es necesario (opcional)
+        if image:
+            image.save(f"./uploads/{image.filename}")  # Cambia el path según tus necesidades
+
+        # Crea una nueva instancia del modelo Game
+        new_game = Game(
+            game_name=data.get('gameName'),
+            genre=data.get('genre'),
+            modes=data.get('modes'),
+            release_date=data.get('releaseDate'),
+            system_requirements=data.get('systemRequirements'),
+            achievements=data.get('achievements'),
+            media=image.filename if image else None,  # Guarda el nombre del archivo de imagen
+            rating=data.get('rating'),
+            players=data.get('players'),
+            related_games=data.get('relatedGames'),
+            language=data.get('language'),
+        )
+
+        # Guarda en la base de datos
+        db.session.add(new_game)
+        db.session.commit()
+
+        # Responde con éxito
+        return jsonify({"message": "Game added successfully"}), 201
+
+    except Exception as e:
+        # Maneja errores
+        return jsonify({"error": str(e)}), 400

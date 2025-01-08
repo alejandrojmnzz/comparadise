@@ -7,6 +7,7 @@ import { Home } from "./views/Home.jsx";
 import { Navbar } from "./component/Navbar.jsx";
 import { Register } from "./component/Register.jsx";
 import { Login } from "./component/Login.jsx";
+
 import injectContext from "./store/appContext";
 
 
