@@ -22,11 +22,9 @@ def add_new_user():
     name = body.get("name", None)
     email = body.get("email",  None)
     password = body.get("password", None)
-    print(password)
-    print(body)
 
     if name is None or email is None or password is None:
-        return jsonify('Name, email and password are required'), 400
+        return jsonify('Name, email and password keys are required'), 400
     
     if name.strip() == "" or email.strip() == "" or password.strip() == "": 
         return jsonify('All credentials are required'), 400
@@ -57,13 +55,15 @@ def add_new_user():
 @api.route('/login', methods=['POST'])
 def login():
     body = request.json
-    email = body.query.get('email', None)
-    password = body.query.get('password', None)
+    email = body.get('email', None)
+    password = body.get('password', None)
 
     if email is None or password is None:
+        return jsonify('Email and password keys are required'), 400
+    if email.strip() == "" or password.strip() == "": 
         return jsonify('All credentials are required'), 400
-    
-    user = body.query.filter_by(email = email).first()
+
+    user = User.query.filter_by(email = email).first()
     if user is None:
         return jsonify('User does not exist'), 404
     else:
@@ -74,6 +74,7 @@ def login():
             else:
                 return jsonify("Incorrect credentials"), 404
         except Exception as error:
+            print(error.args)
             return jsonify('Error'), 500
 
 @api.route('/get-games', methods=['GET'])
