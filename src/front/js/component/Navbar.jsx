@@ -24,4 +24,4 @@ export function Navbar() {
             </div>
         </>
     )
-}
+};
