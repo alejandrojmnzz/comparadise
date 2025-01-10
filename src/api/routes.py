@@ -9,8 +9,10 @@ from base64 import b64encode
 import os
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
+from werkzeug.utils import secure_filename
 
 api = Blueprint('api', __name__)
+app = Flask(__name__)
 
 # Allow CORS requests to this API
 CORS(api)
@@ -76,6 +78,16 @@ def login():
         except Exception as error:
             print(error.args)
             return jsonify('Error'), 500
+        
+# UPLOAD_FOLDER = os.path.join(os.getcwd(), 'uploads')
+# os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+# app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+# ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
+# app = Flask(__name__)
+# app.config['UPLOAD_FOLDER']= UPLOAD_FOLDER
+
+# def allowed_file(filename):
+#     return '.' in filename and filename.rsplit ('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 @api.route('/get-recent-games', methods=['GET'])
 def get_games():
@@ -88,39 +100,49 @@ def get_games():
         print(error.args)
         return jsonify(error.args)
     
-@api.route('/api/games', methods=['POST'])
-def add_game():
+@api.route('/submit-game', methods=['POST'])
+def submit_game():
+    # files = request.files
+    
+    
+    # if 'cover_image' not in request.files:
+    #     return jsonify({"error": "Cover image is missing"}), 400
+    
+    # cover_file = request.files['cover_image']
+    
+    # # Save the cover media file (if provided)
+    # if cover_file and allowed_file(cover_file.filename):
+    #     filename = secure_filename(cover_file.filename)
+    #     cover_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+    #     cover_file.save(cover_path)
+    # else:
+    #     cover_path = None
+
+    data = request.form
+    print(data)
+    if not data.get('name') or not data.get('genre') or not data.get('release_date') or not data.get('modes') or not data.get('players') or not data.get('language'):
+        return jsonify({"error": "Missing required fields"}), 400
+
+    # try:
+    game = Game(
+    name=data['name'],
+    # cover_image=cover_path,
+    genre=data['genre'],
+    modes=data.get('modes', ''),
+    release_date=data['release_date'],
+    system_requirements=data['system_requirements'],
+    achievements=data.get('achievements', ''),
+    # media_files=",".join([secure_filename(f.filename) for f in request.files.getlist('media_files')]),
+    rating=data['rating'],
+    players=int(data['players']),
+    related_games=data.get('related_games', ''),
+    language=data['language']
+)
+    db.session.add(game)
     try:
-        # Accede a los datos enviados desde el frontend
-        data = request.form
-        image = request.files.get('image')  # Obtén la imagen (si se envió)
-
-        # Guarda la imagen en un directorio si es necesario (opcional)
-        if image:
-            image.save(f"./uploads/{image.filename}")  # Cambia el path según tus necesidades
-
-        # Crea una nueva instancia del modelo Game
-        new_game = Game(
-            game_name=data.get('gameName'),
-            genre=data.get('genre'),
-            modes=data.get('modes'),
-            release_date=data.get('releaseDate'),
-            system_requirements=data.get('systemRequirements'),
-            achievements=data.get('achievements'),
-            media=image.filename if image else None,  # Guarda el nombre del archivo de imagen
-            rating=data.get('rating'),
-            players=data.get('players'),
-            related_games=data.get('relatedGames'),
-            language=data.get('language'),
-        )
-
-        # Guarda en la base de datos
-        db.session.add(new_game)
         db.session.commit()
-
-        # Responde con éxito
         return jsonify({"message": "Game added successfully"}), 201
-
-    except Exception as e:
-        # Maneja errores
-        return jsonify({"error": str(e)}), 400
+    except Exception as error:
+        return jsonify ("Error submitting")
+    # except Exception as e:
+    #     return jsonify({"error": str(e)}), 500
