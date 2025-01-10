@@ -1,7 +1,8 @@
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
-			token: localStorage.getItem("token") || null
+			token: localStorage.getItem("token") || null,
+			recentGames: []
 		},
 		actions: {
 			register: async (user) => {
@@ -48,8 +49,21 @@ const getState = ({ getStore, getActions, setStore }) => {
 			logout: () => {
 				setStore({token: null})
 			},
-			recentGames: () => {
-				
+			recentGames: async () => {
+				try {
+					let response = await fetch(`${process.env.BACKEND_URL}/get-recent-games`,
+						{
+							method: "GET"
+						}
+					)
+					let data = await response.json()
+					setStore({
+						recentGames: data
+					})
+				}
+				catch (error) {
+					return false
+				}
 			}
 		}
 	};

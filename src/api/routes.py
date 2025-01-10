@@ -80,13 +80,13 @@ def login():
 @api.route('/get-recent-games', methods=['GET'])
 def get_games():
     try:
-        user = User.query.order_by(User.id.desc()).limit(10).all() 
-        print(user)
+        games = Game.query.order_by(Game.id.desc()).limit(10).all() 
+        print(games)
 
-        return jsonify("hecho")
+        return jsonify(games.serialize())
     except Exception as error:
         print(error.args)
-        return jsonify(error.args)
+        return jsonify(error.args), 500
     
 @api.route('/api/games', methods=['POST'])
 def add_game():
