@@ -3,47 +3,52 @@ import React, {useState, useContext} from "react";
 export const GameForm = () => {
   const [formData, setFormData] = useState({
       name: "",
-      genre: "Action",
-      game_modes: "",
+      genre: "",
+      modes: "",
       release_date: "",
       system_requirements: "",
       achievements: "",
-      rating: "G",
-      num_players: 1,
+      rating: "",
+      players: "",
       related_games: "",
-      languages: "English"
+      language: ""
   });
-  const [coverImage, setCoverImage] = useState(null);
-  const [mediaFiles, setMediaFiles] = useState([]);
+  // const [coverImage, setCoverImage] = useState(null);
+  // const [mediaFiles, setMediaFiles] = useState([]);
 
-  const handleChange = (e) => {
-      const { name, value } = e.target;
+  const handleChange = (event) => {
+      const { name, value } = event.target;
       setFormData({ ...formData, [name]: value });
   };
 
-  const handleFileChange = (e) => {
-      if (e.target.name === "cover_image") {
-          setCoverImage(e.target.files[0]);
-      } else if (e.target.name === "media_files") {
-          setMediaFiles(e.target.files);
-      }
-  };
+//   const handleFileChange = (e) => {
+//       if (e.target.name === "cover_image") {
+//           setCoverImage(e.target.files[0]);
+//       } else if (e.target.name === "media_files") {
+//           setMediaFiles(e.target.files);
+//       }
+//   };
   
-  const handleCoverChange = (event) => {
-    const file = event.target.files[0];
-    setFormData((prevFormData) => ({
-        ...prevFormData,
-        cover_image: file,
-    }));
-};
+//   const handleCoverChange = (event) => {
+//     const file = event.target.files[0];
+//     setFormData((prevFormData) => ({
+//         ...prevFormData,
+//         cover_image: file,
+//     }));
+// };
 
-  const handleSubmit = async (e) => {
-      e.preventDefault();
+  const handleSubmit = async (event) => {
+      event.preventDefault();
       const formDataObj = new FormData();
       Object.keys(formData).forEach(key => formDataObj.append(key, formData[key]));
-      if (coverImage) formDataObj.append("cover_image", coverImage);
-      Array.from(mediaFiles).forEach(file => formDataObj.append("media_files", file));
- console.log(formDataObj)
+      // if (coverImage) formDataObj.append("cover_image", coverImage);
+      // Array.from(mediaFiles).forEach(file => formDataObj.append("media_files", file));
+
+      // if (response == 201) {
+        alert("Game successfully added")
+      // };
+
+//  console.log(formDataObj)
       const response = await fetch(process.env.BACKEND_URL+"/api/submit-game", {
           method: "POST",
           body: formDataObj,
@@ -104,13 +109,13 @@ return (
 
       <div>
         <label>Release Date:</label>
-        <input type="date" name="releaseDate" value={formData.releaseDate} onChange={handleChange} required />
+        <input type="date" name="release_date" value={formData.release_date} onChange={handleChange} required />
       </div>
 
       {/* Third Section */}
       <div>
         <label>System Requirements:</label>
-        <textarea name="systemRequirements" value={formData.systemRequirements} onChange={handleChange} required />
+        <textarea name="system_requirements" value={formData.system_requirements} onChange={handleChange} required />
       </div>
 
       <div>
@@ -148,7 +153,7 @@ return (
 
       <div>
         <label>Related Games:</label>
-        <input type="text" name="relatedGames" value={formData.relatedGames} onChange={handleChange} />
+        <input type="text" name="related_games" value={formData.relatedGames} onChange={handleChange} />
       </div>
 
       <div>

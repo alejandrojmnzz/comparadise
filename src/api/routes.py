@@ -79,15 +79,15 @@ def login():
             print(error.args)
             return jsonify('Error'), 500
         
-UPLOAD_FOLDER = os.path.join(os.getcwd(), 'uploads')
-os.makedirs(UPLOAD_FOLDER, exist_ok=True)
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
-app = Flask(__name__)
-app.config['UPLOAD_FOLDER']= UPLOAD_FOLDER
+# UPLOAD_FOLDER = os.path.join(os.getcwd(), 'uploads')
+# os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+# app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+# ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
+# app = Flask(__name__)
+# app.config['UPLOAD_FOLDER']= UPLOAD_FOLDER
 
-def allowed_file(filename):
-    return '.' in filename and filename.rsplit ('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+# def allowed_file(filename):
+#     return '.' in filename and filename.rsplit ('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 @api.route('/get-recent-games', methods=['GET'])
 def get_games():
@@ -130,16 +130,19 @@ def submit_game():
     genre=data['genre'],
     modes=data.get('modes', ''),
     release_date=data['release_date'],
-    # system_requirements=data['system_requirements'],
-    # achievements=data.get('achievements', ''),
+    system_requirements=data['system_requirements'],
+    achievements=data.get('achievements', ''),
     # media_files=",".join([secure_filename(f.filename) for f in request.files.getlist('media_files')]),
-    # rating=data['rating'],
+    rating=data['rating'],
     players=int(data['players']),
-    # related_games=data.get('related_games', ''),
+    related_games=data.get('related_games', ''),
     language=data['language']
 )
     db.session.add(game)
-    db.session.commit()
-    return jsonify({"message": "Game added successfully"}), 201
+    try:
+        db.session.commit()
+        return jsonify({"message": "Game added successfully"}), 201
+    except Exception as error:
+        return jsonify ("Error submitting")
     # except Exception as e:
     #     return jsonify({"error": str(e)}), 500
