@@ -1,3 +1,19 @@
 /* 
     General Styles used on every website (Don't Repeat Yourself)
 */
+body {
+    height: 100px
+}
+.game-preview {
+    height: 14rem;
+    -webkit-box-shadow: 0px 0px 40px -21px rgba(0,0,0,0.56);
+    -moz-box-shadow: 0px 0px 40px -21px rgba(0,0,0,0.56);
+    box-shadow: 0px 0px 40px -21px rgba(0,0,0,0.56);
+}
+.game-preview-row {
+    padding: 0px 100px;
+}
+.navbar {
+    padding: 0px 100px;
+    color: purple;
+}

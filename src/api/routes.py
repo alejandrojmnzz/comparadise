@@ -86,6 +86,17 @@ app.config['UPLOAD_FOLDER']= UPLOAD_FOLDER
 def allowed_file(filename):
     return '.' in filename and filename.rsplit ('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
+@api.route('/get-recent-games', methods=['GET'])
+def get_games():
+    try:
+        user = User.query.order_by(User.id.desc()).limit(10).all() 
+        print(user)
+
+        return jsonify("hecho")
+    except Exception as error:
+        print(error.args)
+        return jsonify(error.args)
+    
 @api.route('/api/games', methods=['POST'])
 def add_game():
     data = request.form

@@ -13,7 +13,7 @@ export function Navbar() {
     return (
         <>
             <div className="container">
-                <div className="d-flex justify-content-end pt-2">
+                <div className="d-flex justify-content-end pt-2 navbar">
                     {
                     store.token == null ?
                     <NavLink to="/login" className="btn btn-primary">Log In</NavLink>
