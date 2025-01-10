@@ -12,6 +12,7 @@ from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identi
 from werkzeug.utils import secure_filename
 
 api = Blueprint('api', __name__)
+app = Flask(__name__)
 
 # Allow CORS requests to this API
 CORS(api)
@@ -79,6 +80,8 @@ def login():
             return jsonify('Error'), 500
         
 UPLOAD_FOLDER = os.path.join(os.getcwd(), 'uploads')
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER']= UPLOAD_FOLDER
@@ -97,46 +100,46 @@ def get_games():
         print(error.args)
         return jsonify(error.args)
     
-@api.route('/api/games', methods=['POST'])
-def add_game():
+@api.route('/submit-game', methods=['POST'])
+def submit_game():
+    # files = request.files
+    
+    
+    # if 'cover_image' not in request.files:
+    #     return jsonify({"error": "Cover image is missing"}), 400
+    
+    # cover_file = request.files['cover_image']
+    
+    # # Save the cover media file (if provided)
+    # if cover_file and allowed_file(cover_file.filename):
+    #     filename = secure_filename(cover_file.filename)
+    #     cover_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+    #     cover_file.save(cover_path)
+    # else:
+    #     cover_path = None
+
     data = request.form
-    media_files = request.files.getlist('media')
-    cover_file = request.files.get('cover_media')  # Cover media file
-    
-    media_paths = []
-    cover_path = None
+    print(data)
+    if not data.get('name') or not data.get('genre') or not data.get('release_date') or not data.get('modes') or not data.get('players') or not data.get('language'):
+        return jsonify({"error": "Missing required fields"}), 400
 
-    # Save all media files
-    for file in media_files:
-        if file and allowed_file(file.filename):
-            filename = secure_filename(file.filename)
-            filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-            file.save(filepath)
-            media_paths.append(filepath)
-    
-    # Save the cover media file (if provided)
-    if cover_file and allowed_file(cover_file.filename):
-        cover_filename = secure_filename(cover_file.filename)
-        cover_path = os.path.join(app.config['UPLOAD_FOLDER'], cover_filename)
-        cover_file.save(cover_path)
-
-    try:
-        game = Game(
-            name=data.get('name'),
-            genre=data.get('genre'),
-            modes=data.get('modes'),
-            release_date=data.get('release_date'),
-            system_requirements=data.get('system_requirements'),
-            achievements=data.get('achievements'),
-            media=";".join(media_paths),  # Join file paths into a single string
-            cover_media=cover_path,       # Save the selected cover media path
-            rating=data.get('rating'),
-            players=data.get('players'),
-            related_games=data.get('related_games'),
-            language=data.get('language'),
-        )
-        db.session.add(game)
-        db.session.commit()
-        return jsonify({"message": "Game added successfully"}), 201
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
+    # try:
+    game = Game(
+    name=data['name'],
+    # cover_image=cover_path,
+    genre=data['genre'],
+    modes=data.get('modes', ''),
+    release_date=data['release_date'],
+    # system_requirements=data['system_requirements'],
+    # achievements=data.get('achievements', ''),
+    # media_files=",".join([secure_filename(f.filename) for f in request.files.getlist('media_files')]),
+    # rating=data['rating'],
+    players=int(data['players']),
+    # related_games=data.get('related_games', ''),
+    language=data['language']
+)
+    db.session.add(game)
+    db.session.commit()
+    return jsonify({"message": "Game added successfully"}), 201
+    # except Exception as e:
+    #     return jsonify({"error": str(e)}), 500

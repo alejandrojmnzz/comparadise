@@ -1,63 +1,57 @@
 import React, {useState, useContext} from "react";
 
-const GameForm = () => {
-    const [formData, setFormData] = useState({
-        gameName: "",
-        image: null,
-        genre: "",
-        modes: "",
-        releaseDate: "",
-        systemRequirements: "",
-        achievements: "",
-        media: [],
-        cover_media: null,
-        rating: "",
-        players: "",
-        relatedGames: "",
-        language: "",
-    });
+export const GameForm = () => {
+  const [formData, setFormData] = useState({
+      name: "",
+      genre: "Action",
+      game_modes: "",
+      release_date: "",
+      system_requirements: "",
+      achievements: "",
+      rating: "G",
+      num_players: 1,
+      related_games: "",
+      languages: "English"
+  });
+  const [coverImage, setCoverImage] = useState(null);
+  const [mediaFiles, setMediaFiles] = useState([]);
 
-// input changes
-const handleChange = (e) => {
-  const { name, value } = e.target;
-  setFormData({ ...formData, [name]: value });
+  const handleChange = (e) => {
+      const { name, value } = e.target;
+      setFormData({ ...formData, [name]: value });
+  };
+
+  const handleFileChange = (e) => {
+      if (e.target.name === "cover_image") {
+          setCoverImage(e.target.files[0]);
+      } else if (e.target.name === "media_files") {
+          setMediaFiles(e.target.files);
+      }
+  };
+  
+  const handleCoverChange = (event) => {
+    const file = event.target.files[0];
+    setFormData((prevFormData) => ({
+        ...prevFormData,
+        cover_image: file,
+    }));
 };
 
-const handleFileChange = (e) => {
-  setFormData({ ...formData, media: [...e.target.files] });
-};
-
-const handleCoverChange = (e) => {
-  setFormData({ ...formData, cover_media: e.target.files[0] });
-};
-
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  const formDataToSend = new FormData();
-  for (const key in formData) {
-    if (key === "media") {
-      formData[key].forEach((file) => {
-        formDataToSend.append("media", file);
+  const handleSubmit = async (e) => {
+      e.preventDefault();
+      const formDataObj = new FormData();
+      Object.keys(formData).forEach(key => formDataObj.append(key, formData[key]));
+      if (coverImage) formDataObj.append("cover_image", coverImage);
+      Array.from(mediaFiles).forEach(file => formDataObj.append("media_files", file));
+ console.log(formDataObj)
+      const response = await fetch(process.env.BACKEND_URL+"/api/submit-game", {
+          method: "POST",
+          body: formDataObj,
       });
-    } else {
-      formDataToSend.append(key, formData[key]);
-    }
-  }
 
-  try {
-    const response = await fetch("http://localhost:5000/api/games", {
-      method: "POST",
-      body: formDataToSend,
-    });
-    if (response.ok) {
-      alert("Game submitted successfully!");
-    } else {
-      alert("Failed to submit the game.");
-    }
-  } catch (error) {
-    console.error("Error submitting the game:", error);
-  }
-};
+      const result = await response.json();
+      console.log(result);
+  };
 
 //form info
 return (
@@ -72,23 +66,14 @@ return (
         required />
       </label>
 
-      <label>
-        Media Files:
-        <input 
-        type="file" 
-        name="media" 
-        multiple onChange={handleFileChange} 
-        />
-      </label>
-
-      <label>
+      {/* <label>
         Cover Media:
         <input 
         type="file" 
         name="cover_media" 
         onChange={handleCoverChange} 
         />
-      </label>
+      </label> */}
 
       {/* Second Section */}
       <div>
@@ -113,7 +98,6 @@ return (
           <option value="Campaign">Campaign</option>
           <option value="Capture the flag">Capture the flag</option>
           <option value="Deathmatch">Deathmatch</option>
-          <option value="Oleada">Oleada</option>
           <option value="Multiplayer">Multiplayer</option>
         </select>
       </div>
@@ -134,10 +118,10 @@ return (
         <input type="text" name="achievements" value={formData.achievements} onChange={handleChange} />
       </div>
 
-      <div>
+      {/* <div>
         <label>Media (Images or Videos):</label>
         <input type="file" name="media" accept="image/*,video/*" onChange={handleChange} />
-      </div>
+      </div> */}
 
       <div>
         <label>Rating:</label>
