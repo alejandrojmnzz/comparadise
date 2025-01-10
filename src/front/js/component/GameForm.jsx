@@ -9,7 +9,8 @@ const GameForm = () => {
         releaseDate: "",
         systemRequirements: "",
         achievements: "",
-        media: "",
+        media: [],
+        cover_media: null,
         rating: "",
         players: "",
         relatedGames: "",
@@ -18,64 +19,76 @@ const GameForm = () => {
 
 // input changes
 const handleChange = (e) => {
-    const { name, value, files } = e.target;
-    setFormData({
-      ...formData,
-      [name]: files ? files[0] : value,
-    });
-  };
+  const { name, value } = e.target;
+  setFormData({ ...formData, [name]: value });
+};
 
-  
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const formDataToSend = new FormData();
-    Object.entries(formData).forEach(([key, value]) => {
-      formDataToSend.append(key, value);
-    });
+const handleFileChange = (e) => {
+  setFormData({ ...formData, media: [...e.target.files] });
+};
 
-    try {
-      const response = await fetch("http://localhost:5000/api/games", {
-        method: "POST",
-        body: formDataToSend,
+const handleCoverChange = (e) => {
+  setFormData({ ...formData, cover_media: e.target.files[0] });
+};
+
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  const formDataToSend = new FormData();
+  for (const key in formData) {
+    if (key === "media") {
+      formData[key].forEach((file) => {
+        formDataToSend.append("media", file);
       });
-
-      if (response.ok) {
-        const data = await response.json();
-        alert("Game successfully added!");
-      } else {
-        console.error(await response.text());
-        alert("Error adding game.");
-      }
-    } catch (error) {
-      console.error(error);
-      alert("Network error.");
+    } else {
+      formDataToSend.append(key, formData[key]);
     }
-  };
+  }
+
+  try {
+    const response = await fetch("http://localhost:5000/api/games", {
+      method: "POST",
+      body: formDataToSend,
+    });
+    if (response.ok) {
+      alert("Game submitted successfully!");
+    } else {
+      alert("Failed to submit the game.");
+    }
+  } catch (error) {
+    console.error("Error submitting the game:", error);
+  }
+};
 
 //form info
 return (
-    <form onSubmit={handleSubmit} encType="multipart/form-data">
-      {/* First Section */}
-      <div>
-        <label>Game Name:</label>
+    <form onSubmit={handleSubmit}>
+      <label>
+        Game Name:
         <input 
         type="text"
-        name="gameName"
-        value={formData.gameName} 
-        onChange={handleChange} required 
-        />
-      </div>
+        name="name" 
+        value={formData.name} 
+        onChange={handleChange} 
+        required />
+      </label>
 
-      <div>
-        <label>Image:</label>
+      <label>
+        Media Files:
         <input 
         type="file" 
-        name="image" 
-        accept="image/*" 
-        onChange={handleChange} 
-        required 
+        name="media" 
+        multiple onChange={handleFileChange} 
         />
-      </div>
+      </label>
+
+      <label>
+        Cover Media:
+        <input 
+        type="file" 
+        name="cover_media" 
+        onChange={handleCoverChange} 
+        />
+      </label>
 
       {/* Second Section */}
       <div>
