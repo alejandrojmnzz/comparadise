@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 57befea8e15b
+Revision ID: 1730ce83f452
 Revises: 
-Create Date: 2025-01-10 01:25:55.521947
+Create Date: 2025-01-10 22:05:39.788166
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '57befea8e15b'
+revision = '1730ce83f452'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -21,13 +21,11 @@ def upgrade():
     op.create_table('game',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=255), nullable=False),
-    sa.Column('cover_image', sa.String(length=255), nullable=True),
     sa.Column('genre', sa.String(length=100), nullable=False),
     sa.Column('modes', sa.String(length=100), nullable=False),
     sa.Column('release_date', sa.Date(), nullable=True),
     sa.Column('system_requirements', sa.Text(), nullable=True),
     sa.Column('achievements', sa.Text(), nullable=True),
-    sa.Column('media', sa.Text(), nullable=True),
     sa.Column('rating', sa.String(length=10), nullable=True),
     sa.Column('players', sa.Integer(), nullable=False),
     sa.Column('related_games', sa.Text(), nullable=True),
