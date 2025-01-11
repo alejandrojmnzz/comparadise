@@ -4,6 +4,7 @@ export const GameForm = () => {
   const [formData, setFormData] = useState({
       name: "",
       genre: "",
+      cover_image:"",
       modes: "",
       release_date: "",
       system_requirements: "",
@@ -21,32 +22,14 @@ export const GameForm = () => {
       setFormData({ ...formData, [name]: value });
   };
 
-//   const handleFileChange = (e) => {
-//       if (e.target.name === "cover_image") {
-//           setCoverImage(e.target.files[0]);
-//       } else if (e.target.name === "media_files") {
-//           setMediaFiles(e.target.files);
-//       }
-//   };
-  
-//   const handleCoverChange = (event) => {
-//     const file = event.target.files[0];
-//     setFormData((prevFormData) => ({
-//         ...prevFormData,
-//         cover_image: file,
-//     }));
-// };
-
   const handleSubmit = async (event) => {
       event.preventDefault();
-      const formDataObj = new FormData();
+      const formDataObj = new FormData()
+      formDataObj.append("cover_image", formData.cover_image);
       Object.keys(formData).forEach(key => formDataObj.append(key, formData[key]));
-      // if (coverImage) formDataObj.append("cover_image", coverImage);
-      // Array.from(mediaFiles).forEach(file => formDataObj.append("media_files", file));
-
-      // if (response == 201) {
+      
         alert("Game successfully added")
-      // };
+      
 
 //  console.log(formDataObj)
       const response = await fetch(process.env.BACKEND_URL+"/submit-game", {
@@ -71,14 +54,16 @@ return (
         required />
       </label>
 
-      {/* <label>
-        Cover Media:
+      <label>
+        Cover Image:
         <input 
         type="file" 
-        name="cover_media" 
-        onChange={handleCoverChange} 
+        name="cover_image" 
+        onChange={(event) => {
+          setFormData({...formData, cover_image: event.target.files[0] })
+        }}  
         />
-      </label> */}
+      </label>
 
       {/* Second Section */}
       <div>
@@ -124,7 +109,7 @@ return (
       </div>
 
       {/* <div>
-        <label>Media (Images or Videos):</label>
+        <label>Media:</label>
         <input type="file" name="media" accept="image/*,video/*" onChange={handleChange} />
       </div> */}
 
