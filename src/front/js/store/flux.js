@@ -57,9 +57,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 						}
 					)
 					let data = await response.json()
+					
 					setStore({
 						recentGames: data
 					})
+				
 				}
 				catch (error) {
 					return false

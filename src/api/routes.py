@@ -93,9 +93,8 @@ def login():
 def get_games():
     try:
         games = Game.query.order_by(Game.id.desc()).limit(10).all() 
-        print(games)
 
-        return jsonify(games.serialize())
+        return jsonify(list(map(lambda item: item.serialize(), games)))
     except Exception as error:
         print(error.args)
         return jsonify(error.args), 500

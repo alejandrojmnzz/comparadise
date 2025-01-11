@@ -40,7 +40,7 @@ class Game(db.Model):
             "name": self.name,
             # "cover_image": self.cover_image,
             "genre": self.genre,
-            "modes": self.game_modes.split(","),
+            "modes": self.modes.split(","),
             "release_date": self.release_date.strftime("%Y-%m-%d"),
             "system_requirements": self.system_requirements,
             "achievements": self.achievements,
