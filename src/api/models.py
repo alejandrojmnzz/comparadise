@@ -18,28 +18,33 @@ class User(db.Model):
 
 class Game(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    game_name = db.Column(db.String(120), nullable=False)
-    genre = db.Column(db.String(50), nullable=False)
-    modes = db.Column(db.String(50), nullable=False)
-    release_date = db.Column(db.Date, nullable=False)
-    system_requirements = db.Column(db.Text, nullable=False)
+    name = db.Column(db.String(255), nullable=False)
+    # cover_image = db.Column(db.String(255), nullable=True)
+    genre = db.Column(db.String(100), nullable=False)
+    modes = db.Column(db.String(100), nullable=False)
+    release_date = db.Column(db.Date, nullable=True)
+    system_requirements = db.Column(db.Text, nullable=True)
     achievements = db.Column(db.Text, nullable=True)
-    media = db.Column(db.String(250), nullable=True)
-    rating = db.Column(db.String(10), nullable=False)
+    # media = db.Column(db.Text, nullable=True)  # Stores other media file paths
+    rating = db.Column(db.String(10), nullable=True)
     players = db.Column(db.Integer, nullable=False)
-    related_games = db.Column(db.String(250), nullable=True)
-    language = db.Column(db.String(50), nullable=False)
+    related_games = db.Column(db.Text, nullable=True)
+    language = db.Column(db.String(250), nullable=False)
+
+    def __repr__(self):
+        return f"<Game {self.name}>"
 
     def serialize(self):
         return {
             "id": self.id,
-            "game_name": self.game_name,
+            "name": self.name,
+            # "cover_image": self.cover_image,
             "genre": self.genre,
-            "modes": self.modes,
-            "release_date": self.release_date.strftime("%Y-%m-%d") if self.release_date else None,
+            "modes": self.game_modes.split(","),
+            "release_date": self.release_date.strftime("%Y-%m-%d"),
             "system_requirements": self.system_requirements,
             "achievements": self.achievements,
-            "media": self.media,
+            # "media_files": self.media_files.split(",") if self.media_files else [],
             "rating": self.rating,
             "players": self.players,
             "related_games": self.related_games,

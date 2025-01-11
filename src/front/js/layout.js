@@ -7,7 +7,7 @@ import { Home } from "./views/Home.jsx";
 import { Navbar } from "./component/Navbar.jsx";
 import { Register } from "./component/Register.jsx";
 import { Login } from "./component/Login.jsx";
-
+import { GameForm } from "./component/GameForm.jsx"
 import injectContext from "./store/appContext";
 
 
@@ -29,6 +29,7 @@ const Layout = () => {
                         <Route element={<h1>Not found!</h1>} />
                         <Route element={<Register/>} path="/register"/>
                         <Route element={<Login/>} path="/login"/>
+                        <Route element={<GameForm/>} path="/submit-game"/>
                     </Routes>
                 </ScrollToTop>
             </BrowserRouter>
