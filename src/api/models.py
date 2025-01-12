@@ -20,6 +20,8 @@ class Game(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     namSe = db.Column(db.String(255), nullable=False)
     # cover_image = db.Column(db.String(255), nullable=True)
+    name = db.Column(db.String(255), nullable=False)
+    cover_image = db.Column(db.String(255), nullable=True)
     genre = db.Column(db.String(100), nullable=False)
     modes = db.Column(db.String(100), nullable=False)
     release_date = db.Column(db.Date, nullable=True)
@@ -38,13 +40,12 @@ class Game(db.Model):
         return {
             "id": self.id,
             "name": self.name,
-            # "cover_image": self.cover_image,
+            "cover_image": self.cover_image,
             "genre": self.genre,
             "modes": self.modes.split(","),
             "release_date": self.release_date.strftime("%Y-%m-%d"),
             "system_requirements": self.system_requirements,
             "achievements": self.achievements,
-            # "media_files": self.media_files.split(",") if self.media_files else [],
             "rating": self.rating,
             "players": self.players,
             "related_games": self.related_games,
