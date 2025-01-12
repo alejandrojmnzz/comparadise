@@ -10,6 +10,7 @@ import os
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 from werkzeug.utils import secure_filename
+import cloudinary.uploader as uploader 
 
 api = Blueprint('api', __name__)
 app = Flask(__name__)
@@ -100,14 +101,12 @@ def get_games():
         return jsonify(error.args), 500
     
 @api.route('/submit-game', methods=['POST'])
-def submit_game():
-    # files = request.files
-    
+def submit_game():    
     
     # if 'cover_image' not in request.files:
     #     return jsonify({"error": "Cover image is missing"}), 400
     
-    # cover_file = request.files['cover_image']
+    cover_file = request.files.get("cover_image", None)
     
     # # Save the cover media file (if provided)
     # if cover_file and allowed_file(cover_file.filename):
@@ -119,29 +118,34 @@ def submit_game():
 
     data = request.form
     print(data)
+    print(cover_file)
     if not data.get('name') or not data.get('genre') or not data.get('release_date') or not data.get('modes') or not data.get('players') or not data.get('language'):
         return jsonify({"error": "Missing required fields"}), 400
-
+    
+    cover_file = uploader.upload(cover_file)
+    cover_file = cover_file["secure_url"]
     # try:
     game = Game(
     name=data['name'],
-    # cover_image=cover_path,
+    cover_image=cover_file,
     genre=data['genre'],
     modes=data.get('modes', ''),
     release_date=data['release_date'],
     system_requirements=data['system_requirements'],
     achievements=data.get('achievements', ''),
-    # media_files=",".join([secure_filename(f.filename) for f in request.files.getlist('media_files')]),
     rating=data['rating'],
     players=int(data['players']),
     related_games=data.get('related_games', ''),
     language=data['language']
 )
+
+    print(game)
     db.session.add(game)
     try:
         db.session.commit()
         return jsonify({"message": "Game added successfully"}), 201
     except Exception as error:
+        print(error.args)
         return jsonify ("Error submitting")
     # except Exception as e:
     #     return jsonify({"error": str(e)}), 500

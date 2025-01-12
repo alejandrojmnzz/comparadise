@@ -28,9 +28,7 @@ export function GamePreview() {
                         <>
 						<div key={item.id}
                         className="game-preview col-2 border rounded mx-2 mb-4">
-                            {/* {
-                                item.name
-                            } */}
+                            <img src={item.cover_image}/>
                             
                         </div>
 

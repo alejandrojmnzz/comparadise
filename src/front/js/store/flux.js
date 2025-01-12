@@ -61,6 +61,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					setStore({
 						recentGames: data
 					})
+					console.log(data)
 				
 				}
 				catch (error) {
