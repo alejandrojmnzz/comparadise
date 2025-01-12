@@ -32,7 +32,7 @@ export const GameForm = () => {
       
 
 //  console.log(formDataObj)
-      const response = await fetch(process.env.BACKEND_URL+"/api/submit-game", {
+      const response = await fetch(process.env.BACKEND_URL+"/submit-game", {
           method: "POST",
           body: formDataObj,
       });
