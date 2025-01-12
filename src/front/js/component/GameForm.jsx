@@ -31,10 +31,10 @@ export const GameForm = () => {
         alert("Game successfully added")
       
 
-//  console.log(formDataObj)
+      console.log(formDataObj)
       const response = await fetch(process.env.BACKEND_URL+"/submit-game", {
           method: "POST",
-          body: formDataObj,
+          body: JSON.stringify(formDataObj),
       });
 
       const result = await response.json();

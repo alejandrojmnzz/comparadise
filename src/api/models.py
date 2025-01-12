@@ -18,10 +18,9 @@ class User(db.Model):
 
 class Game(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    namSe = db.Column(db.String(255), nullable=False)
-    # cover_image = db.Column(db.String(255), nullable=True)
     name = db.Column(db.String(255), nullable=False)
     cover_image = db.Column(db.String(255), nullable=True)
+    name = db.Column(db.String(255), nullable=False)
     genre = db.Column(db.String(100), nullable=False)
     modes = db.Column(db.String(100), nullable=False)
     release_date = db.Column(db.Date, nullable=True)
