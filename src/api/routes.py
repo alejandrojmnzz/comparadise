@@ -94,7 +94,7 @@ def login():
 def get_games():
     try:
         games = Game.query.order_by(Game.id.desc()).limit(10).all() 
-
+        
         return jsonify(list(map(lambda item: item.serialize(), games)))
     except Exception as error:
         print(error.args)
@@ -106,7 +106,8 @@ def submit_game():
     # if 'cover_image' not in request.files:
     #     return jsonify({"error": "Cover image is missing"}), 400
     
-    cover_file = request.files.get("cover_image", None)
+    body_file = request.files
+    cover_file =body_file.get("cover_image", None)
     
     # # Save the cover media file (if provided)
     # if cover_file and allowed_file(cover_file.filename):

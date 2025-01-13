@@ -1,6 +1,20 @@
-import React, {useState, useContext} from "react";
+import React, {useState, useContext, useEffect} from "react";
+import { Context } from "../store/appContext";
+import { useNavigate } from "react-router-dom";
+
+
 
 export const GameForm = () => {
+
+const {store, actions} = useContext(Context)
+const navigate = useNavigate()
+
+  useEffect(() => {
+    if (store.token == null) {
+      navigate('/register')
+    }
+  }, [])
+
   const [formData, setFormData] = useState({
       name: "",
       genre: "",
@@ -34,13 +48,14 @@ export const GameForm = () => {
       console.log(formDataObj)
       const response = await fetch(process.env.BACKEND_URL+"/submit-game", {
           method: "POST",
-          body: JSON.stringify(formDataObj),
+          body: formDataObj,
       });
 
       const result = await response.json();
       console.log(result);
   };
 
+  
 //form info
 return (
     <form onSubmit={handleSubmit}>
