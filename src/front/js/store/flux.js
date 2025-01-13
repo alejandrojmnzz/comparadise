@@ -61,7 +61,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					setStore({
 						recentGames: data
 					})
-					console.log(data)
+					console.log(data[0].cover_image)
 				
 				}
 				catch (error) {
