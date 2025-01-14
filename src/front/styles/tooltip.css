@@ -1,12 +1,14 @@
 .tooltip {
+    position: absolute;
     color: white;
     
     opacity: 0;
     min-width: 13rem;
     max-width: 13rem;
-    margin-left: 11.5rem;
+    /* margin-left: 11.5rem; */
     /* height: 20.5rem; */
-    
+    right: 0;
+    /* transform: translate(100%); */
     flex-direction: column;
 
     pointer-events: none;

@@ -15,17 +15,19 @@ export function Navbar() {
     }
     return (
         <>
-            <div className="container">
-                <div className="d-flex justify-content-end pt-2 navbar">
-                    {
-                    store.token == null ?
-                    <NavLink to="/login" className="btn btn-primary">Log In</NavLink>
-                    :
-                    <>
-                        <NavLink to="/submit-game" className="btn btn-primary me-2">Submit Game</NavLink>
-                        <button className="btn btn-danger" onClick={logOut}>Log Out</button>
-                    </>
-                    }
+            <div className="navbar-color">
+                <div className="container">
+                    <div className="d-flex justify-content-end py-2 navbar"> 
+                        {
+                        store.token == null ?
+                        <NavLink to="/login" className="btn btn-primary">Log In</NavLink>
+                        :
+                        <>
+                            <NavLink to="/submit-game" className="btn btn-primary me-2">Submit Game</NavLink>
+                            <button className="btn btn-danger" onClick={logOut}>Log Out</button>
+                        </>
+                        }
+                    </div>
                 </div>
             </div>
         </>

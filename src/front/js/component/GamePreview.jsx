@@ -21,13 +21,13 @@ export function GamePreview() {
     }
     return(
         <div className="container">
-            <div className="row game-preview-row justify-content-between mt-3 ">
+            <div className="row game-preview-row mt-3 ">
                 {
 				store.recentGames.map((item) => {
 					return (
                         <>
 						<div key={item.id}
-                        className="game-preview col-2 border rounded mx-2 mb-4 p-0 d-flex"
+                        className="game-preview col-12 col-md-6 col-lg-4 col-xl-3 col-xxl-2 border rounded px-2 mb-4 p-0 d-flex position-relative"
                         >
                             <img src={item.cover_image} className="game-image border rounded"/>
                             <div className="tooltip d-flex">
@@ -45,9 +45,7 @@ export function GamePreview() {
                                     </div>
                                  </div>
                             </div>
-                            
-                              
-                            
+     
                         </div>
                         
                       </>
