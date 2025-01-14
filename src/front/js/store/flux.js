@@ -20,7 +20,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return response.status
 				}
 				catch (error) {
+					console.log(error.args)
 					return false
+					
 				}
 			},
 			login: async (user) => {

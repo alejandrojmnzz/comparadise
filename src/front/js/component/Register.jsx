@@ -18,6 +18,7 @@ export function Register() {
             ...user,
             [target.name]: target.value
         })
+        console.log(user)
     }
     async function handleSubmit(event) {
         event.preventDefault()

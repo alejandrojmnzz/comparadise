@@ -34,7 +34,7 @@ export const GameForm = () => {
       console.log(formDataObj)
       const response = await fetch(process.env.BACKEND_URL+"/submit-game", {
           method: "POST",
-          body: JSON.stringify(formDataObj),
+          body: formDataObj,
       });
 
       const result = await response.json();
@@ -108,10 +108,10 @@ return (
         <input type="text" name="achievements" value={formData.achievements} onChange={handleChange} />
       </div>
 
-      {/* <div>
+      <div>
         <label>Media:</label>
-        <input type="file" name="media" accept="image/*,video/*" onChange={handleChange} />
-      </div> */}
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/Ki7EoH31UkM?si=l9_aehnOnCzbmb5X" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      </div>
 
       <div>
         <label>Rating:</label>

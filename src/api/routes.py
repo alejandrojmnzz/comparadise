@@ -21,39 +21,43 @@ CORS(api)
 
 @api.route('/register', methods=['POST'])
 def add_new_user():
-    body = request.json
-    name = body.get("name", None)
-    email = body.get("email",  None)
-    password = body.get("password", None)
+    try:
+            body = request.json
+            name = body.get("name", None)
+            email = body.get("email",  None)
+            password = body.get("password", None)
 
-    if name is None or email is None or password is None:
-        return jsonify('Name, email and password keys are required'), 400
-    
-    if name.strip() == "" or email.strip() == "" or password.strip() == "": 
-        return jsonify('All credentials are required'), 400
-    else:
-        user = User()
-        user_exist = user.query.filter_by(email = email).one_or_none()
+            if name is None or email is None or password is None:
+                return jsonify('Name, email and password keys are required'), 400
+            
+            if name.strip() == "" or email.strip() == "" or password.strip() == "": 
+                return jsonify('All credentials are required'), 400
+            else:
+                user = User()
+                user_exist = user.query.filter_by(email = email).one_or_none()
 
-        if user_exist is not None:
-            return jsonify('User with that email already exists'), 409
-        else:
-            salt = b64encode(os.urandom(32)).decode('utf-8')
-            hashed_password = generate_password_hash(f'{password}{salt}')
+                if user_exist is not None:
+                    return jsonify('User with that email already exists'), 409
+                else:
+                    salt = b64encode(os.urandom(32)).decode('utf-8')
+                    hashed_password = generate_password_hash(f'{password}{salt}')
 
-            user.name = name
-            user.email = email
-            user.password = hashed_password
-            user.salt = salt
+                    user.name = name
+                    user.email = email
+                    user.password = hashed_password
+                    user.salt = salt
 
-            db.session.add(user)
-            try:
-                db.session.commit()
-                return jsonify('User created'), 201
-            except Exception as error:
+                    db.session.add(user)
+                    try:
+                        db.session.commit()
+                        return jsonify('User created'), 201
+                    except Exception as error:
 
-                print(error.args)
-                return jsonify('Error'), 500
+                        print(error.args)
+                        return jsonify('Error'), 500
+    except Exception as error:
+        print(error.args)
+        return jsonify('Error'), 500
 
 @api.route('/login', methods=['POST'])
 def login():
