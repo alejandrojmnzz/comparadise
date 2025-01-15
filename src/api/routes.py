@@ -91,10 +91,10 @@ def login():
 #     return '.' in filename and filename.rsplit ('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 @api.route('/get-recent-games', methods=['GET'])
-def get_games():
+def get_recent_games():
     try:
         games = Game.query.order_by(Game.id.desc()).limit(10).all() 
-        
+
         return jsonify(list(map(lambda item: item.serialize(), games)))
     except Exception as error:
         print(error.args)
@@ -137,7 +137,10 @@ def submit_game():
     rating=data['rating'],
     players=int(data['players']),
     related_games=data.get('related_games', ''),
-    language=data['language']
+    language=data['language'],
+    summary=data['summary'],
+    description=data['description'],
+    trailer=data['trailer']
 )
 
     print(game)
@@ -150,3 +153,9 @@ def submit_game():
         return jsonify ("Error submitting")
     # except Exception as e:
     #     return jsonify({"error": str(e)}), 500
+
+@api.route('/get-game', methods = ['POST'])
+def get_game():
+    id = request.json
+    game = Game.query.get(id)
+    return jsonify(game.serialize())

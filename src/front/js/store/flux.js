@@ -2,7 +2,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
 			token: localStorage.getItem("token") || null,
-			recentGames: []
+			recentGames: [],
+			singleGame: {}
 		},
 		actions: {
 			register: async (user) => {
@@ -61,11 +62,30 @@ const getState = ({ getStore, getActions, setStore }) => {
 					setStore({
 						recentGames: data
 					})
-					console.log(data[0].cover_image)
 				
 				}
 				catch (error) {
 					return false
+				}
+			},
+			get_game: async (id) => {
+				try {
+					let response = await fetch(`${process.env.BACKEND_URL}/get-game`,
+						{
+						method: 'POST',
+						headers: {
+							"Content-Type": "application/json"
+						},
+						body: JSON.stringify(id)
+					}
+					)
+					let data = await response.json()
+					setStore({
+						singleGame: data
+					})
+					console.log(data)
+				} catch (error) {
+					console.log(error)
 				}
 			}
 		}

@@ -15,6 +15,7 @@ export function Navbar() {
     }
     return (
         <>
+        <div className="navbar-color">
             <div className="container">
                 <div className="d-flex justify-content-end pt-2 navbar">
                     {
@@ -28,6 +29,7 @@ export function Navbar() {
                     }
                 </div>
             </div>
+        </div>
         </>
     )
 };

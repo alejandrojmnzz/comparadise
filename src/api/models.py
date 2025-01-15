@@ -31,6 +31,9 @@ class Game(db.Model):
     players = db.Column(db.Integer, nullable=False)
     related_games = db.Column(db.Text, nullable=True)
     language = db.Column(db.String(250), nullable=False)
+    summary = db.Column(db.String(150), nullable=False)
+    description = db.Column(db.Text, nullable=False)
+    trailer = db.Column(db.String(100), nullable=False)
 
     def __repr__(self):
         return f"<Game {self.name}>"
@@ -49,4 +52,7 @@ class Game(db.Model):
             "players": self.players,
             "related_games": self.related_games,
             "language": self.language,
+            "summary": self.summary,
+            "description": self.description,
+            "trailer": self.trailer
         }
