@@ -13,12 +13,13 @@ export function Navbar() {
     return (
         <>
             <div className="container">
-                <div className="d-flex justify-content-end pt-2 navbar">
-                    <div className="d-flex container-fluid bg-body-tertiary">
-
+                <div className="d-flex navbar">
+                    <div className="justify-content-center search-content" role="search">
+                        <input className="form-control me-2" type="search"  placeholder="Search" aria-label="Search"/>
+                        <button className="btn btn-outline-success" type="submit">Search</button>
                     </div>
 
-                    <div>
+                    <div className="justify-content-end pt-2">
                     {
                     store.token == null ?
                     <NavLink to="/login" className="btn btn-primary">Log In</NavLink>
