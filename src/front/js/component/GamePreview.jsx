@@ -16,7 +16,7 @@ export function GamePreview() {
 
     return(
         <div className="container">
-            <div className="row game-preview-row justify-content-between mt-3 ">
+            <div className="row game-preview-row mt-3 ">
                 {
 				store.recentGames.map((item) => {
 					return (
@@ -41,9 +41,7 @@ export function GamePreview() {
                                     </div>
                                  </div>
                             </div>
-                            
-                              
-                            
+     
                         </div>
                         
                       </>
