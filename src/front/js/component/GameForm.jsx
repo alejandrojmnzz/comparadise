@@ -26,7 +26,10 @@ const navigate = useNavigate()
       rating: "",
       players: "",
       related_games: "",
-      language: ""
+      language: "",
+      summary: "",
+      description: "",
+      trailer: ""
   });
   // const [coverImage, setCoverImage] = useState(null);
   // const [mediaFiles, setMediaFiles] = useState([]);
@@ -40,6 +43,7 @@ const navigate = useNavigate()
       event.preventDefault();
       const formDataObj = new FormData()
       formDataObj.append("cover_image", formData.cover_image);
+      formDataObj.append("trailer", formData.trailer.split('=')[1])
       Object.keys(formData).forEach(key => formDataObj.append(key, formData[key]));
       
         alert("Game successfully added")
@@ -52,7 +56,6 @@ const navigate = useNavigate()
       });
 
       const result = await response.json();
-      console.log(result);
   };
 
   
@@ -166,6 +169,21 @@ return (
           <option value="Japanese">Japanese</option>
           <option value="Mandarin">Mandarin</option>
         </select>
+      </div>
+
+      <div>
+        <label>Summary:</label>
+        <input type="text" name="summary" value={formData.summary} onChange={handleChange} />
+      </div>
+
+      <div>
+        <label>Description:</label>
+        <input type="text" name="description" value={formData.description} onChange={handleChange} />
+      </div>
+
+      <div>
+        <label>Trailer (Link del navegador de YouTube)</label>
+        <input type="text" name="trailer" value={formData.trailer} onChange={handleChange} />
       </div>
 
       <button type="submit">Submit</button>
