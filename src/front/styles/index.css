@@ -1,20 +1,42 @@
-/* 
+/*
     General Styles used on every website (Don't Repeat Yourself)
 */
 body {
-    height: 100px
+    height: 100px;
+    background-color: rgb(181, 181, 181);
 }
 .game-preview {
-    height: 14rem;
+    /* height: 14rem; */
     -webkit-box-shadow: 0px 0px 40px -21px rgba(0,0,0,0.56);
     -moz-box-shadow: 0px 0px 40px -21px rgba(0,0,0,0.56);
     box-shadow: 0px 0px 40px -21px rgba(0,0,0,0.56);
+    flex-direction: column;
+    
+}
+.game-image {
+    /* max-width: 190px;
+    min-width: 190px;
+    min-height: 223px;
+    max-height: 223px; */
+    max-width: 100%;
+    min-width: 100%;
+    /* min-height: 100%;
+    max-height: 100%; */
     cursor: pointer;
 }
 .game-preview-row {
-    padding: 0px 100px;
+    /* padding: 0px 100px; */
 }
-.navbar {
-    padding: 0px 100px;
-    color: purple;
+.navbar-color {
+    background-color: rgb(147, 47, 240);
 }
+.trailer {
+    min-width: 700px;
+    max-width: 700px;
+
+}
+.navbar-color {
+    background-color: rgb(193, 0, 193);
+}
+
+  

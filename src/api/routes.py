@@ -95,7 +95,7 @@ def login():
 #     return '.' in filename and filename.rsplit ('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 @api.route('/get-recent-games', methods=['GET'])
-def get_games():
+def get_recent_games():
     try:
         games = Game.query.order_by(Game.id.desc()).limit(10).all() 
 
@@ -110,7 +110,8 @@ def submit_game():
     # if 'cover_image' not in request.files:
     #     return jsonify({"error": "Cover image is missing"}), 400
     
-    cover_file = request.files.get("cover_image", None)
+    body_file = request.files
+    cover_file =body_file.get("cover_image", None)
     
     # # Save the cover media file (if provided)
     # if cover_file and allowed_file(cover_file.filename):
@@ -140,7 +141,10 @@ def submit_game():
     rating=data['rating'],
     players=int(data['players']),
     related_games=data.get('related_games', ''),
-    language=data['language']
+    language=data['language'],
+    summary=data['summary'],
+    description=data['description'],
+    trailer=data['trailer']
 )
 
     print(game)
@@ -153,3 +157,9 @@ def submit_game():
         return jsonify ("Error submitting")
     # except Exception as e:
     #     return jsonify({"error": str(e)}), 500
+
+@api.route('/get-game', methods = ['POST'])
+def get_game():
+    id = request.json
+    game = Game.query.get(id)
+    return jsonify(game.serialize())
