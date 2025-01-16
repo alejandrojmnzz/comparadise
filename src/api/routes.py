@@ -153,3 +153,16 @@ def submit_game():
         return jsonify ("Error submitting")
     # except Exception as e:
     #     return jsonify({"error": str(e)}), 500
+
+@api.route('/games-search', methods=['GET'])
+def search_games():
+    search_query = request.args.get('query','').lower()
+
+    if not search_query:
+        return jsonify([])
+    
+    games = Game.query.filter(Game.name.ilike(f"%{search_query}%")).all()
+
+    game_list = [game.serialize() for game in games]
+
+    return jsonify(game_list)

@@ -1,22 +1,104 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useContext } from "react";
 import { Context } from "../store/appContext";
 
 export function Navbar() {
     const {store, actions} = useContext(Context)
-    
+    const [query, setQuery] = useState("");
+    const [suggestions, setSuggestions] = useState([]);
+
     function logOut() {
         localStorage.clear()
         actions.logout()
+    }
+
+    const handleSearchChange = async(event) =>{
+        const searchText = event.target.value;
+        setQuery(searchText);
+
+        if (searchText.length > 0) {
+            
+            try{
+                const response = await fetch('${process.env.BACKEND_URL}/api/games/search?query=${searchText}');
+                
+                if (response.ok){
+                    const data = await response.json();
+                    setSuggestions(data);
+                } 
+                else {
+                    console.error("No search results");
+                    setSuggestions([]);
+                }
+            }
+            catch (error) {
+                console.error("Error", error);
+                setSuggestions([]);
+            }
+        }
+        else {
+            setSuggestions([]);
+        };
+
+        const handleSearch = async () =>{
+            if (query.trim() ==="") {
+                alert ("Please enter something");
+                return;
+            }
+
+            try {
+                const response = await fetch (`${process.env.BACKEND_URL}/games-search?query=${query}`)
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    setSuggestions(data);
+                }
+                else {
+                console.error("No search results found.");
+                setSuggestions([]);
+                } 
+            }
+            catch (error) {
+                console.error("Error fetching results:", error);
+            }
+            finally {
+                setIsLoading(false);
+            }
+        };
+
+        const handleSuggestionClick = (game) => {
+            setQuery(game.name);
+            setSuggestions([]);
+        };
+
     }
     return (
         <>
             <div className="container">
                 <div className="d-flex navbar">
-                    <div className="justify-content-center search-content" role="search">
-                        <input className="form-control me-2" type="search"  placeholder="Search" aria-label="Search"/>
+                    <div className="search container" role="search">
+                        <input 
+                        className="form-control me-2"
+                        type="search"  
+                        placeholder="Search for a game" 
+                        value={query} 
+                        onChange={handleSearchChange} 
+                        aria-label="Search"
+                        />
                         <button className="btn btn-outline-success" type="submit">Search</button>
+                        {suggestions.length > 0 && (
+                            <ul className="suggestions-list">
+                                {suggestions.map((game) => (
+                                    <li
+                                    key={game.id}
+                                    onClick={() => handleSuggestionClick(game)}
+                                    style={{ cursor: "pointer"}}>
+                                        {game.name}
+                                    </li>
+                                ))}
+                            </ul>
+                        )}
+
                     </div>
 
                     <div className="justify-content-end pt-2">
