@@ -35,6 +35,7 @@ export function GameView() {
                 </div>
                 <div className="d-flex justify-content-center">
                      <img src={cover_image} className="w-25"/>
+                     
                 </div>
                 <div className="d-flex justify-content-center mt-2">
                     <iframe className="trailer" width="560" height="415" src={`https://www.youtube.com/embed/${trailer}`} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
