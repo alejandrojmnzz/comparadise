@@ -8,10 +8,13 @@ export const Home = () => {
 	const { store, actions } = useContext(Context);
 
 	return (
+		<>
 		<div className="h-100 align-items-end">
 			
 
 			<GamePreview/>
+			
 		</div>
+		</>
 	);
 };

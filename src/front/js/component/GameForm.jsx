@@ -1,6 +1,20 @@
-import React, {useState, useContext} from "react";
+import React, {useState, useContext, useEffect} from "react";
+import { Context } from "../store/appContext";
+import { useNavigate } from "react-router-dom";
+
+
 
 export const GameForm = () => {
+
+const {store, actions} = useContext(Context)
+const navigate = useNavigate()
+
+  useEffect(() => {
+    if (store.token == null) {
+      navigate('/register')
+    }
+  }, [])
+
   const [formData, setFormData] = useState({
       name: "",
       genre: "",
@@ -12,7 +26,10 @@ export const GameForm = () => {
       rating: "",
       players: "",
       related_games: "",
-      language: ""
+      language: "",
+      summary: "",
+      description: "",
+      trailer: ""
   });
   // const [coverImage, setCoverImage] = useState(null);
   // const [mediaFiles, setMediaFiles] = useState([]);
@@ -26,6 +43,7 @@ export const GameForm = () => {
       event.preventDefault();
       const formDataObj = new FormData()
       formDataObj.append("cover_image", formData.cover_image);
+      formDataObj.append("trailer", formData.trailer.split('=')[1])
       Object.keys(formData).forEach(key => formDataObj.append(key, formData[key]));
       
         alert("Game successfully added")
@@ -38,9 +56,9 @@ export const GameForm = () => {
       });
 
       const result = await response.json();
-      console.log(result);
   };
 
+  
 //form info
 return (
     <form onSubmit={handleSubmit}>
@@ -108,10 +126,10 @@ return (
         <input type="text" name="achievements" value={formData.achievements} onChange={handleChange} />
       </div>
 
-      <div>
+      {/* <div>
         <label>Media:</label>
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/Ki7EoH31UkM?si=l9_aehnOnCzbmb5X" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-      </div>
+        
+      </div> */}
 
       <div>
         <label>Rating:</label>
@@ -151,6 +169,21 @@ return (
           <option value="Japanese">Japanese</option>
           <option value="Mandarin">Mandarin</option>
         </select>
+      </div>
+
+      <div>
+        <label>Summary:</label>
+        <input type="text" name="summary" value={formData.summary} onChange={handleChange} />
+      </div>
+
+      <div>
+        <label>Description:</label>
+        <input type="text" name="description" value={formData.description} onChange={handleChange} />
+      </div>
+
+      <div>
+        <label>Trailer (Link del navegador de YouTube)</label>
+        <input type="text" name="trailer" value={formData.trailer} onChange={handleChange} />
       </div>
 
       <button type="submit">Submit</button>

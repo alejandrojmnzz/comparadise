@@ -1,0 +1,87 @@
+.tooltip {
+    position: absolute;
+    color: white;
+    
+    opacity: 0;
+    min-width: 13rem;
+    max-width: 13rem;
+    /* margin-left: 11.5rem; */
+    /* height: 20.5rem; */
+    right: 0;
+    /* transform: translate(100%); */
+    flex-direction: column;
+
+    pointer-events: none;
+
+    transition: opacity 0.5s;  
+    padding-left: 6px;
+  }
+
+.tooltip::after {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-top: none;
+    border-right: none;
+    border-bottom: 2px solid black;
+    border-left: 2px solid black;
+    background-color: rgb(9, 2, 49);
+    top: 9px;
+    content: '';
+    rotate: 45deg;
+    margin-left: -5px;
+}
+
+  .tooltip-bg {
+    background-image: linear-gradient(to top, transparent 1%, rgb(2, 19, 67) 1%); /*añade transparencia al 1% del div en la parte de abajo (para que se vea bien la transicion de opacidad) y el resto del fondo lo pone negro sin degradado*/
+    border-radius: 5px; 
+    border-bottom-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+    border: 2px solid rgb(0, 0, 0);
+    border-bottom: none;
+  }
+  .tooltip-game-image {
+    min-width: 100%;
+    max-width: 100%;
+    max-height: 15rem;
+
+  }
+  .related-games-preview {
+    width: 95%;
+    background-color: rgb(63, 0, 105);
+    border: 1px solid rgb(0, 0, 0);
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    top: 1px;
+    padding: 5px;
+    height: 5rem;
+  }
+  .related-games-tooltip {
+    position:relative;
+    color: white;
+    border-radius: 5px;
+    opacity: 0;
+    bottom: 5px;
+    /* height: 20.5rem; */
+    border-bottom-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+    pointer-events: none;
+
+    transition: opacity 0.5s;  
+  }
+  .game-preview:hover .tooltip {
+    opacity: 1;
+  }
+  .game-preview:hover .related-games-tooltip {
+    opacity: 1;
+  }
+  .tooltip-bg > span, h5 {
+    padding: 0px 5px;
+  }
+  .tooltip-bg > h5 {
+    background-color: rgb(9, 2, 49);
+    border-radius: 5px;
+    color: rgb(231, 231, 231);
+  }

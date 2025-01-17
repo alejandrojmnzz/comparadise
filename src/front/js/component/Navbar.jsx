@@ -2,15 +2,18 @@ import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useContext } from "react";
 import { Context } from "../store/appContext";
+import { useNavigate } from "react-router-dom";
 
 export function Navbar() {
     const {store, actions} = useContext(Context)
     const [query, setQuery] = useState("");
     const [suggestions, setSuggestions] = useState([]);
+    const navigate = useNavigate()
 
     function logOut() {
         localStorage.clear()
         actions.logout()
+        navigate('/')
     }
 
     const handleSearchChange = async(event) =>{
@@ -74,6 +77,7 @@ export function Navbar() {
     }
     return (
         <>
+        <div className="navbar-color">
             <div className="container">
                 <div className="d-flex navbar">
                     <div className="search container" role="search">
@@ -106,11 +110,15 @@ export function Navbar() {
                     store.token == null ?
                     <NavLink to="/login" className="btn btn-primary">Log In</NavLink>
                     :
-                    <button className="btn btn-primary" onClick={logOut}>Log Out</button>
+                    <>
+                        <NavLink to="/submit-game" className="btn btn-primary me-2">Submit Game</NavLink>
+                        <button className="btn btn-danger" onClick={logOut}>Log Out</button>
+                    </>
                     }
                     </div>
                 </div>
             </div>
+        </div>
         </>
     )
 };
