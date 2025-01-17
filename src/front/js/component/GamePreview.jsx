@@ -20,7 +20,6 @@ export function GamePreview() {
                 {
 				store.recentGames.map((item) => {
 					return (
-                        <>
 						<div key={item.id}
                         className="game-preview col-2 border rounded mx-2 mb-4 p-0 d-flex"
                         onClick={() => navigate(`/game/${item.id}`)}
@@ -44,7 +43,6 @@ export function GamePreview() {
      
                         </div>
                         
-                      </>
 					)
 				})
 			    }

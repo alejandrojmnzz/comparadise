@@ -160,16 +160,25 @@ def submit_game():
 
 @api.route('/games-search', methods=['GET'])
 def search_games():
-    search_query = request.args.get('query','').lower()
+    try:
+        search_query = request.args.get('query','').lower()
 
-    if not search_query:
-        return jsonify([])
+        if not search_query:
+            return jsonify([])
+        
+        games = Game.query.filter(Game.name.ilike(f"%{search_query}%")).all()
+
+        game_list = [game.serialize() for game in games]
+
+        print(game_list)
+
+        return jsonify(game_list)
     
-    games = Game.query.filter(Game.name.ilike(f"%{search_query}%")).all()
+    except Exception as error:
+        print(error.args)
 
-    game_list = [game.serialize() for game in games]
+        return jsonify([])
 
-    return jsonify(game_list)
 @api.route('/get-game', methods = ['POST'])
 def get_game():
     id = request.json

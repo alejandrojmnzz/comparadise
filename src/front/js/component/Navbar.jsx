@@ -23,7 +23,7 @@ export function Navbar() {
         if (searchText.length > 0) {
             
             try{
-                const response = await fetch('${process.env.BACKEND_URL}/api/games/search?query=${searchText}');
+                const response = await fetch(`${process.env.BACKEND_URL}/games-search?query=${searchText}`);
                 
                 if (response.ok){
                     const data = await response.json();
@@ -86,7 +86,8 @@ export function Navbar() {
                         type="search"  
                         placeholder="Search for a game" 
                         value={query} 
-                        onChange={handleSearchChange} 
+                        onChange={handleSearchChange}
+                        // onClick={handleSearch} 
                         aria-label="Search"
                         />
                         <button className="btn btn-outline-success" type="submit">Search</button>
