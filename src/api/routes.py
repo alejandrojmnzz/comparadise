@@ -159,3 +159,24 @@ def get_game():
     id = request.json
     game = Game.query.get(id)
     return jsonify(game.serialize())
+
+@api.route('populate-games', methods = ['POST'])
+def populate_games():
+    game_populate = [
+        {
+            "name": "Hollow Knight",
+            "cover_image": "https://res.cloudinary.com/dcdymggxx/image/upload/v1736987457/vwwqv55tyfbsli2cvnmg.jpg",
+            "genre": "Metroidvania",
+            "modes":"",
+            "release_date": "",
+            "system_requirements": "",
+            "achievements": "",
+            "rating": "",
+            "players": 1,
+            "related_games": "",
+            "language": "",
+            "summary": "",
+            "description": "",
+            "trailer": ""
+        }
+    ]

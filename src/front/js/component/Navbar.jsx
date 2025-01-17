@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useSyncExternalStore } from "react";
 import { NavLink } from "react-router-dom";
 import { useContext } from "react";
 import { Context } from "../store/appContext";
@@ -13,10 +13,17 @@ export function Navbar() {
         actions.logout()
         navigate('/')
     }
+
+    function populateGame() {
+        actions.populate_game()
+    }
     return (
         <>
         <div className="navbar-color">
             <div className="container">
+                <div>
+                    <button className="btn btn-warning" onClick={populateGame}>Populate</button>
+                </div>
                 <div className="d-flex justify-content-end pt-2 navbar">
                     {
                     store.token == null ?
