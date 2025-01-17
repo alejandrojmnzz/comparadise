@@ -184,3 +184,292 @@ def get_game():
     id = request.json
     game = Game.query.get(id)
     return jsonify(game.serialize())
+
+@api.route('populate-games', methods = ['GET'])
+def populate_games():
+    game_populate = [
+        {
+            "name": "Cult of the Lamb",
+            "cover_image": "https://res.cloudinary.com/dcdymggxx/image/upload/v1737148333/images_oyidub.jpg",
+            "genre": "Adventure",
+            "modes":"Campaign",
+            "release_date": '07/21/2020',
+            "system_requirements": """OS *: Windows 7 (64bit)
+                                    Processor: Intel Core 2 Duo E5200.
+                                    Memory: 4 GB RAM.
+                                    Graphics: GeForce 9800GTX+ (1GB)
+                                    DirectX: Version 10.
+                                    Storage: 9 GB available space.
+                                    Additional Notes: 1080p, 16:9 recommended.""",
+            "achievements": """Achievement 1
+                            Achievement 2
+                            Achievement 3
+                            Achievement 4
+                            Achievement 5""",
+            "rating": "7/10",
+            "players": 1,
+            "related_games": "x, x, x",
+            "language": "Spanish, English",
+            "summary": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aliquid, odit!",
+            "description": " Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas excepturi accusantium quasi at. Explicabo provident doloribus et tempora, facere facilis ullam debitis recusandae magnam eum ad, error nemo aliquam architecto aut asperiores? Commodi ad accusamus placeat ab? Iste nesciunt ducimus sapiente accusamus totam adipisci, facilis ullam, fugit saepe reiciendis optio!",
+            "trailer": "UAO2urG23S4"
+        },
+        {
+            "name": "Hollow Knight",
+            "cover_image": "https://res.cloudinary.com/dcdymggxx/image/upload/v1736987457/vwwqv55tyfbsli2cvnmg.jpg",
+            "genre": "Metroidvania",
+            "modes":"Campaign",
+            "release_date": '03/24/2017',
+            "system_requirements": """OS *: Windows 7 (64bit)
+                                    Processor: Intel Core 2 Duo E5200.
+                                    Memory: 4 GB RAM.
+                                    Graphics: GeForce 9800GTX+ (1GB)
+                                    DirectX: Version 10.
+                                    Storage: 9 GB available space.
+                                    Additional Notes: 1080p, 16:9 recommended.""",
+            "achievements": """Achievement 1
+                            Achievement 2
+                            Achievement 3
+                            Achievement 4
+                            Achievement 5""",
+            "rating": "9/10",
+            "players": 1,
+            "related_games": "x, x, x",
+            "language": "Spanish, English",
+            "summary": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aliquid, odit!",
+            "description": " Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas excepturi accusantium quasi at. Explicabo provident doloribus et tempora, facere facilis ullam debitis recusandae magnam eum ad, error nemo aliquam architecto aut asperiores? Commodi ad accusamus placeat ab? Iste nesciunt ducimus sapiente accusamus totam adipisci, facilis ullam, fugit saepe reiciendis optio!",
+            "trailer": "rjeyYMuGZgU"
+        },
+        {
+            "name": "Alan Wake 2",
+            "cover_image": "https://res.cloudinary.com/dcdymggxx/image/upload/v1737148519/2023102313405227_1_xx5epi.jpg",
+            "genre": "Action (shooter)",
+            "modes":"Campaign",
+            "release_date": '04/06/2023',
+            "system_requirements": """OS *: Windows 7 (64bit)
+                                    Processor: Intel Core 2 Duo E5200.
+                                    Memory: 4 GB RAM.
+                                    Graphics: GeForce 9800GTX+ (1GB)
+                                    DirectX: Version 10.
+                                    Storage: 9 GB available space.
+                                    Additional Notes: 1080p, 16:9 recommended.""",
+            "achievements": """Achievement 1
+                            Achievement 2
+                            Achievement 3
+                            Achievement 4
+                            Achievement 5""",
+            "rating": "10/10",
+            "players": 1,
+            "related_games": "x, x, x",
+            "language": "Spanish, English",
+            "summary": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aliquid, odit!",
+            "description": " Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas excepturi accusantium quasi at. Explicabo provident doloribus et tempora, facere facilis ullam debitis recusandae magnam eum ad, error nemo aliquam architecto aut asperiores? Commodi ad accusamus placeat ab? Iste nesciunt ducimus sapiente accusamus totam adipisci, facilis ullam, fugit saepe reiciendis optio!",
+            "trailer": "dlQ3FeNu5Yw"
+        },
+        {
+            "name": "Cave Story",
+            "cover_image": "https://res.cloudinary.com/dcdymggxx/image/upload/v1737152572/cave-story-2017724132754_7_v3ikry.jpg",
+            "genre": "Adventure",
+            "modes":"Campaign",
+            "release_date": '09/07/2012',
+            "system_requirements": """OS *: Windows 7 (64bit)
+                                    Processor: Intel Core 2 Duo E5200.
+                                    Memory: 4 GB RAM.
+                                    Graphics: GeForce 9800GTX+ (1GB)
+                                    DirectX: Version 10.
+                                    Storage: 9 GB available space.
+                                    Additional Notes: 1080p, 16:9 recommended.""",
+            "achievements": """Achievement 1
+                            Achievement 2
+                            Achievement 3
+                            Achievement 4
+                            Achievement 5""",
+            "rating": "6/10",
+            "players": 1,
+            "related_games": "x, x, x",
+            "language": "Spanish, English",
+            "summary": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aliquid, odit!",
+            "description": " Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas excepturi accusantium quasi at. Explicabo provident doloribus et tempora, facere facilis ullam debitis recusandae magnam eum ad, error nemo aliquam architecto aut asperiores? Commodi ad accusamus placeat ab? Iste nesciunt ducimus sapiente accusamus totam adipisci, facilis ullam, fugit saepe reiciendis optio!",
+            "trailer": "dlQ3FeNu5Yw"
+        },
+        {
+            "name": "Hotline Miami",
+            "cover_image": "https://res.cloudinary.com/dcdymggxx/image/upload/v1737152704/MV5BOWRlM2RkMjktYWQzMi00YmIxLTkyMWUtOTI0ZWRmODE1N2U5XkEyXkFqcGc_._V1__ee6kam.jpg",
+            "genre": "Adventure",
+            "modes":"Campaign",
+            "release_date": '03/10/2013',
+            "system_requirements": """OS *: Windows 7 (64bit)
+                                    Processor: Intel Core 2 Duo E5200.
+                                    Memory: 4 GB RAM.
+                                    Graphics: GeForce 9800GTX+ (1GB)
+                                    DirectX: Version 10.
+                                    Storage: 9 GB available space.
+                                    Additional Notes: 1080p, 16:9 recommended.""",
+            "achievements": """Achievement 1
+                            Achievement 2
+                            Achievement 3
+                            Achievement 4
+                            Achievement 5""",
+            "rating": "6/10",
+            "players": 1,
+            "related_games": "x, x, x",
+            "language": "Spanish, English",
+            "summary": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aliquid, odit!",
+            "description": " Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas excepturi accusantium quasi at. Explicabo provident doloribus et tempora, facere facilis ullam debitis recusandae magnam eum ad, error nemo aliquam architecto aut asperiores? Commodi ad accusamus placeat ab? Iste nesciunt ducimus sapiente accusamus totam adipisci, facilis ullam, fugit saepe reiciendis optio!",
+            "trailer": "mg5s5Dq50Rg"
+        },
+        {
+            "name": "Silent Hill 2",
+            "cover_image": "https://res.cloudinary.com/dcdymggxx/image/upload/v1737152964/Silent_Hill_2_remake_cover_jjfae1.jpg",
+            "genre": "Horror",
+            "modes":"Campaign",
+            "release_date": '01/22/2023',
+            "system_requirements": """OS *: Windows 7 (64bit)
+                                    Processor: Intel Core 2 Duo E5200.
+                                    Memory: 4 GB RAM.
+                                    Graphics: GeForce 9800GTX+ (1GB)
+                                    DirectX: Version 10.
+                                    Storage: 9 GB available space.
+                                    Additional Notes: 1080p, 16:9 recommended.""",
+            "achievements": """Achievement 1
+                            Achievement 2
+                            Achievement 3
+                            Achievement 4
+                            Achievement 5""",
+            "rating": "6/10",
+            "players": 1,
+            "related_games": "x, x, x",
+            "language": "Spanish, English",
+            "summary": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aliquid, odit!",
+            "description": " Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas excepturi accusantium quasi at. Explicabo provident doloribus et tempora, facere facilis ullam debitis recusandae magnam eum ad, error nemo aliquam architecto aut asperiores? Commodi ad accusamus placeat ab? Iste nesciunt ducimus sapiente accusamus totam adipisci, facilis ullam, fugit saepe reiciendis optio!",
+            "trailer": "pyC_qiW_4ZY"
+        },
+         {
+            "name": "Deep Rock Galactic",
+            "cover_image": "https://res.cloudinary.com/dcdymggxx/image/upload/v1737153186/2JSde8PFCF6B4nO2EECrcR1m_s6xclp.webp",
+            "genre": "Adventure)",
+            "modes":"Campaign",
+            "release_date": '05/11/2023',
+            "system_requirements": """OS *: Windows 7 (64bit)
+                                    Processor: Intel Core 2 Duo E5200.
+                                    Memory: 4 GB RAM.
+                                    Graphics: GeForce 9800GTX+ (1GB)
+                                    DirectX: Version 10.
+                                    Storage: 9 GB available space.
+                                    Additional Notes: 1080p, 16:9 recommended.""",
+            "achievements": """Achievement 1
+                            Achievement 2
+                            Achievement 3
+                            Achievement 4
+                            Achievement 5""",
+            "rating": "9/10",
+            "players": 1,
+            "related_games": "x, x, x",
+            "language": "Spanish, English",
+            "summary": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aliquid, odit!",
+            "description": " Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas excepturi accusantium quasi at. Explicabo provident doloribus et tempora, facere facilis ullam debitis recusandae magnam eum ad, error nemo aliquam architecto aut asperiores? Commodi ad accusamus placeat ab? Iste nesciunt ducimus sapiente accusamus totam adipisci, facilis ullam, fugit saepe reiciendis optio!",
+            "trailer": "2_GV33zBf3A"
+        },
+        {
+            "name": "Sea of Stars",
+            "cover_image": "https://res.cloudinary.com/dcdymggxx/image/upload/v1737153317/e327fc7a5f4f1c688c3d57cb0558af6b740b774154ba676b_upg5ko.avif",
+            "genre": "MulAction (shooter)",
+            "modes":"Multiplayer",
+            "release_date": '01/22/2023',
+            "system_requirements": """OS *: Windows 7 (64bit)
+                                    Processor: Intel Core 2 Duo E5200.
+                                    Memory: 4 GB RAM.
+                                    Graphics: GeForce 9800GTX+ (1GB)
+                                    DirectX: Version 10.
+                                    Storage: 9 GB available space.
+                                    Additional Notes: 1080p, 16:9 recommended.""",
+            "achievements": """Achievement 1
+                            Achievement 2
+                            Achievement 3
+                            Achievement 4
+                            Achievement 5""",
+            "rating": "6/10",
+            "players": 4,
+            "related_games": "x, x, x",
+            "language": "Spanish, English",
+            "summary": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aliquid, odit!",
+            "description": " Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas excepturi accusantium quasi at. Explicabo provident doloribus et tempora, facere facilis ullam debitis recusandae magnam eum ad, error nemo aliquam architecto aut asperiores? Commodi ad accusamus placeat ab? Iste nesciunt ducimus sapiente accusamus totam adipisci, facilis ullam, fugit saepe reiciendis optio!",
+            "trailer": "8jkeh6O1Rzs"
+        },
+        {
+            "name": "Super Smash Bros. Ultimate",
+            "cover_image": "https://res.cloudinary.com/dcdymggxx/image/upload/v1737153499/WWlywV3UCoEbldP1k7eR6sH5-Yk13rUm3KiXLI_cBSo_ndxgsa.webp",
+            "genre": "Adventure",
+            "modes":"Multiplayer",
+            "release_date": '08/22/2017',
+            "system_requirements": """OS *: Windows 7 (64bit)
+                                    Processor: Intel Core 2 Duo E5200.
+                                    Memory: 4 GB RAM.
+                                    Graphics: GeForce 9800GTX+ (1GB)
+                                    DirectX: Version 10.
+                                    Storage: 9 GB available space.
+                                    Additional Notes: 1080p, 16:9 recommended.""",
+            "achievements": """Achievement 1
+                            Achievement 2
+                            Achievement 3
+                            Achievement 4
+                            Achievement 5""",
+            "rating": "9/10",
+            "players": 4,
+            "related_games": "x, x, x",
+            "language": "Spanish, English",
+            "summary": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aliquid, odit!",
+            "description": " Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas excepturi accusantium quasi at. Explicabo provident doloribus et tempora, facere facilis ullam debitis recusandae magnam eum ad, error nemo aliquam architecto aut asperiores? Commodi ad accusamus placeat ab? Iste nesciunt ducimus sapiente accusamus totam adipisci, facilis ullam, fugit saepe reiciendis optio!",
+            "trailer": "WShCN-AYHqA"
+        },
+        {
+            "name": "The Legend of Zelda: Tears of the Kingdom",
+            "cover_image": "https://res.cloudinary.com/dcdymggxx/image/upload/v1737154087/The_Legend_of_Zelda_Tears_of_the_Kingdom_cover_bv0ui1.jpg",
+            "genre": "Adventure",
+            "modes":"Campaign",
+            "release_date": '08/22/2017',
+            "system_requirements": """OS *: Windows 7 (64bit)
+                                    Processor: Intel Core 2 Duo E5200.
+                                    Memory: 4 GB RAM.
+                                    Graphics: GeForce 9800GTX+ (1GB)
+                                    DirectX: Version 10.
+                                    Storage: 9 GB available space.
+                                    Additional Notes: 1080p, 16:9 recommended.""",
+            "achievements": """Achievement 1
+                            Achievement 2
+                            Achievement 3
+                            Achievement 4
+                            Achievement 5""",
+            "rating": "9/10",
+            "players": 1,
+            "related_games": "x, x, x",
+            "language": "Spanish, English",
+            "summary": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aliquid, odit!",
+            "description": " Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas excepturi accusantium quasi at. Explicabo provident doloribus et tempora, facere facilis ullam debitis recusandae magnam eum ad, error nemo aliquam architecto aut asperiores? Commodi ad accusamus placeat ab? Iste nesciunt ducimus sapiente accusamus totam adipisci, facilis ullam, fugit saepe reiciendis optio!",
+            "trailer": "gp9aY09li1s"
+        }
+
+    ]
+    for single_populate in game_populate:
+        game = Game()
+        game.name = single_populate['name']
+        game.cover_image = single_populate['cover_image']
+        game.genre = single_populate['genre']
+        game.modes = single_populate['modes']
+        game.release_date = single_populate['release_date']
+        game.system_requirements = single_populate['system_requirements']
+        game.achievements = single_populate['achievements']
+        game.rating = single_populate['rating']
+        game.players = single_populate['players']
+        game.related_games = single_populate['related_games']        
+        game.language = single_populate['language']
+        game.summary = single_populate['summary']
+        game.description = single_populate['description']
+        game.trailer = single_populate['trailer']
+        db.session.add(game)
+    try:
+        db.session.commit()
+        return jsonify({"message": "Populated succesfully"}), 201
+    except Exception as error:
+        print(error.args)
+        return jsonify ("Error"), 500

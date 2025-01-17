@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useSyncExternalStore } from "react";
 import { NavLink } from "react-router-dom";
 import { useContext } from "react";
 import { Context } from "../store/appContext";
