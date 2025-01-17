@@ -14,16 +14,11 @@ export function Navbar() {
         navigate('/')
     }
 
-    function populateGame() {
-        actions.populate_game()
-    }
+
     return (
         <>
         <div className="navbar-color">
             <div className="container">
-                <div>
-                    <button className="btn btn-warning" onClick={populateGame}>Populate</button>
-                </div>
                 <div className="d-flex justify-content-end pt-2 navbar">
                     {
                     store.token == null ?
