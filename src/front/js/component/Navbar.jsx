@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useSyncExternalStore } from "react";
 import { NavLink } from "react-router-dom";
 import { useContext } from "react";
 import { Context } from "../store/appContext";
@@ -13,6 +13,8 @@ export function Navbar() {
         actions.logout()
         navigate('/')
     }
+
+
     return (
         <>
         <div className="navbar-color">
