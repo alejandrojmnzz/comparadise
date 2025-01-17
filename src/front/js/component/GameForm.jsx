@@ -126,10 +126,10 @@ return (
         <input type="text" name="achievements" value={formData.achievements} onChange={handleChange} />
       </div>
 
-      <div>
+      {/* <div>
         <label>Media:</label>
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/Ki7EoH31UkM?si=l9_aehnOnCzbmb5X" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-      </div>
+        
+      </div> */}
 
       <div>
         <label>Rating:</label>

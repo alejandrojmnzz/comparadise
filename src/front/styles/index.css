@@ -24,8 +24,30 @@ body {
     max-height: 100%; */
     cursor: pointer;
 }
-.game-preview-row {
+/* .game-preview-row {
     /* padding: 0px 100px; */
+
+.navbar {
+    
+    padding: 10px 100px;
+    color: purple;
+}
+.suggestions-list {
+    position: absolute;
+    background-color: white;
+    border: 1px solid #ccc;
+    /* width: ; */
+    max-height: 200px;
+    overflow-y: auto;
+    margin-top: 5px;
+    padding: 0;
+    list-style-type: none;
+    z-index: 10;
+}
+
+.suggestions-list li {
+    padding: 8px;
+    cursor: pointer;
 }
 .navbar-color {
     background-color: rgb(147, 47, 240);
