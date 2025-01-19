@@ -9,6 +9,8 @@ class User(db.Model):
     password = db.Column(db.String(180), unique=False, nullable=False)
     salt = db.Column(db.String(255), unique=False, nullable=False)
 
+    games = db.relationship('Game', back_populates='user')
+
     def serialize(self):
         return {
             "id": self.id,
@@ -18,6 +20,7 @@ class User(db.Model):
 
 class Game(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
     name = db.Column(db.String(255), nullable=False)
     cover_image = db.Column(db.String(255), nullable=True)
     name = db.Column(db.String(255), nullable=False)
@@ -35,6 +38,8 @@ class Game(db.Model):
     description = db.Column(db.Text, nullable=False)
     trailer = db.Column(db.String(100), nullable=False)
 
+    user = db.relationship('User', back_populates='games')
+
     def __repr__(self):
         return f"<Game {self.name}>"
 
@@ -42,6 +47,7 @@ class Game(db.Model):
         return {
             "id": self.id,
             "name": self.name,
+            "user_id": self.user_id,
             "cover_image": self.cover_image,
             "genre": self.genre,
             "modes": self.modes.split(","),
