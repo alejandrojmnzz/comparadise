@@ -53,6 +53,9 @@ const navigate = useNavigate()
       const response = await fetch(process.env.BACKEND_URL+"/submit-game", {
           method: "POST",
           body: formDataObj,
+          headers: {
+            "Authorization": `Bearer ${store.token}`
+          }
       });
 
       const result = await response.json();
