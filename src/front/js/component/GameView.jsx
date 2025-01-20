@@ -21,15 +21,15 @@ export function GameView() {
         description, 
         trailer} = store.singleGame
 
-    let {
-        userName,
-        email
-    } = store.singleUser
 
     useEffect(() => {
         actions.get_game(theid)
-        actions.get_user(user_id)
     }, [])
+
+    useEffect(() => {
+        if(!user_id) return
+        actions.get_user(user_id)
+    }, [user_id])
 
     function getUser() {
 
@@ -50,7 +50,7 @@ export function GameView() {
                      <img src={cover_image} className="w-25"/>
                 </div>
                 <div>
-                    <p>A game by {userName}</p>
+                    <p>A game by {store.singleUser.name}</p>
                 </div>
                 <div className="d-flex justify-content-center mt-2">
                     <iframe className="trailer" width="560" height="415" src={`https://www.youtube.com/embed/${trailer}`} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
