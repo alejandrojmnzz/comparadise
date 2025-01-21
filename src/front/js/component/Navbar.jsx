@@ -69,12 +69,15 @@ export function Navbar() {
             }
         };
 
-        const handleSuggestionClick = (game) => {
-            setQuery(game.name);
-            setSuggestions([]);
-        };
+    
 
     }
+    const handleSuggestionClick = (game) => {
+        setQuery('');
+        setSuggestions([]);
+        navigate(`/game/${game.id}`)
+    };
+
     return (
         <>
         <div className="navbar-color">
@@ -96,7 +99,8 @@ export function Navbar() {
                                 {suggestions.map((game) => (
                                     <li
                                     key={game.id}
-                                    onClick={() => handleSuggestionClick(game)}
+                                    onClick={() => handleSuggestionClick (game)
+                                    }
                                     style={{ cursor: "pointer"}}>
                                         {game.name}
                                     </li>

@@ -34,7 +34,7 @@ body {
 }
 .suggestions-list {
     position: absolute;
-    top: 100%;
+    top: 60px;
     background-color: white;
     border: 1px solid #ccc;
     /* width: ; */
