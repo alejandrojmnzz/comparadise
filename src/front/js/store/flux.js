@@ -3,7 +3,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 		store: {
 			token: localStorage.getItem("token") || null,
 			recentGames: [],
-			singleGame: {}
+			singleGame: {},
+			singleUser: {}
 		},
 		actions: {
 			register: async (user) => {
@@ -90,6 +91,27 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log(error)
 				}
 			},
+			get_user: async (id) => {
+				try {
+					let response = await fetch(`${process.env.BACKEND_URL}/get-user`,
+						{
+						method: 'POST',
+						headers: {
+							"Content-Type": "application/json"
+						},
+						body: JSON.stringify(id)
+					}
+					)
+					let data = await response.json()
+					setStore({
+						singleUser: data
+					})
+					
+					console.log(data)
+				} catch (error) {
+					console.log(error)
+				}
+			}
 		}
 	};
 };
