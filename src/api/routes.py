@@ -105,11 +105,12 @@ def get_recent_games():
         return jsonify(error.args), 500
     
 @api.route('/submit-game', methods=['POST'])
+@jwt_required()
 def submit_game():    
     
     # if 'cover_image' not in request.files:
     #     return jsonify({"error": "Cover image is missing"}), 400
-    
+    user_id = int(get_jwt_identity())
     body_file = request.files
     cover_file =body_file.get("cover_image", None)
     
@@ -131,6 +132,7 @@ def submit_game():
     cover_file = cover_file["secure_url"]
     # try:
     game = Game(
+    user_id=user_id,
     name=data['name'],
     cover_image=cover_file,
     genre=data['genre'],
@@ -176,9 +178,30 @@ def get_game():
     game = Game.query.get(id)
     return jsonify(game.serialize())
 
+@api.route('/get-user', methods = ['POST'])
+def get_user():
+    id = request.json
+    user = User.query.get(id)
+    print(user.serialize())
+    return jsonify(user.serialize())
+
 @api.route('populate-games', methods = ['GET'])
 def populate_games():
+    user = User()
+    salt = b64encode(os.urandom(32)).decode('utf-8')
+    hashed_password = generate_password_hash(f'populatepass{salt}')
+
+    user.name = 'Populated User'
+    user.email = 'populatedemail@gmail.com'
+    user.password = hashed_password
+    user.salt = salt
+
+    db.session.add(user)
+    db.session.commit()
+
+    
     game_populate = [
+        
         {
             "name": "Cult of the Lamb",
             "cover_image": "https://res.cloudinary.com/dcdymggxx/image/upload/v1737148333/images_oyidub.jpg",
@@ -444,6 +467,7 @@ def populate_games():
     for single_populate in game_populate:
         game = Game()
         game.name = single_populate['name']
+        game.user_id = User.query.filter_by(email = 'populatedemail@gmail.com').one_or_none().id
         game.cover_image = single_populate['cover_image']
         game.genre = single_populate['genre']
         game.modes = single_populate['modes']
