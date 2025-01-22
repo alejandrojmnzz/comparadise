@@ -113,6 +113,8 @@ def submit_game():
     user_id = int(get_jwt_identity())
     body_file = request.files
     cover_file =body_file.get("cover_image", None)
+    # additional_files = request.files.getlist("additional_images[]")
+
     
     # # Save the cover media file (if provided)
     # if cover_file and allowed_file(cover_file.filename):
@@ -130,6 +132,8 @@ def submit_game():
     
     cover_file = uploader.upload(cover_file)
     cover_file = cover_file["secure_url"]
+    # additional_files = uploader.upload(additional_files)
+    # additional_files = additional_files["secure_url"]
     # try:
     game = Game(
     user_id=user_id,
@@ -140,6 +144,7 @@ def submit_game():
     release_date=data['release_date'],
     system_requirements=data['system_requirements'],
     achievements=data.get('achievements', ''),
+    # additional_images=additional_files,
     rating=data['rating'],
     players=int(data['players']),
     related_games=data.get('related_games', ''),
@@ -162,16 +167,25 @@ def submit_game():
 
 @api.route('/games-search', methods=['GET'])
 def search_games():
-    search_query = request.args.get('query','').lower()
+    try:
+        search_query = request.args.get('query','').lower()
 
-    if not search_query:
-        return jsonify([])
+        if not search_query:
+            return jsonify([])
+        
+        games = Game.query.filter(Game.name.ilike(f"%{search_query}%")).all()
+
+        game_list = [game.serialize() for game in games]
+
+        print(game_list)
+
+        return jsonify(game_list)
     
-    games = Game.query.filter(Game.name.ilike(f"%{search_query}%")).all()
+    except Exception as error:
+        print(error.args)
 
-    game_list = [game.serialize() for game in games]
+        return jsonify([])
 
-    return jsonify(game_list)
 @api.route('/get-game', methods = ['POST'])
 def get_game():
     id = request.json

@@ -34,6 +34,7 @@ body {
 }
 .suggestions-list {
     position: absolute;
+    top: 60px;
     background-color: white;
     border: 1px solid #ccc;
     /* width: ; */
@@ -46,7 +47,8 @@ body {
 }
 
 .suggestions-list li {
-    padding: 8px;
+    padding-top: 0px;
+    padding-left: 8px;
     cursor: pointer;
 }
 .navbar-color {
