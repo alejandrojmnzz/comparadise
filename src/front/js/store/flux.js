@@ -91,25 +91,22 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log(error)
 				}
 			},
-			get_user: async (id) => {
+			searchAPIGame: async (query) => {
 				try {
-					let response = await fetch(`${process.env.BACKEND_URL}/get-user`,
+					let response = await fetch(`${process.env.BACKEND_URL}/get-api-games`,
 						{
-						method: 'POST',
-						headers: {
-							"Content-Type": "application/json"
-						},
-						body: JSON.stringify(id)
-					}
+							method: 'POST',
+							headers: {
+								'Content-Type': 'application/json'
+							},
+							body: JSON.stringify(query)
+						}
 					)
 					let data = await response.json()
-					setStore({
-						singleUser: data
-					})
-					
-					console.log(data)
+					return data
 				} catch (error) {
-					console.log(error)
+					console.log(error)	
+					return false
 				}
 			}
 		}
