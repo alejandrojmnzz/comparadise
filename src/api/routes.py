@@ -11,6 +11,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 from werkzeug.utils import secure_filename
 import cloudinary.uploader as uploader 
+import requests
 
 api = Blueprint('api', __name__)
 app = Flask(__name__)
@@ -464,3 +465,30 @@ def populate_games():
     except Exception as error:
         print(error.args)
         return jsonify ("Error"), 500
+    
+@api.route('/get-api-games', methods=['POST'])
+def get_api():
+    search = request.json
+    url = "https://api.igdb.com/v4/games"
+    headers = {
+            'Accept': 'application/json',
+            'Client-ID': os.getenv("CLIENT_ID"),
+            'Authorization': f'Bearer {os.getenv("ACCESS_TOKEN")}',
+            'Content-Type': 'text/plain'
+            }
+    datos = f'fields name; search "{search}"; where id = 1; where id = 8; where id = 9; limit 10;'
+    response = requests.post(url, headers=headers, data=datos)
+    response = response.json()
+    print(response)
+    return jsonify(response)
+
+
+
+
+
+
+
+
+
+
+

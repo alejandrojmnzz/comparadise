@@ -19,7 +19,6 @@ export function GamePreview() {
             <div className="row game-preview-row mt-3 d-flex justify-content-center">
                 {
 				store.recentGames.map((item) => {
-                    console.log(item.cover_image)
 					return (
                         <>
 						<div key={item.id}
