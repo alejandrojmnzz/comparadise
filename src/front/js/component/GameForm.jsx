@@ -1,6 +1,7 @@
 import React, {useState, useContext, useEffect} from "react";
 import { Context } from "../store/appContext";
 import { useNavigate } from "react-router-dom";
+import { array } from "prop-types";
 
 
 
@@ -19,6 +20,7 @@ const navigate = useNavigate()
       name: "",
       genre: "",
       cover_image:"",
+      additional_images: "",
       modes: "",
       release_date: "",
       system_requirements: "",
@@ -48,6 +50,12 @@ const navigate = useNavigate()
       
         alert("Game successfully added")
       
+      // if (formData.additional_images) {
+      //     Array.from(formData.additional_images).forEach((file, index) => {
+      //       console.log(formData.additional_images);
+      //       formDataObj.append(`additional_images[${index}]`, file);
+      //     });
+      // }
 
       console.log(formDataObj)
       const response = await fetch(process.env.BACKEND_URL+"/submit-game", {
@@ -128,11 +136,19 @@ return (
         <label>Achievements:</label>
         <input type="text" name="achievements" value={formData.achievements} onChange={handleChange} />
       </div>
-
-      {/* <div>
-        <label>Media:</label>
-        
+{/* 
+      <div>
+        <label>Additional Images:</label>
+        <input
+        type="file" 
+        name="additional_images" 
+        multiple 
+        onChange={(event) => {
+          setFormData({ ...formData, additional_images: event.target.files });
+        }}
+        />
       </div> */}
+
 
       <div>
         <label>Rating:</label>

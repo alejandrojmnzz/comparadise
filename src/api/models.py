@@ -29,7 +29,7 @@ class Game(db.Model):
     release_date = db.Column(db.Date, nullable=True)
     system_requirements = db.Column(db.Text, nullable=True)
     achievements = db.Column(db.Text, nullable=True)
-    # media = db.Column(db.Text, nullable=True)  # Stores other media file paths
+    additional_images = db.Column(db.String(255), nullable=True)
     rating = db.Column(db.String(10), nullable=True)
     players = db.Column(db.Integer, nullable=False)
     related_games = db.Column(db.Text, nullable=True)
@@ -54,6 +54,7 @@ class Game(db.Model):
             "release_date": self.release_date.strftime("%Y-%m-%d"),
             "system_requirements": self.system_requirements,
             "achievements": self.achievements,
+            "additional_images": self.additional_images,
             "rating": self.rating,
             "players": self.players,
             "related_games": self.related_games,
