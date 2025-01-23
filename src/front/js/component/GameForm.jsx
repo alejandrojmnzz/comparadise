@@ -50,23 +50,35 @@ const navigate = useNavigate()
       
         alert("Game successfully added")
       
-      // if (formData.additional_images) {
-      //     Array.from(formData.additional_images).forEach((file, index) => {
-      //       console.log(formData.additional_images);
-      //       formDataObj.append(`additional_images[${index}]`, file);
-      //     });
-      // }
+      if (formData.additional_images) {
+        Array.from(formData.additional_images).forEach((file) => {
+          formDataObj.append("additional_images[]", file);
+          });
+      }
 
-      console.log(formDataObj)
-      const response = await fetch(process.env.BACKEND_URL+"/submit-game", {
-          method: "POST",
-          body: formDataObj,
-          headers: {
-            "Authorization": `Bearer ${store.token}`
-          }
+      console.log([...formDataObj.entries()]);
+
+    try{
+      const response = await fetch(process.env.BACKEND_URL + "/submit-game", {
+        method: "POST",
+        body: formDataObj,
+        headers: {
+          Authorization: `Bearer ${store.token}`,
+          },
       });
-
-      const result = await response.json();
+      if (response.ok) {
+        const result = await response.json();
+        alert("Game successfully added!");
+        console.log(result);
+      } else {
+        const error = await response.json();
+        console.error("Error submitting game:", error);
+        alert(error.message || "Error submitting game.");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("Error submitting game.");
+    }
   };
 
   
@@ -136,7 +148,7 @@ return (
         <label>Achievements:</label>
         <input type="text" name="achievements" value={formData.achievements} onChange={handleChange} />
       </div>
-{/* 
+ 
       <div>
         <label>Additional Images:</label>
         <input
@@ -147,7 +159,7 @@ return (
           setFormData({ ...formData, additional_images: event.target.files });
         }}
         />
-      </div> */}
+      </div>
 
 
       <div>
