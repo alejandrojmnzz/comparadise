@@ -11,6 +11,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 from werkzeug.utils import secure_filename
 import cloudinary.uploader as uploader 
+import json
 
 api = Blueprint('api', __name__)
 app = Flask(__name__)
@@ -83,16 +84,6 @@ def login():
         except Exception as error:
             print(error.args)
             return jsonify('Error'), 500
-        
-# UPLOAD_FOLDER = os.path.join(os.getcwd(), 'uploads')
-# os.makedirs(UPLOAD_FOLDER, exist_ok=True)
-# app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-# ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
-# app = Flask(__name__)
-# app.config['UPLOAD_FOLDER']= UPLOAD_FOLDER
-
-# def allowed_file(filename):
-#     return '.' in filename and filename.rsplit ('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 @api.route('/get-recent-games', methods=['GET'])
 def get_recent_games():
@@ -108,33 +99,30 @@ def get_recent_games():
 @jwt_required()
 def submit_game():    
     
-    # if 'cover_image' not in request.files:
-    #     return jsonify({"error": "Cover image is missing"}), 400
     user_id = int(get_jwt_identity())
     body_file = request.files
     cover_file =body_file.get("cover_image", None)
-    # additional_files = request.files.getlist("additional_images[]")
-
-    
-    # # Save the cover media file (if provided)
-    # if cover_file and allowed_file(cover_file.filename):
-    #     filename = secure_filename(cover_file.filename)
-    #     cover_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-    #     cover_file.save(cover_path)
-    # else:
-    #     cover_path = None
+    additional_files = request.files.getlist("additional_images[]")
 
     data = request.form
-    print(data)
-    print(cover_file)
-    if not data.get('name') or not data.get('genre') or not data.get('release_date') or not data.get('modes') or not data.get('players') or not data.get('language'):
-        return jsonify({"error": "Missing required fields"}), 400
+    print("Request data",data)
+    print("Request files", request.files)
+    if not data.get('name') or not data.get('genre') or not data.get('release_date') or not data.get('modes') or not data.get('players') or not data.get('language') or not data.get('system_requirements'):
+            return jsonify({"error": "Missing required fields"}), 400
+ 
+    try:
+        cover_file = uploader.upload(cover_file)
+        cover_file = cover_file["secure_url"]
+        
+        additional_files_urls =[]
+        for file in additional_files:
+            upload_result = uploader.upload(file)
+            additional_files_urls.append(upload_result["secure_url"])
     
-    cover_file = uploader.upload(cover_file)
-    cover_file = cover_file["secure_url"]
-    # additional_files = uploader.upload(additional_files)
-    # additional_files = additional_files["secure_url"]
-    # try:
+    except Exception as error:
+        return jsonify({"error": "Error uploading files", "details": str(error)}), 500
+
+        # try:
     game = Game(
     user_id=user_id,
     name=data['name'],
@@ -144,7 +132,7 @@ def submit_game():
     release_date=data['release_date'],
     system_requirements=data['system_requirements'],
     achievements=data.get('achievements', ''),
-    # additional_images=additional_files,
+    additional_images=json.dumps(additional_files_urls),
     rating=data['rating'],
     players=int(data['players']),
     related_games=data.get('related_games', ''),
@@ -161,9 +149,16 @@ def submit_game():
         return jsonify({"message": "Game added successfully"}), 201
     except Exception as error:
         print(error.args)
-        return jsonify ("Error submitting")
-    # except Exception as e:
-    #     return jsonify({"error": str(e)}), 500
+        return jsonify ("Error submitting")    
+        # except Exception as e:
+        #     return jsonify({"error": str(e)}), 500
+
+        # return jsonify("added")
+
+    # except Exception as error:
+    #     print(error.args)
+    #     return jsonify("error")
+
 
 @api.route('/games-search', methods=['GET'])
 def search_games():
@@ -199,7 +194,7 @@ def get_user():
     print(user.serialize())
     return jsonify(user.serialize())
 
-@api.route('populate-games', methods = ['GET'])
+@api.route('/populate-games', methods = ['GET'])
 def populate_games():
     user = User()
     salt = b64encode(os.urandom(32)).decode('utf-8')

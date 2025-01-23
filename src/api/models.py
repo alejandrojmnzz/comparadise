@@ -1,4 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
+import json
 
 db = SQLAlchemy()
 
@@ -23,20 +24,19 @@ class Game(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
     name = db.Column(db.String(255), nullable=False)
     cover_image = db.Column(db.String(255), nullable=True)
-    name = db.Column(db.String(255), nullable=False)
     genre = db.Column(db.String(100), nullable=False)
-    modes = db.Column(db.String(100), nullable=False)
+    modes = db.Column(db.String(255), nullable=False)
     release_date = db.Column(db.Date, nullable=True)
     system_requirements = db.Column(db.Text, nullable=True)
     achievements = db.Column(db.Text, nullable=True)
-    additional_images = db.Column(db.String(255), nullable=True)
+    additional_images = db.Column(db.Text, nullable=True)
     rating = db.Column(db.String(10), nullable=True)
     players = db.Column(db.Integer, nullable=False)
     related_games = db.Column(db.Text, nullable=True)
     language = db.Column(db.String(250), nullable=False)
-    summary = db.Column(db.String(150), nullable=False)
-    description = db.Column(db.Text, nullable=False)
-    trailer = db.Column(db.String(100), nullable=False)
+    summary = db.Column(db.String(150), nullable=True)
+    description = db.Column(db.Text, nullable=True)
+    trailer = db.Column(db.String(255), nullable=True)
 
     user = db.relationship('User', back_populates='games')
 
@@ -54,7 +54,7 @@ class Game(db.Model):
             "release_date": self.release_date.strftime("%Y-%m-%d"),
             "system_requirements": self.system_requirements,
             "achievements": self.achievements,
-            "additional_images": self.additional_images,
+            "additional_images": json.loads(self.additional_images) if self.additional_images else [],
             "rating": self.rating,
             "players": self.players,
             "related_games": self.related_games,
