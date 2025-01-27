@@ -16,6 +16,10 @@ export function Navbar() {
         navigate('/')
     }
 
+    function goToMainPage () {
+        navigate ("/");
+    }
+
     const handleSearchChange = async(event) =>{
         const searchText = event.target.value;
         setQuery(searchText);
@@ -111,6 +115,7 @@ export function Navbar() {
                     </div>
 
                     <div className="justify-content-end pt-2">
+                        <button className="btn btn-secondary me-2" onClick={goToMainPage}>Back</button>
                     {
                     store.token == null ?
                     <NavLink to="/login" className="btn btn-primary">Log In</NavLink>
