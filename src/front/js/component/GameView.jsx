@@ -88,7 +88,7 @@ export function GameView() {
                                         key={index}
                                         src={image}
                                         alt={`Additional image ${index + 1}`}
-                                        className="m-2"
+                                        className="m-2 hover-zoom"
                                         style={{ width: "150px", height: "100px", objectFit: "cover" }}
                                     />
                                 ))}
