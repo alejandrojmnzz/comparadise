@@ -8,7 +8,7 @@ export function GameView() {
     let {name,
         user_id,
         cover_image, 
-        genre, 
+        genres, 
         modes, 
         release_date, 
         system_requirements, 
@@ -23,19 +23,18 @@ export function GameView() {
 
 
     useEffect(() => {
-        actions.get_game(theid)
+        actions.getGame(theid)
     }, [])
 
     useEffect(() => {
         if(!user_id) return
-        actions.get_user(user_id)
+        actions.getUser(user_id)
     }, [user_id])
 
     function getUser() {
 
         return store.singleUser
     }
-
     return(
         <>
         <div className="container">
@@ -43,7 +42,7 @@ export function GameView() {
                 <div className="d-flex justify-content-center">
                     <div>
                         <h1 className="d-flex justify-content-center">{name}</h1>  
-                        <span>{genre}</span>  
+                        <span>{genres}</span>  
                     </div>            
                 </div>
                 <div className="d-flex justify-content-center">
@@ -60,7 +59,7 @@ export function GameView() {
                 </div>
                 <div className="col-6 d-flex justify-content-center">
                     <div>
-                        <p>Game modes: {modes}</p>
+                        <p>Game modes: {modes?.split(',').join(', ')}</p>
                         <p>Release date: {release_date}</p>
                         <p>PEGI: {rating}</p>
                         <p>Number of players: {players}</p>

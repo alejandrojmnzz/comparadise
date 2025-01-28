@@ -23,13 +23,15 @@ class Game(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
     name = db.Column(db.String(255), nullable=False)
     cover_image = db.Column(db.String(255), nullable=True)
-    name = db.Column(db.String(255), nullable=False)
-    genre = db.Column(db.String(100), nullable=False)
-    modes = db.Column(db.String(100), nullable=False)
+    genres = db.Column(db.Text, nullable=False)
+    modes = db.Column(db.Text, nullable=False)
+    player_perspective = db.Column(db.Text, nullable=False)
+    themes = db.Column(db.Text, nullable=False)
+    keywords = db.Column(db.String(100), nullable=False)
     release_date = db.Column(db.Date, nullable=True)
     system_requirements = db.Column(db.Text, nullable=True)
     achievements = db.Column(db.Text, nullable=True)
-    additional_images = db.Column(db.String(255), nullable=True)
+    # additional_images = db.Column(db.String(255), nullable=True)
     rating = db.Column(db.String(10), nullable=True)
     players = db.Column(db.Integer, nullable=False)
     related_games = db.Column(db.Text, nullable=True)
@@ -49,12 +51,15 @@ class Game(db.Model):
             "name": self.name,
             "user_id": self.user_id,
             "cover_image": self.cover_image,
-            "genre": self.genre,
-            "modes": self.modes.split(","),
+            "genres": self.genres,
+            "modes": self.modes,
+            "player_perspective": self.player_perspective,
+            "themes": self.themes,
+            "keywords": self.keywords,
             "release_date": self.release_date.strftime("%Y-%m-%d"),
             "system_requirements": self.system_requirements,
             "achievements": self.achievements,
-            "additional_images": self.additional_images,
+            # "additional_images": self.additional_images,
             "rating": self.rating,
             "players": self.players,
             "related_games": self.related_games,
