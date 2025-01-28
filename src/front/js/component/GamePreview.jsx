@@ -28,7 +28,7 @@ export function GamePreview() {
                             <div className="tooltip d-flex">
                                 <div className="tooltip-bg pb-2">
                                     <h5 className="d-flex justify-content-center m-0">{item.name}</h5>
-                                    <span>{item.genre}</span>
+                                    <span>{item.genres}</span>
                                     <img src={item.cover_image} className="tooltip-game-image rounded"/>
                                     <span className="mt-1"><b>Release Date:</b> {item.release_date}</span>
                                     <br></br>
