@@ -19,7 +19,9 @@ export function GameView() {
         language, 
         summary, 
         description, 
-        trailer} = store.singleGame
+        trailer,
+        additional_images
+    } = store.singleGame
 
 
     useEffect(() => {
@@ -76,6 +78,22 @@ export function GameView() {
                 <div className="d-flex justify-content-center">
                     {system_requirements}
                 </div>
+                {additional_images && additional_images.length > 0 && (
+                        <div className="additional-images mt-4">
+                            <h2>Additional Images</h2>
+                            <div className="d-flex flex-wrap justify-content-center">
+                                {additional_images.map((image, index) => (
+                                    <img
+                                        key={index}
+                                        src={image}
+                                        alt={`Additional image ${index + 1}`}
+                                        className="m-2 hover-zoom"
+                                        style={{ width: "150px", height: "100px", objectFit: "cover" }}
+                                    />
+                                ))}
+                            </div>
+                        </div>
+                    )}
             </div>
         </div>
         </>

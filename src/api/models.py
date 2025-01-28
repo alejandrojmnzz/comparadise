@@ -1,4 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
+import json
 
 db = SQLAlchemy()
 
@@ -36,9 +37,9 @@ class Game(db.Model):
     players = db.Column(db.Integer, nullable=False)
     related_games = db.Column(db.Text, nullable=True)
     language = db.Column(db.String(250), nullable=False)
-    summary = db.Column(db.String(150), nullable=False)
-    description = db.Column(db.Text, nullable=False)
-    trailer = db.Column(db.String(100), nullable=False)
+    summary = db.Column(db.String(150), nullable=True)
+    description = db.Column(db.Text, nullable=True)
+    trailer = db.Column(db.String(255), nullable=True)
 
     user = db.relationship('User', back_populates='games')
 
@@ -59,7 +60,7 @@ class Game(db.Model):
             "release_date": self.release_date.strftime("%Y-%m-%d"),
             "system_requirements": self.system_requirements,
             "achievements": self.achievements,
-            # "additional_images": self.additional_images,
+            "additional_images": json.loads(self.additional_images) if self.additional_images else [],
             "rating": self.rating,
             "players": self.players,
             "related_games": self.related_games,
