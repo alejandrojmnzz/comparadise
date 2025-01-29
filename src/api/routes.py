@@ -230,7 +230,7 @@ def populate_games():
             "modes":"Single player,Multiplayer,Co-operative,Split screen",
             "player_perspective": "Bird view / Isometric",
             "themes": "Action,Fantasy,Comedy",
-            "additional_images": ["https://res.cloudinary.com/dcdymggxx/image/upload/v1737148333/images_oyidub.jpg", "https://res.cloudinary.com/dcdymggxx/image/upload/v1737153499/WWlywV3UCoEbldP1k7eR6sH5-Yk13rUm3KiXLI_cBSo_ndxgsa.webp", "https://res.cloudinary.com/dcdymggxx/image/upload/v1737153186/2JSde8PFCF6B4nO2EECrcR1m_s6xclp.webp"],
+            "additional_images": json.dumps(["https://res.cloudinary.com/dcdymggxx/image/upload/v1737148333/images_oyidub.jpg", "https://res.cloudinary.com/dcdymggxx/image/upload/v1737153499/WWlywV3UCoEbldP1k7eR6sH5-Yk13rUm3KiXLI_cBSo_ndxgsa.webp", "https://res.cloudinary.com/dcdymggxx/image/upload/v1737153186/2JSde8PFCF6B4nO2EECrcR1m_s6xclp.webp"]),
             "keywords": "animals",
             "release_date": '07/21/2020',
             "system_requirements": """OS *: Windows 7 (64bit)
@@ -260,7 +260,7 @@ def populate_games():
             "modes":"Single player",
             "player_perspective": "Side view",
             "themes": "Action, Fantasy",
-            "additional_images": ["https://res.cloudinary.com/dcdymggxx/image/upload/v1737148333/images_oyidub.jpg", "https://res.cloudinary.com/dcdymggxx/image/upload/v1737153499/WWlywV3UCoEbldP1k7eR6sH5-Yk13rUm3KiXLI_cBSo_ndxgsa.webp", "https://res.cloudinary.com/dcdymggxx/image/upload/v1737153186/2JSde8PFCF6B4nO2EECrcR1m_s6xclp.webp"],
+            "additional_images": json.dumps(["https://res.cloudinary.com/dcdymggxx/image/upload/v1737148333/images_oyidub.jpg", "https://res.cloudinary.com/dcdymggxx/image/upload/v1737153499/WWlywV3UCoEbldP1k7eR6sH5-Yk13rUm3KiXLI_cBSo_ndxgsa.webp", "https://res.cloudinary.com/dcdymggxx/image/upload/v1737153186/2JSde8PFCF6B4nO2EECrcR1m_s6xclp.webp"]),
             "keywords": "animals",
             "release_date": '03/24/2017',
             "system_requirements": """OS *: Windows 7 (64bit)
@@ -290,7 +290,7 @@ def populate_games():
             "player_perspective": "Third person",
             "modes": "Single player",
             "themes": "Action,Horror,Survival",
-            "additional_images": ["https://res.cloudinary.com/dcdymggxx/image/upload/v1737148333/images_oyidub.jpg", "https://res.cloudinary.com/dcdymggxx/image/upload/v1737153499/WWlywV3UCoEbldP1k7eR6sH5-Yk13rUm3KiXLI_cBSo_ndxgsa.webp", "https://res.cloudinary.com/dcdymggxx/image/upload/v1737153186/2JSde8PFCF6B4nO2EECrcR1m_s6xclp.webp"],
+            "additional_images": json.dumps(["https://res.cloudinary.com/dcdymggxx/image/upload/v1737148333/images_oyidub.jpg", "https://res.cloudinary.com/dcdymggxx/image/upload/v1737153499/WWlywV3UCoEbldP1k7eR6sH5-Yk13rUm3KiXLI_cBSo_ndxgsa.webp", "https://res.cloudinary.com/dcdymggxx/image/upload/v1737153186/2JSde8PFCF6B4nO2EECrcR1m_s6xclp.webp"]),
             "keywords": "animals",
             "release_date": '04/06/2023',
             "system_requirements": """OS *: Windows 7 (64bit)
@@ -320,7 +320,7 @@ def populate_games():
             "modes":"Single player",
             "player_perspective": "Side view",
             "themes": "Action,Fantasy,Science fiction,Drama",
-            "additional_images": ["https://res.cloudinary.com/dcdymggxx/image/upload/v1737148333/images_oyidub.jpg", "https://res.cloudinary.com/dcdymggxx/image/upload/v1737153499/WWlywV3UCoEbldP1k7eR6sH5-Yk13rUm3KiXLI_cBSo_ndxgsa.webp", "https://res.cloudinary.com/dcdymggxx/image/upload/v1737153186/2JSde8PFCF6B4nO2EECrcR1m_s6xclp.webp"],
+            "additional_images": json.dumps(["https://res.cloudinary.com/dcdymggxx/image/upload/v1737148333/images_oyidub.jpg", "https://res.cloudinary.com/dcdymggxx/image/upload/v1737153499/WWlywV3UCoEbldP1k7eR6sH5-Yk13rUm3KiXLI_cBSo_ndxgsa.webp", "https://res.cloudinary.com/dcdymggxx/image/upload/v1737153186/2JSde8PFCF6B4nO2EECrcR1m_s6xclp.webp"]),
             "keywords": "animals",
             "release_date": '09/07/2012',
             "system_requirements": """OS *: Windows 7 (64bit)
@@ -350,7 +350,7 @@ def populate_games():
             "modes":"Single player",
             "player_perspective": "Bird view / Isometric",
             "themes": "Action",
-            "additional_images": ["https://res.cloudinary.com/dcdymggxx/image/upload/v1737148333/images_oyidub.jpg", "https://res.cloudinary.com/dcdymggxx/image/upload/v1737153499/WWlywV3UCoEbldP1k7eR6sH5-Yk13rUm3KiXLI_cBSo_ndxgsa.webp", "https://res.cloudinary.com/dcdymggxx/image/upload/v1737153186/2JSde8PFCF6B4nO2EECrcR1m_s6xclp.webp"],
+            "additional_images": json.dumps(["https://res.cloudinary.com/dcdymggxx/image/upload/v1737148333/images_oyidub.jpg", "https://res.cloudinary.com/dcdymggxx/image/upload/v1737153499/WWlywV3UCoEbldP1k7eR6sH5-Yk13rUm3KiXLI_cBSo_ndxgsa.webp", "https://res.cloudinary.com/dcdymggxx/image/upload/v1737153186/2JSde8PFCF6B4nO2EECrcR1m_s6xclp.webp"]),
             "keywords": "animals",
             "release_date": '03/10/2013',
             "system_requirements": """OS *: Windows 7 (64bit)
@@ -380,7 +380,7 @@ def populate_games():
             "modes":"Single player",
             "player_perspective": "Third person",
             "themes": "Action,Horror",
-            "additional_images": ["https://res.cloudinary.com/dcdymggxx/image/upload/v1737148333/images_oyidub.jpg", "https://res.cloudinary.com/dcdymggxx/image/upload/v1737153499/WWlywV3UCoEbldP1k7eR6sH5-Yk13rUm3KiXLI_cBSo_ndxgsa.webp", "https://res.cloudinary.com/dcdymggxx/image/upload/v1737153186/2JSde8PFCF6B4nO2EECrcR1m_s6xclp.webp"],
+            "additional_images": json.dumps(["https://res.cloudinary.com/dcdymggxx/image/upload/v1737148333/images_oyidub.jpg", "https://res.cloudinary.com/dcdymggxx/image/upload/v1737153499/WWlywV3UCoEbldP1k7eR6sH5-Yk13rUm3KiXLI_cBSo_ndxgsa.webp", "https://res.cloudinary.com/dcdymggxx/image/upload/v1737153186/2JSde8PFCF6B4nO2EECrcR1m_s6xclp.webp"]),
             "keywords": "animals",
             "release_date": '01/22/2023',
             "system_requirements": """OS *: Windows 7 (64bit)
@@ -410,7 +410,7 @@ def populate_games():
             "modes":"Single player,Multiplayer,Co-operative",
             "player_perspective": "First person",
             "themes": "Action, Science fiction",
-            "additional_images": ["https://res.cloudinary.com/dcdymggxx/image/upload/v1737148333/images_oyidub.jpg", "https://res.cloudinary.com/dcdymggxx/image/upload/v1737153499/WWlywV3UCoEbldP1k7eR6sH5-Yk13rUm3KiXLI_cBSo_ndxgsa.webp", "https://res.cloudinary.com/dcdymggxx/image/upload/v1737153186/2JSde8PFCF6B4nO2EECrcR1m_s6xclp.webp"],
+            "additional_images": json.dumps(["https://res.cloudinary.com/dcdymggxx/image/upload/v1737148333/images_oyidub.jpg", "https://res.cloudinary.com/dcdymggxx/image/upload/v1737153499/WWlywV3UCoEbldP1k7eR6sH5-Yk13rUm3KiXLI_cBSo_ndxgsa.webp", "https://res.cloudinary.com/dcdymggxx/image/upload/v1737153186/2JSde8PFCF6B4nO2EECrcR1m_s6xclp.webp"]),
             "keywords": "animals",
             "release_date": '05/11/2023',
             "system_requirements": """OS *: Windows 7 (64bit)
@@ -440,7 +440,7 @@ def populate_games():
             "modes":"Single player,Multiplayer,Co-operative",
             "player_perspective": "Bird view / Isometric",
             "themes": "Fantasy,Open world",
-            "additional_images": ["https://res.cloudinary.com/dcdymggxx/image/upload/v1737148333/images_oyidub.jpg", "https://res.cloudinary.com/dcdymggxx/image/upload/v1737153499/WWlywV3UCoEbldP1k7eR6sH5-Yk13rUm3KiXLI_cBSo_ndxgsa.webp", "https://res.cloudinary.com/dcdymggxx/image/upload/v1737153186/2JSde8PFCF6B4nO2EECrcR1m_s6xclp.webp"],
+            "additional_images": json.dumps(["https://res.cloudinary.com/dcdymggxx/image/upload/v1737148333/images_oyidub.jpg", "https://res.cloudinary.com/dcdymggxx/image/upload/v1737153499/WWlywV3UCoEbldP1k7eR6sH5-Yk13rUm3KiXLI_cBSo_ndxgsa.webp", "https://res.cloudinary.com/dcdymggxx/image/upload/v1737153186/2JSde8PFCF6B4nO2EECrcR1m_s6xclp.webp"]),
             "keywords": "animals",
             "release_date": '01/22/2023',
             "system_requirements": """OS *: Windows 7 (64bit)
@@ -470,7 +470,7 @@ def populate_games():
             "modes":"Single player,Multiplayer,Co-operative",
             "player_perspective": "Side view",
             "themes": "Action,Party",
-            "additional_images": ["https://res.cloudinary.com/dcdymggxx/image/upload/v1737148333/images_oyidub.jpg", "https://res.cloudinary.com/dcdymggxx/image/upload/v1737153499/WWlywV3UCoEbldP1k7eR6sH5-Yk13rUm3KiXLI_cBSo_ndxgsa.webp", "https://res.cloudinary.com/dcdymggxx/image/upload/v1737153186/2JSde8PFCF6B4nO2EECrcR1m_s6xclp.webp"],
+            "additional_images": json.dumps(["https://res.cloudinary.com/dcdymggxx/image/upload/v1737148333/images_oyidub.jpg", "https://res.cloudinary.com/dcdymggxx/image/upload/v1737153499/WWlywV3UCoEbldP1k7eR6sH5-Yk13rUm3KiXLI_cBSo_ndxgsa.webp", "https://res.cloudinary.com/dcdymggxx/image/upload/v1737153186/2JSde8PFCF6B4nO2EECrcR1m_s6xclp.webp"]),
             "keywords": "animals",
             "release_date": '08/22/2017',
             "system_requirements": """OS *: Windows 7 (64bit)
@@ -500,7 +500,7 @@ def populate_games():
             "modes":"Single player",
             "player_perspective": "Third person",
             "themes": "Action,Fantasy,Science fiction,Sandbox,Open world",
-            "additional_images": ["https://res.cloudinary.com/dcdymggxx/image/upload/v1737148333/images_oyidub.jpg", "https://res.cloudinary.com/dcdymggxx/image/upload/v1737153499/WWlywV3UCoEbldP1k7eR6sH5-Yk13rUm3KiXLI_cBSo_ndxgsa.webp", "https://res.cloudinary.com/dcdymggxx/image/upload/v1737153186/2JSde8PFCF6B4nO2EECrcR1m_s6xclp.webp"],
+            "additional_images": json.dumps(["https://res.cloudinary.com/dcdymggxx/image/upload/v1737148333/images_oyidub.jpg", "https://res.cloudinary.com/dcdymggxx/image/upload/v1737153499/WWlywV3UCoEbldP1k7eR6sH5-Yk13rUm3KiXLI_cBSo_ndxgsa.webp", "https://res.cloudinary.com/dcdymggxx/image/upload/v1737153186/2JSde8PFCF6B4nO2EECrcR1m_s6xclp.webp"]),
             "keywords": "animals",
             "release_date": '08/22/2017',
             "system_requirements": """OS *: Windows 7 (64bit)
@@ -534,6 +534,7 @@ def populate_games():
         game.modes = single_populate['modes']
         game.player_perspective = single_populate["player_perspective"]
         game.themes = single_populate["themes"]
+        game.additional_images = single_populate["additional_images"]
         game.keywords = single_populate["keywords"]
         game.release_date = single_populate['release_date']
         game.system_requirements = single_populate['system_requirements']
