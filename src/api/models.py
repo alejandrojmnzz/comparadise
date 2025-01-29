@@ -32,7 +32,7 @@ class Game(db.Model):
     release_date = db.Column(db.Date, nullable=True)
     system_requirements = db.Column(db.Text, nullable=True)
     achievements = db.Column(db.Text, nullable=True)
-    # additional_images = db.Column(db.String(255), nullable=True)
+    additional_images = db.Column(db.Text, nullable=True)
     rating = db.Column(db.String(10), nullable=True)
     players = db.Column(db.Integer, nullable=False)
     related_games = db.Column(db.Text, nullable=True)

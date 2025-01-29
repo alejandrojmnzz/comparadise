@@ -134,6 +134,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				} finally {
 					setStore({isLoading: false});
 				}
+			},
 			searchAPIGame: async (query) => {
 				try {
 					let response = await fetch(`${process.env.BACKEND_URL}/get-api-games`,
@@ -207,6 +208,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 		}
 	};
 };
-};
+
 
 export default getState;
