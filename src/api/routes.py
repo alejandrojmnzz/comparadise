@@ -700,3 +700,24 @@ def compare_api_and_game():
 
     sorted_data = sorted(total_coincidences_array, key=lambda x: list(x.values())[0]['total'], reverse=True)
     return(sorted_data)
+
+@api.route('compare-game-and-api', methodS=['POST'])
+def compare_game_and_api():
+    body = request.json
+    url = "https://api.igdb.com/v4/multiquery"
+    headers = {
+        'Accept': 'application/json',
+        'Client-ID': os.getenv("CLIENT_ID"),
+        'Authorization': f'Bearer {os.getenv("ACCESS_TOKEN")}',
+        'Content-Type': 'text/plain'
+        }
+    data = f'''query games "Multiquery" {{
+	fields name,genres.name, themes.name, game_modes.name, player_perspectives.name, cover.url;
+    where genres.name = ("Adventure", "Shooter");
+    where player_perspectives.name = "Third person";
+    where game_modes.name = "Single person";
+    where themes.name = ("Action", "Horror", "Survival");
+    }};'''
+    response = requests.post(url, headers=headers, data=data)
+    response = response.json()
+    return jsonify(response)
