@@ -116,9 +116,9 @@ def submit_game():
     additional_files = request.files.getlist("additional_images[]")
 
     data = request.form
-    print("Request data",data)
-    print("Request files", request.files)
-    if not data.get('name') or not data.get('genre') or not data.get('release_date') or not data.get('modes') or not data.get('players') or not data.get('language') or not data.get('system_requirements'):
+    # print("Request data",data)
+    # print("Request files", request.files)
+    if not data.get('name') or not data.get('genres') or not data.get('release_date') or not data.get('modes') or not data.get('players') or not data.get('language') or not data.get('system_requirements'):
             return jsonify({"error": "Missing required fields"}), 400
  
     try:
@@ -129,17 +129,19 @@ def submit_game():
         for file in additional_files:
             upload_result = uploader.upload(file)
             additional_files_urls.append(upload_result["secure_url"])
-    
     except Exception as error:
+        print(error.args)
         return jsonify({"error": "Error uploading files", "details": str(error)}), 500
-
         # try:
     game = Game(
     user_id=user_id,
     name=data['name'],
     cover_image=cover_file,
-    genre=data['genre'],
+    genres=data['genres'],
     modes=data.get('modes', ''),
+    themes=data['themes'],
+    keywords=data['keywords'],
+    player_perspective=data['player_perspective'],
     release_date=data['release_date'],
     system_requirements=data['system_requirements'],
     achievements=data.get('achievements', ''),
@@ -153,73 +155,14 @@ def submit_game():
     trailer=data['trailer']
 )
 
-    print(game)
     db.session.add(game)
+
     try:
-
-        # if 'cover_image' not in request.files:
-        #     return jsonify({"error": "Cover image is missing"}), 400
-        user_id = int(get_jwt_identity())
-        body_file = request.files
-        cover_file =body_file.get("cover_image", None)
-        # additional_files = request.files.getlist("additional_images[]")
-
-
-        # # Save the cover media file (if provided)
-        # if cover_file and allowed_file(cover_file.filename):
-        #     filename = secure_filename(cover_file.filename)
-        #     cover_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-        #     cover_file.save(cover_path)
-        # else:
-        #     cover_path = None
-
-        data = request.form
-
-        if not data.get('name') or not data.get('genres') or not data.get('release_date') or not data.get('modes') or not data.get('players') or not data.get('language'):
-            return jsonify({"error": "Missing required fields"}), 400
-
-        cover_file = uploader.upload(cover_file)
-        cover_file = cover_file["secure_url"]
-        # additional_files = uploader.upload(additional_files)
-        # additional_files = additional_files["secure_url"]
-        # try:
-
-        game = Game(
-        user_id=user_id,
-        name=data['name'],
-        cover_image=cover_file,
-        genres=data['genres'],
-        modes=data.get('modes', ''),
-        player_perspective=data['player_perspective'],
-        themes=data['themes'],
-        keywords=data['keywords'],
-        release_date=data['release_date'],
-        system_requirements=data['system_requirements'],
-        achievements=data.get('achievements', ''),
-        # additional_images=additional_files,
-        rating=data['rating'],
-        players=int(data['players']),
-        related_games=data.get('related_games', ''),
-        language=data['language'],
-        summary=data['summary'],
-        description=data['description'],
-        trailer=data['trailer']
-    )
-
-
-        db.session.add(game)
-
-        try:
-            db.session.commit()
-            return jsonify({"message": "Game added successfully"}), 201
-        except Exception as error:
-            print(error.args)
-            return jsonify ("Error submitting")
-        # except Exception as e:
-        #     return jsonify({"error": str(e)}), 500
+        db.session.commit()
+        return jsonify({"message": "Game added successfully"}), 201
     except Exception as error:
-        print(error.args)
-        return jsonify ("Error submitting")    
+        print(error)
+        return jsonify ("Error submitting")
         # except Exception as e:
         #     return jsonify({"error": str(e)}), 500
 
@@ -287,6 +230,7 @@ def populate_games():
             "modes":"Single player,Multiplayer,Co-operative,Split screen",
             "player_perspective": "Bird view / Isometric",
             "themes": "Action,Fantasy,Comedy",
+            "additional_images": json.dumps(["https://res.cloudinary.com/dcdymggxx/image/upload/v1737148333/images_oyidub.jpg", "https://res.cloudinary.com/dcdymggxx/image/upload/v1737153499/WWlywV3UCoEbldP1k7eR6sH5-Yk13rUm3KiXLI_cBSo_ndxgsa.webp", "https://res.cloudinary.com/dcdymggxx/image/upload/v1737153186/2JSde8PFCF6B4nO2EECrcR1m_s6xclp.webp"]),
             "keywords": "animals",
             "release_date": '07/21/2020',
             "system_requirements": """OS *: Windows 7 (64bit)
@@ -316,6 +260,7 @@ def populate_games():
             "modes":"Single player",
             "player_perspective": "Side view",
             "themes": "Action, Fantasy",
+            "additional_images": json.dumps(["https://res.cloudinary.com/dcdymggxx/image/upload/v1737148333/images_oyidub.jpg", "https://res.cloudinary.com/dcdymggxx/image/upload/v1737153499/WWlywV3UCoEbldP1k7eR6sH5-Yk13rUm3KiXLI_cBSo_ndxgsa.webp", "https://res.cloudinary.com/dcdymggxx/image/upload/v1737153186/2JSde8PFCF6B4nO2EECrcR1m_s6xclp.webp"]),
             "keywords": "animals",
             "release_date": '03/24/2017',
             "system_requirements": """OS *: Windows 7 (64bit)
@@ -345,6 +290,7 @@ def populate_games():
             "player_perspective": "Third person",
             "modes": "Single player",
             "themes": "Action,Horror,Survival",
+            "additional_images": json.dumps(["https://res.cloudinary.com/dcdymggxx/image/upload/v1737148333/images_oyidub.jpg", "https://res.cloudinary.com/dcdymggxx/image/upload/v1737153499/WWlywV3UCoEbldP1k7eR6sH5-Yk13rUm3KiXLI_cBSo_ndxgsa.webp", "https://res.cloudinary.com/dcdymggxx/image/upload/v1737153186/2JSde8PFCF6B4nO2EECrcR1m_s6xclp.webp"]),
             "keywords": "animals",
             "release_date": '04/06/2023',
             "system_requirements": """OS *: Windows 7 (64bit)
@@ -374,6 +320,7 @@ def populate_games():
             "modes":"Single player",
             "player_perspective": "Side view",
             "themes": "Action,Fantasy,Science fiction,Drama",
+            "additional_images": json.dumps(["https://res.cloudinary.com/dcdymggxx/image/upload/v1737148333/images_oyidub.jpg", "https://res.cloudinary.com/dcdymggxx/image/upload/v1737153499/WWlywV3UCoEbldP1k7eR6sH5-Yk13rUm3KiXLI_cBSo_ndxgsa.webp", "https://res.cloudinary.com/dcdymggxx/image/upload/v1737153186/2JSde8PFCF6B4nO2EECrcR1m_s6xclp.webp"]),
             "keywords": "animals",
             "release_date": '09/07/2012',
             "system_requirements": """OS *: Windows 7 (64bit)
@@ -403,6 +350,7 @@ def populate_games():
             "modes":"Single player",
             "player_perspective": "Bird view / Isometric",
             "themes": "Action",
+            "additional_images": json.dumps(["https://res.cloudinary.com/dcdymggxx/image/upload/v1737148333/images_oyidub.jpg", "https://res.cloudinary.com/dcdymggxx/image/upload/v1737153499/WWlywV3UCoEbldP1k7eR6sH5-Yk13rUm3KiXLI_cBSo_ndxgsa.webp", "https://res.cloudinary.com/dcdymggxx/image/upload/v1737153186/2JSde8PFCF6B4nO2EECrcR1m_s6xclp.webp"]),
             "keywords": "animals",
             "release_date": '03/10/2013',
             "system_requirements": """OS *: Windows 7 (64bit)
@@ -432,6 +380,7 @@ def populate_games():
             "modes":"Single player",
             "player_perspective": "Third person",
             "themes": "Action,Horror",
+            "additional_images": json.dumps(["https://res.cloudinary.com/dcdymggxx/image/upload/v1737148333/images_oyidub.jpg", "https://res.cloudinary.com/dcdymggxx/image/upload/v1737153499/WWlywV3UCoEbldP1k7eR6sH5-Yk13rUm3KiXLI_cBSo_ndxgsa.webp", "https://res.cloudinary.com/dcdymggxx/image/upload/v1737153186/2JSde8PFCF6B4nO2EECrcR1m_s6xclp.webp"]),
             "keywords": "animals",
             "release_date": '01/22/2023',
             "system_requirements": """OS *: Windows 7 (64bit)
@@ -461,6 +410,7 @@ def populate_games():
             "modes":"Single player,Multiplayer,Co-operative",
             "player_perspective": "First person",
             "themes": "Action, Science fiction",
+            "additional_images": json.dumps(["https://res.cloudinary.com/dcdymggxx/image/upload/v1737148333/images_oyidub.jpg", "https://res.cloudinary.com/dcdymggxx/image/upload/v1737153499/WWlywV3UCoEbldP1k7eR6sH5-Yk13rUm3KiXLI_cBSo_ndxgsa.webp", "https://res.cloudinary.com/dcdymggxx/image/upload/v1737153186/2JSde8PFCF6B4nO2EECrcR1m_s6xclp.webp"]),
             "keywords": "animals",
             "release_date": '05/11/2023',
             "system_requirements": """OS *: Windows 7 (64bit)
@@ -490,6 +440,7 @@ def populate_games():
             "modes":"Single player,Multiplayer,Co-operative",
             "player_perspective": "Bird view / Isometric",
             "themes": "Fantasy,Open world",
+            "additional_images": json.dumps(["https://res.cloudinary.com/dcdymggxx/image/upload/v1737148333/images_oyidub.jpg", "https://res.cloudinary.com/dcdymggxx/image/upload/v1737153499/WWlywV3UCoEbldP1k7eR6sH5-Yk13rUm3KiXLI_cBSo_ndxgsa.webp", "https://res.cloudinary.com/dcdymggxx/image/upload/v1737153186/2JSde8PFCF6B4nO2EECrcR1m_s6xclp.webp"]),
             "keywords": "animals",
             "release_date": '01/22/2023',
             "system_requirements": """OS *: Windows 7 (64bit)
@@ -519,6 +470,7 @@ def populate_games():
             "modes":"Single player,Multiplayer,Co-operative",
             "player_perspective": "Side view",
             "themes": "Action,Party",
+            "additional_images": json.dumps(["https://res.cloudinary.com/dcdymggxx/image/upload/v1737148333/images_oyidub.jpg", "https://res.cloudinary.com/dcdymggxx/image/upload/v1737153499/WWlywV3UCoEbldP1k7eR6sH5-Yk13rUm3KiXLI_cBSo_ndxgsa.webp", "https://res.cloudinary.com/dcdymggxx/image/upload/v1737153186/2JSde8PFCF6B4nO2EECrcR1m_s6xclp.webp"]),
             "keywords": "animals",
             "release_date": '08/22/2017',
             "system_requirements": """OS *: Windows 7 (64bit)
@@ -548,6 +500,7 @@ def populate_games():
             "modes":"Single player",
             "player_perspective": "Third person",
             "themes": "Action,Fantasy,Science fiction,Sandbox,Open world",
+            "additional_images": json.dumps(["https://res.cloudinary.com/dcdymggxx/image/upload/v1737148333/images_oyidub.jpg", "https://res.cloudinary.com/dcdymggxx/image/upload/v1737153499/WWlywV3UCoEbldP1k7eR6sH5-Yk13rUm3KiXLI_cBSo_ndxgsa.webp", "https://res.cloudinary.com/dcdymggxx/image/upload/v1737153186/2JSde8PFCF6B4nO2EECrcR1m_s6xclp.webp"]),
             "keywords": "animals",
             "release_date": '08/22/2017',
             "system_requirements": """OS *: Windows 7 (64bit)
@@ -581,6 +534,7 @@ def populate_games():
         game.modes = single_populate['modes']
         game.player_perspective = single_populate["player_perspective"]
         game.themes = single_populate["themes"]
+        game.additional_images = single_populate["additional_images"]
         game.keywords = single_populate["keywords"]
         game.release_date = single_populate['release_date']
         game.system_requirements = single_populate['system_requirements']

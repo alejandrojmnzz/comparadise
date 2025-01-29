@@ -20,7 +20,7 @@ const navigate = useNavigate()
       name: "",
       genres: [],
       cover_image:"",
-      // additional_images: "",
+      additional_images: "",
       modes: [],
       player_perspective: [],
       themes: [],
@@ -60,7 +60,6 @@ const navigate = useNavigate()
   }
 
   const handleSubmit = async (event) => {
-      try {
       event.preventDefault();
       const formDataObj = new FormData()
       formDataObj.append("cover_image", formData.cover_image);
@@ -102,14 +101,11 @@ const navigate = useNavigate()
       console.error("Error:", error);
       alert("Error submitting game.");
     }
-  } catch(error) {
-    console.log(error)
   }
-
 
   
 //form info
-return (
+  return (
     <form onSubmit={handleSubmit}>
       <label>
         Game Name:
@@ -498,6 +494,5 @@ return (
       <button type="submit">Submit</button>
     </form>
   );
-};
 }
 export default GameForm
