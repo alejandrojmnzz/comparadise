@@ -7,6 +7,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			singleUser: {},
 			searchResults: [],
 			isLoading: false,
+			relatedGames: []
 		},
 		actions: {
 			register: async (user) => {
@@ -73,7 +74,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return false
 				}
 			},
-			get_game: async (id) => {
+			getGame: async (id) => {
 				try {
 					let response = await fetch(`${process.env.BACKEND_URL}/get-game`,
 						{
@@ -89,11 +90,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 						singleGame: data
 					})
 					console.log(data)
+					return data
 				} catch (error) {
 					console.log(error)
 				}
 			},
-			get_user: async (id) => {
+			getUser: async (id) => {
 				try {
 					let response = await fetch(`${process.env.BACKEND_URL}/get-user`,
 						{
@@ -108,7 +110,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 					setStore({
 						singleUser: data
 					})
-					
 					console.log(data)
 				} catch (error) {
 					console.log(error)
@@ -133,9 +134,79 @@ const getState = ({ getStore, getActions, setStore }) => {
 				} finally {
 					setStore({isLoading: false});
 				}
+			searchAPIGame: async (query) => {
+				try {
+					let response = await fetch(`${process.env.BACKEND_URL}/get-api-games`,
+						{
+							method: 'POST',
+							headers: {
+								'Content-Type': 'application/json'
+							},
+							body: JSON.stringify(query)
+						}
+					)
+					let data = await response.json()
+					console.log(data)
+					return data
+				} catch (error) {
+					console.log(error)	
+					return false
+				}
+			},
+			getAPIImage: async (id) => {
+				try {
+					let response = await fetch(`${process.env.BACKEND_URL}/get-api-image`,
+						{
+							method: 'POST',
+							headers: {
+								'Content-Type': 'application/json'
+							},
+							body: JSON.stringify(id)
+						}
+					)
+					let data = await response.json()
+					return data
+				} catch (error) {
+					console.log(error)
+				}
+			},
+			multiQueryGame: async (id) => {
+				try {
+					let response = await fetch(`${process.env.BACKEND_URL}/multiquery-game`,
+						{
+							method: 'POST',
+							headers: {
+								'Content-Type': 'application/json'
+							},
+							body: JSON.stringify(id)
+						}
+					)
+					let data = await response.json()
+					console.log(data)
+					return data[0].result[0]
+				} catch (error) {
+					console.log(error)
+				}
+			},
+			compareAPIAndGame: async (game) => {
+				console.log(game)
+				let response = await fetch(`${process.env.BACKEND_URL}/compare-api-and-game`,
+					{
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify(game)
+					}
+				)
+				let data = await response.json()
+				console.log(data)
+				setStore({relatedGames: data})
+				return data
 			}
 		}
 	};
+};
 };
 
 export default getState;
