@@ -4,7 +4,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 			token: localStorage.getItem("token") || null,
 			recentGames: [],
 			singleGame: {},
-			singleUser: {}
+			singleUser: {},
+			searchResults: [],
+			isLoading: false,
 		},
 		actions: {
 			register: async (user) => {
@@ -110,6 +112,26 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log(data)
 				} catch (error) {
 					console.log(error)
+				}
+			},
+			fetchSearchResults: async (query) => {
+				setStore({isLoading: true});
+
+				try{
+					const response = await response.fetch(`${process.env.BACKEND_URL}/games-search?query=${query}`);
+
+					if (response.ok){
+						const data = await response.json();
+						setStore({searchResults: data});
+					} else {
+						console.error("No search results found.");
+						setStore({searchResults: []});
+					}
+				} catch (error) {
+					console.error("Error fetching search results", error);
+					setStore({searchResults: []});
+				} finally {
+					setStore({isLoading: false});
 				}
 			}
 		}
