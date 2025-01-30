@@ -3,7 +3,7 @@ This module takes care of starting the API Server, Loading the DB and Adding the
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
 from api.models import db, User, Game
-from api.utils import generate_sitemap, APIException
+from api.utils import generate_sitemap, APIException, compare_game_and_api
 from flask_cors import CORS
 from base64 import b64encode
 import os
@@ -116,6 +116,7 @@ def submit_game():
     additional_files = request.files.getlist("additional_images[]")
 
     data = request.form
+    auto_related_games = compare_game_and_api(data)
     # print("Request data",data)
     # print("Request files", request.files)
     if not data.get('name') or not data.get('genres') or not data.get('release_date') or not data.get('modes') or not data.get('players') or not data.get('language') or not data.get('system_requirements'):
@@ -149,6 +150,7 @@ def submit_game():
     rating=data['rating'],
     players=int(data['players']),
     related_games=data.get('related_games', ''),
+    auto_related_games=json.dumps(auto_related_games),
     language=data['language'],
     summary=data['summary'],
     description=data['description'],
@@ -219,6 +221,7 @@ def populate_games():
 
     db.session.add(user)
     db.session.commit()
+
 
 
     game_populate = [
@@ -701,23 +704,3 @@ def compare_api_and_game():
     sorted_data = sorted(total_coincidences_array, key=lambda x: list(x.values())[0]['total'], reverse=True)
     return(sorted_data)
 
-@api.route('compare-game-and-api', methodS=['POST'])
-def compare_game_and_api():
-    body = request.json
-    url = "https://api.igdb.com/v4/multiquery"
-    headers = {
-        'Accept': 'application/json',
-        'Client-ID': os.getenv("CLIENT_ID"),
-        'Authorization': f'Bearer {os.getenv("ACCESS_TOKEN")}',
-        'Content-Type': 'text/plain'
-        }
-    data = f'''query games "Multiquery" {{
-	fields name,genres.name, themes.name, game_modes.name, player_perspectives.name, cover.url;
-    where genres.name = ("Adventure", "Shooter");
-    where player_perspectives.name = "Third person";
-    where game_modes.name = "Single person";
-    where themes.name = ("Action", "Horror", "Survival");
-    }};'''
-    response = requests.post(url, headers=headers, data=data)
-    response = response.json()
-    return jsonify(response)
