@@ -1,10 +1,12 @@
-import React, {useEffect, useContext} from "react";
+import React, {useEffect, useContext, useState} from "react";
 import { useParams } from "react-router-dom";
 import { Context } from "../store/appContext";
 
 export function GameView() {
     const {theid}= useParams()
     const {store, actions} = useContext(Context)
+    const [autoRelatedGames, setAutoRelatedGames] = useState()
+
     let {name,
         user_id,
         cover_image, 
@@ -16,6 +18,7 @@ export function GameView() {
         rating, 
         players, 
         related_games, 
+        auto_related_games,
         language, 
         summary, 
         description, 
@@ -26,6 +29,7 @@ export function GameView() {
 
     useEffect(() => {
         actions.getGame(theid)
+
     }, [])
 
     useEffect(() => {
@@ -33,12 +37,22 @@ export function GameView() {
         actions.getUser(user_id)
     }, [user_id])
 
+    async function handleRelation() {
+        let relatedGame1 = await actions.multiQueryGame(auto_related_games[0])
+        let relatedGame2 = await actions.multiQueryGame(auto_related_games[1])
+        let relatedGame3 = await actions.multiQueryGame(auto_related_games[2])
+        setAutoRelatedGames([relatedGame1, relatedGame2, relatedGame3])
+    }
+
+        
     function getUser() {
 
         return store.singleUser
     }
     return(
         <>
+        {console.log(autoRelatedGames)}
+
         <div className="container">
             <div className="row">
                 <div className="d-flex justify-content-center">
@@ -70,11 +84,26 @@ export function GameView() {
                     </div>
                 </div>
                 <div className="d-flex justify-content-center">
-                    <div>
-                        <h1>Related Games</h1>
-                        <p className="d-flex justify-content-center">{related_games}</p>
-                    </div>
+                        <h1  onClick={handleRelation}>Related Games</h1>
                 </div>
+
+                        {
+                            autoRelatedGames &&
+                            <div className="d-flex gap-3 justify-content-center">
+                                <div>
+                                    <img src={autoRelatedGames[0].cover.url}></img>
+                                    <p>{autoRelatedGames[0].name}</p>
+                                </div>
+                                <div>
+                                    <img src={autoRelatedGames[1].cover.url}></img>
+                                    <p>{autoRelatedGames[1].name}</p>
+                                </div>
+                                <div>
+                                    <img src={autoRelatedGames[2].cover.url}></img>
+                                    <p>{autoRelatedGames[2].name}</p>
+                                </div>
+                            </div>
+                        }
                 <div className="d-flex justify-content-center">
                     {system_requirements}
                 </div>

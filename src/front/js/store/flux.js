@@ -202,7 +202,20 @@ const getState = ({ getStore, getActions, setStore }) => {
 				)
 				let data = await response.json()
 				console.log(data)
-				setStore({relatedGames: data})
+				return data
+			},
+			compareGameAndAPI: async (game) => {
+				let response = await fetch(`${process.env.BACKEND_URL}/compare-game-and-api`,
+					{
+						method: 'POST',
+						headers: {
+							'Content-Type': 'application/json'
+						},
+						body: JSON.stringify(game)
+					}
+				)
+				let data = await response.json()
+				console.log(game)
 				return data
 			}
 		}
