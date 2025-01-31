@@ -704,3 +704,25 @@ def compare_api_and_game():
     sorted_data = sorted(total_coincidences_array, key=lambda x: list(x.values())[0]['total'], reverse=True)
     return(sorted_data)
 
+@api.route('/my-games', methods=['GET'])
+@jwt_required()
+def get_current_user_games():
+    try: 
+        current_user = get_jwt_identity()
+        user_games = Game.query.filter_by(user_id = current_user)
+
+        return jsonify(list(map(lambda item: item.serialize(), user_games)))
+    except Exception as error:
+        print(error.args)
+        return jsonify(False)
+    
+@api.route('/user-games', methods=['POST'])
+def get_user_games():
+    try: 
+        user_id = request.json
+        user_games = Game.query.filter_by(user_id = user_id)
+        print(user_id)
+        return jsonify(list(map(lambda item: item.serialize(), user_games)))
+    except Exception as error:
+        print(error.args)
+        return jsonify(False)

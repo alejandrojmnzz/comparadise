@@ -8,7 +8,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 			searchResults: [],
 			isLoading: false,
 			relatedGames: [],
-			gameAPIRelation: []
+			currentUserGames: null,
+			userGames: null
 		},
 		actions: {
 			register: async (user) => {
@@ -120,7 +121,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				setStore({isLoading: true});
 
 				try{
-					const response = await response.fetch(`${process.env.BACKEND_URL}/games-search?query=${query}`);
+					const response = await fetch(`${process.env.BACKEND_URL}/games-search?query=${query}`);
 
 					if (response.ok){
 						const data = await response.json();
@@ -218,6 +219,46 @@ const getState = ({ getStore, getActions, setStore }) => {
 				let data = await response.json()
 				console.log(game)
 				return data
+			},
+			getCurrentUserGames: async () => {
+				try {
+				let response = await fetch(`${process.env.BACKEND_URL}/my-games`,
+					{
+						method: 'GET',
+						headers: {
+							'Content-Type': 'application/json',
+							'Authorization': `Bearer ${getStore().token}`
+						}
+					}
+				)
+				let data = await response.json()
+				setStore({currentUserGames: data})
+				console.log(data)
+				return data
+			}
+			catch (error) {
+				console.log(error)
+			}
+			},
+			getUserGames: async (user_id) => {
+				try {
+				let response = await fetch(`${process.env.BACKEND_URL}/user-games`,
+					{
+						method: 'POST',
+						headers: {
+							'Content-Type': 'application/json',
+						},
+						body: JSON.stringify(user_id)
+					}
+				)
+				let data = await response.json()
+				setStore({userGames: data})
+				console.log(data)
+				return data
+			}
+			catch (error) {
+				console.log(error)
+			}
 			}
 		}
 	};
