@@ -1,5 +1,5 @@
 import React, {useEffect, useContext, useState} from "react";
-import { useParams } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import { Context } from "../store/appContext";
 
 export function GameView() {
@@ -44,11 +44,6 @@ export function GameView() {
         setAutoRelatedGames([relatedGame1, relatedGame2, relatedGame3])
     }
 
-        
-    function getUser() {
-
-        return store.singleUser
-    }
     return(
         <>
         {console.log(autoRelatedGames)}
@@ -65,7 +60,7 @@ export function GameView() {
                      <img src={cover_image} className="w-25"/>
                 </div>
                 <div>
-                    <p>A game by {store.singleUser.name}</p>
+                    <p>A game by <NavLink to={`/user-games/${user_id}`}>{store.singleUser.name}</NavLink></p>
                 </div>
                 <div className="d-flex justify-content-center mt-2">
                     <iframe className="trailer" width="560" height="415" src={`https://www.youtube.com/embed/${trailer}`} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
@@ -123,6 +118,35 @@ export function GameView() {
                             </div>
                         </div>
                     )}
+                <div>
+                    <h1>Rate this game</h1>
+
+                    <div className="btn-group" role="group" aria-label="Basic radio toggle button group">
+                        <input type="radio" className="btn-check" name="btnradio" id="btnradio1" autocomplete="off"/>
+                        <label className="btn btn-outline-primary" for="btnradio1">1</label>
+                        <input type="radio" className="btn-check" name="btnradio" id="btnradio2" autocomplete="off"/>
+                        <label className="btn btn-outline-primary" for="btnradio2">2</label>
+                        <input type="radio" className="btn-check" name="btnradio" id="btnradio3" autocomplete="off"/>
+                        <label className="btn btn-outline-primary" for="btnradio3">3</label>
+                        <input type="radio" className="btn-check" name="btnradio" id="btnradio4" autocomplete="off"/>
+                        <label className="btn btn-outline-primary" for="btnradio4">4</label>
+                        <input type="radio" className="btn-check" name="btnradio" id="btnradio5" autocomplete="off"/>
+                        <label className="btn btn-outline-primary" for="btnradio5">5</label>
+                        <input type="radio" className="btn-check" name="btnradio" id="btnradio6" autocomplete="off"/>
+                        <label className="btn btn-outline-primary" for="btnradio6">6</label>
+                        <input type="radio" className="btn-check" name="btnradio" id="btnradio6" autocomplete="off"/>
+                        <label className="btn btn-outline-primary" for="btnradio6">6</label>
+                        <input type="radio" className="btn-check" name="btnradio" id="btnradio7" autocomplete="off"/>
+                        <label className="btn btn-outline-primary" for="btnradio7">7</label>
+                        <input type="radio" className="btn-check" name="btnradio" id="btnradio8" autocomplete="off"/>
+                        <label className="btn btn-outline-primary" for="btnradio8">8</label>
+                        <input type="radio" className="btn-check" name="btnradio" id="btnradio9" autocomplete="off"/>
+                        <label className="btn btn-outline-primary" for="btnradio9">9</label>
+                        <input type="radio" className="btn-check" name="btnradio" id="btnradio10" autocomplete="off"/>
+                        <label className="btn btn-outline-primary" for="btnradio10">10</label>
+                    </div>
+                    <input className="form-control" placeholder="Add a review..."></input>
+                </div>
             </div>
         </div>
         </>

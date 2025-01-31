@@ -96,6 +96,7 @@ export function Navbar() {
                             <>
                                 <NavLink to="/submit-game" className="btn btn-primary me-2">Submit Game</NavLink>
                                 <button className="btn btn-danger" onClick={logOut}>Log Out</button>
+                                <NavLink to="/my-games" className="btn btn-primary ms-2">My Games</NavLink>
                             </>
                         )}
                     </div>
