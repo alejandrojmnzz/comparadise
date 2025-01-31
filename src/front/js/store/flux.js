@@ -7,7 +7,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 			singleUser: {},
 			searchResults: [],
 			isLoading: false,
-			relatedGames: []
+			relatedGames: [],
+			gameAPIRelation: []
 		},
 		actions: {
 			register: async (user) => {
