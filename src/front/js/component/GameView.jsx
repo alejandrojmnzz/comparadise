@@ -6,6 +6,7 @@ export function GameView() {
     const { theid } = useParams()
     const { store, actions } = useContext(Context)
     const [autoRelatedGames, setAutoRelatedGames] = useState()
+    const [loading, setLoading] = useState(true)
 
     let { name,
         user_id,
@@ -38,6 +39,7 @@ export function GameView() {
         // setAutoRelatedGames([relatedGame1, relatedGame2, relatedGame3])
         Promise.all([relatedGame1, relatedGame2, relatedGame3]).then((response) => {
             setAutoRelatedGames(response)
+            setLoading(false)
         })
     }
 
@@ -53,10 +55,18 @@ export function GameView() {
     useEffect(() => {
         if (Object.keys(store.singleGame).length == 0) return
         handleRelation()
+        // setTimeout(() => {
+        //     setLoading(false)
+        // }, 2000)
     }, [auto_related_games])
     return (
         <>
-
+            {
+                loading ?
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                :
             <div className="container">
                 <div className="row">
                     <div className="d-flex justify-content-center">
@@ -158,6 +168,7 @@ export function GameView() {
                 </div>
             </div>
             </div>
+            }
         </>
     )
 }
