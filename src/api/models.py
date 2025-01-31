@@ -11,6 +11,7 @@ class User(db.Model):
     salt = db.Column(db.String(255), unique=False, nullable=False)
 
     games = db.relationship('Game', back_populates='user')
+    review = db.relationship('Review', back_populates='user')
 
     def serialize(self):
         return {
@@ -36,13 +37,17 @@ class Game(db.Model):
     rating = db.Column(db.String(10), nullable=True)
     players = db.Column(db.Integer, nullable=False)
     related_games = db.Column(db.Text, nullable=True)
-    auto_related_games = db.Column(db.String(100), nullable=False)
+    auto_related_games = db.Column(db.String(100), nullable=True)
     language = db.Column(db.String(250), nullable=False)
     summary = db.Column(db.String(150), nullable=True)
     description = db.Column(db.Text, nullable=True)
     trailer = db.Column(db.String(255), nullable=True)
+    rate = db.Column(db.Integer, nullable=True)
+    review_id = db.Column(db.Integer, db.ForeignKey("review.id"))
 
     user = db.relationship('User', back_populates='games')
+    review = db.relationship('Review', back_populates='games')
+
 
     def __repr__(self):
         return f"<Game {self.name}>"
@@ -63,6 +68,7 @@ class Game(db.Model):
             "achievements": self.achievements,
             "additional_images": json.loads(self.additional_images) if self.additional_images else [],
             "rating": self.rating,
+            "review_id": self.review_id,
             "players": self.players,
             "related_games": self.related_games,
             "auto_related_games": json.loads(self.auto_related_games) if self.auto_related_games else [],
@@ -70,4 +76,20 @@ class Game(db.Model):
             "summary": self.summary,
             "description": self.description,
             "trailer": self.trailer
+        }
+    
+class Review(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
+    rating = db.Column(db.Integer, nullable=False)
+    review = db.Column(db.String(255), nullable=False)
+
+    user = db.relationship('User', back_populates='review')
+    games = db.relationship('Game', back_populates='review')
+    def serialize(self):
+        return {
+            "id": self.id,
+            "user_id": self.user_id,
+            "rating": self.rating,
+            "review": self.review
         }
