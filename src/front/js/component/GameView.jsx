@@ -31,6 +31,7 @@ export function GameView() {
   
 
     async function handleRelation() {
+        
         let relatedGame1 = await actions.multiQueryGame(auto_related_games[0])
         let relatedGame2 = await actions.multiQueryGame(auto_related_games[1])
         let relatedGame3 = await actions.multiQueryGame(auto_related_games[2])
@@ -50,9 +51,9 @@ export function GameView() {
     }, [])
 
     useEffect(() => {
-        if (store.singleGame == {}) return
+        if (Object.keys(store.singleGame).length == 0) return
         handleRelation()
-    }, [store.singleGame])
+    }, [auto_related_games])
     return (
         <>
 
