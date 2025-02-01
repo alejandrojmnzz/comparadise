@@ -81,8 +81,9 @@ class Game(db.Model):
 class Review(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
+    game_id = db.Column(db.Integer, db.ForeignKey("game.id"))
     rating = db.Column(db.Integer, nullable=False)
-    review = db.Column(db.String(255), nullable=False)
+    review_text = db.Column(db.String(255), nullable=False)
 
     user = db.relationship('User', back_populates='review')
     games = db.relationship('Game', back_populates='review')
