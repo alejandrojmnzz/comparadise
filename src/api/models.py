@@ -11,6 +11,7 @@ class User(db.Model):
     salt = db.Column(db.String(255), unique=False, nullable=False)
 
     games = db.relationship('Game', back_populates='user')
+    cart = db.relationship('Cart', back_populates='user', cascade='all, delete-orphan')
 
     def serialize(self):
         return {
@@ -42,7 +43,7 @@ class Game(db.Model):
     trailer = db.Column(db.String(255), nullable=True)
 
     user = db.relationship('User', back_populates='games')
-
+    cart = db.relationship("Cart", back_populates="game")
     def __repr__(self):
         return f"<Game {self.name}>"
 
@@ -69,3 +70,20 @@ class Game(db.Model):
             "description": self.description,
             "trailer": self.trailer
         }
+
+class Cart(db.Model):
+    
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
+    game_id = db.Column(db.Integer, db.ForeignKey("game.id"), nullable=False)
+    
+    user = db.relationship("User", back_populates="cart")
+    game = db.relationship("Game", back_populates="cart")
+    
+    def serialize(self):
+        return{
+            "id": self.id,
+            "user_id": self.user_id,
+            "game": self.game.serialize(),
+        }
+    

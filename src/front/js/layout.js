@@ -9,7 +9,9 @@ import { Register } from "./component/Register.jsx";
 import { Login } from "./component/Login.jsx";
 import { GameForm } from "./component/GameForm.jsx"
 import { GameView } from "./component/GameView.jsx";
+import { Cart } from "./component/Cart.jsx"
 import injectContext from "./store/appContext";
+import SearchResults from "./component/SearchResults.jsx";
 
 
 //create your first component
@@ -32,6 +34,8 @@ const Layout = () => {
                         <Route element={<Login/>} path="/login"/>
                         <Route element={<GameForm/>} path="/submit-game"/>
                         <Route element={<GameView/>} path="/game/:theid"/>
+                        <Route element={<SearchResults/>} path="/search-results"/>
+                        <Route element={<Cart/>} path="/cart"/>
                     </Routes>
                 </ScrollToTop>
             </BrowserRouter>

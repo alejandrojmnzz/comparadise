@@ -1,10 +1,12 @@
-import React, {useEffect, useContext} from "react";
+import React, {useEffect, useContext, useState} from "react";
 import { useParams } from "react-router-dom";
 import { Context } from "../store/appContext";
 
 export function GameView() {
     const {theid}= useParams()
-    const {store, actions} = useContext(Context)
+    const {store, actions} = useContext(Context);
+    const [errorMessage, setErrorMessage] = useState(null);
+    const [successMessage, setSuccessMessage] = useState(null);
     let {name,
         user_id,
         cover_image, 
@@ -37,6 +39,17 @@ export function GameView() {
 
         return store.singleUser
     }
+    async function handleAddToCart() {
+        
+        const response = await actions.addToCart(theid);
+        if (!response.success) {
+            setErrorMessage(response.message);
+            setSuccessMessage(null);
+        } else {
+            setSuccessMessage(response.message);
+            setErrorMessage(null);
+        }
+    } 
     return(
         <>
         <div className="container">
@@ -93,6 +106,15 @@ export function GameView() {
                                 ))}
                             </div>
                         </div>
+                    )}
+                    <div className="d-flex justify-content-center mt-3">
+                        <button className="btn btn-primary" onClick={handleAddToCart}>Add to Cart</button>
+                    </div>
+                    {errorMessage && (
+                        <div className="alert alert-danger mt-3 text-center"> {errorMessage}</div>
+                    )}
+                    {successMessage && (
+                        <div className="alert alert-success mt-3 text-center">{successMessage}</div>
                     )}
             </div>
         </div>

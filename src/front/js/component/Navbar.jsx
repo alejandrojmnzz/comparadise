@@ -19,6 +19,9 @@ export function Navbar() {
     function goToMainPage() {
         navigate("/");
     }
+    function goToCart() {
+        navigate("/cart");
+    }
 
     const handleSearchChange = async (event) => {
         const searchText = event.target.value;
@@ -95,6 +98,9 @@ export function Navbar() {
                         ) : (
                             <>
                                 <NavLink to="/submit-game" className="btn btn-primary me-2">Submit Game</NavLink>
+                                <button className="btn btn-warning me-2" onClick={goToCart}>
+                                    Cart {store.cart?.length > 0 && `(${store.cart.length})`}
+                                </button>
                                 <button className="btn btn-danger" onClick={logOut}>Log Out</button>
                             </>
                         )}

@@ -7,7 +7,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 			singleUser: {},
 			searchResults: [],
 			isLoading: false,
-			relatedGames: []
+			relatedGames: [],
+			cart: [],
 		},
 		actions: {
 			register: async (user) => {
@@ -204,10 +205,71 @@ const getState = ({ getStore, getActions, setStore }) => {
 				console.log(data)
 				setStore({relatedGames: data})
 				return data
+			},
+			fetchCart: async (userId) => {
+				try{
+					let response = await fetch(`${process.env.BACKEND_URL}/cart`, {
+						method:"GET",
+						headers: {
+							"Content-Type": "application/json",
+                			"Authorization": `Bearer ${getStore().token}`
+						}
+					});
+					let data = await response.json();
+					setStore({cart: data});
+				} catch (error) {
+					console.error("Error fetching cart:", error);
+					setStore({ cart: []});
+				}
+			},
+			addToCart: async (gameId) => {
+				try {
+					let response = await fetch(`${process.env.BACKEND_URL}/add-to-cart`, {
+						method: "POST",
+						headers: {
+							"Content-Type": "application/json",
+							"Authorization": `Bearer ${getStore().token}`
+						},
+						body: JSON.stringify({ game_id: gameId })
+					});
+			
+					let data = await response.json();
+			
+					if (!response.ok) {
+						return { success: false, message: data.message || "Failed to add to cart." };
+					}
+					getActions().fetchCart();
+			
+					return { success: true, message: "Game added to cart!" };
+				} catch (error) {
+					console.error("Error adding to cart:", error);
+					return { success: false, message: "An error occurred." };
+				}
+			},
+			removeFromCart: async (cartId) => {
+				try {
+					let response = await fetch(`${process.env.BACKEND_URL}/remove-from-cart/${cartId}`, {
+						method: "DELETE",
+						headers: {
+							"Authorization": `Bearer ${getStore().token}`
+						}
+					});
+			
+					if (response.ok) {
+						// Refresh the cart state
+						getActions().fetchCart();
+						return { success: true, message: "Game removed from cart!" };
+					} else {
+						return { success: false, message: "Failed to remove game from cart." };
+					}
+				} catch (error) {
+					console.error("Error removing from cart:", error);
+					return { success: false, message: "An error occurred." };
+				}
 			}
 		}
 	};
-};
+}
 
 
-export default getState;
+export default getState
