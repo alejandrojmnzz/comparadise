@@ -331,6 +331,17 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 				)
 				return response.status
+			},
+			updateLike: async (id) => {
+				let response = await fetch(`${process.env.BACKEND_URL}/update-like/${id}`,
+					{
+						method: 'GET',
+						headers: {
+						'Authorization': `Bearer ${getStore().token}`
+						}
+					}
+				)
+				return response.status
 			}
 		}
 	};

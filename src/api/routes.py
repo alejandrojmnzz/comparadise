@@ -762,18 +762,46 @@ def get_reviews(id):
 @jwt_required()
 def like_game(id):
     like = Like()
-    like.user_id = int(get_jwt_identity())
-    like.game_id = id
-    like.is_liked = True
+    like_exists = like.query.filter(Like.user_id == int(get_jwt_identity()), Like.game_id == id).one_or_none()
 
-    db.session.add(like)
-    try:
-        db.session.commit()
-        return jsonify("done")
-    except Exception as error:
-        print(error.args)
-        return jsonify('Error')
+    if like_exists == []:
+        like.user_id = int(get_jwt_identity())
+        like.game_id = id
+        like.is_liked = True
+
+        db.session.add(like)
+        try:
+            db.session.commit()
+            return jsonify("done")
+        except Exception as error:
+            print(error.args)
+            return jsonify('Error')
+    else:
+        print("User already liked this game")
+
+        return jsonify("User already liked this game"), 208
     
+
+@api.route('update-like/<int:id>', methods=['GET'])
+@jwt_required()
+def update_like(id):
+    like = Like.query.filter(Like.user_id == int(get_jwt_identity()), Like.game_id == id).one_or_none()
+    if like != []:
+        if like.is_liked == True:
+            like.is_liked = False
+        else:
+            like.is_liked = True
+        try:
+            db.session.commit()
+            return jsonify("Disliked")
+        except Exception as error:
+            print(error.args)
+            return jsonify("error")
+    else:
+        print("does not exist")
+        return jsonify("Like doesn't exist")
+    
+
 @api.route('/get-game-likes', methods=['GET'])
 def get_game_likes():
     all_likes = Like.query.all()

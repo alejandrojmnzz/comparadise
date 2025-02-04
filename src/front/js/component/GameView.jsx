@@ -74,6 +74,12 @@ export function GameView() {
             alert("Liked succesfully")
             actions.getGame(theid)
         }
+        let updateResponse = await actions.updateLike(id)
+        if (updateResponse == 200) {
+            alert("Updated succesfully")
+            actions.getGame(theid)
+            console.log(store.singleGame)
+        }
     }
 
     useEffect(() => {
