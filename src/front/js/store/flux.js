@@ -9,7 +9,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 			isLoading: false,
 			relatedGames: [],
 			currentUserGames: null,
-			userGames: null
+			userGames: null,
+			reviews: []
 		},
 		actions: {
 			register: async (user) => {
@@ -259,6 +260,37 @@ const getState = ({ getStore, getActions, setStore }) => {
 			catch (error) {
 				console.log(error)
 			}
+			},
+			addReview: async (review) => {
+				try {
+					let response = await fetch(`${process.env.BACKEND_URL}/add-review`,
+						{
+							method: 'POST',
+							headers: {
+								'Content-Type': 'application/json',
+								'Authorization': `Bearer ${getStore().token}`
+							},
+							body: JSON.stringify(review)
+						}
+					)
+					let data = await response.json()
+					console.log(data)
+					return data
+				}
+				catch (error) {
+					console.log(error)
+				}
+			},
+			getAllReviews: async () => {
+				let response = await fetch(`${process.nextTick.BACKEND_URL}/get-all-reviews`,
+					{
+						method: 'GET'
+					}
+				)
+				let data = await response.json()
+				console.log(data)
+				setStore({reviews: data})
+				return data
 			}
 		}
 	};

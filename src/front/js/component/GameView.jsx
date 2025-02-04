@@ -6,6 +6,10 @@ export function GameView() {
     const { theid } = useParams()
     const { store, actions } = useContext(Context)
     const [autoRelatedGames, setAutoRelatedGames] = useState()
+    const [review, setReview] = useState({
+        "rating": 0,
+        "review": ""
+    })
     const [loading, setLoading] = useState(true)
 
     let { name,
@@ -42,7 +46,15 @@ export function GameView() {
             setLoading(false)
         })
     }
+    function handleRate({target}) {
+        setReview({...review,
+            [target.name]: target.value})
+        console.log(review)
+    }
 
+    async function handleReviewSubmit() {
+        actions.addReview(review)
+    }
     useEffect(() => {
         if (!user_id) return
         actions.getUser(user_id)
@@ -50,14 +62,12 @@ export function GameView() {
 
     useEffect(() => {
         actions.getGame(theid)
+        actions.getAllReviews()
     }, [])
 
     useEffect(() => {
         if (Object.keys(store.singleGame).length == 0) return
         handleRelation()
-        // setTimeout(() => {
-        //     setLoading(false)
-        // }, 2000)
     }, [auto_related_games])
     return (
         <>
@@ -139,33 +149,44 @@ export function GameView() {
                     )}
                 <div>
                     <h1>Rate this game</h1>
-
-                    <div className="btn-group" role="group" aria-label="Basic radio toggle button group">
-                        <input type="radio" className="btn-check" name="btnradio" id="btnradio1" autocomplete="off"/>
+                    <form className=""></form>
+                    <div onChange={handleRate} className="btn-group" role="group" aria-label="Basic radio toggle button group">
+                        <input type="radio" className="btn-check" value="1" name="rating" id="btnradio1" autocomplete="off"/>
                         <label className="btn btn-outline-primary" for="btnradio1">1</label>
-                        <input type="radio" className="btn-check" name="btnradio" id="btnradio2" autocomplete="off"/>
+                        <input type="radio" className="btn-check" value="2" name="rating" id="btnradio2" autocomplete="off"/>
                         <label className="btn btn-outline-primary" for="btnradio2">2</label>
-                        <input type="radio" className="btn-check" name="btnradio" id="btnradio3" autocomplete="off"/>
+                        <input type="radio" className="btn-check" value="3" name="rating" id="btnradio3" autocomplete="off"/>
                         <label className="btn btn-outline-primary" for="btnradio3">3</label>
-                        <input type="radio" className="btn-check" name="btnradio" id="btnradio4" autocomplete="off"/>
+                        <input type="radio" className="btn-check" value="4" name="rating" id="btnradio4" autocomplete="off"/>
                         <label className="btn btn-outline-primary" for="btnradio4">4</label>
-                        <input type="radio" className="btn-check" name="btnradio" id="btnradio5" autocomplete="off"/>
+                        <input type="radio" className="btn-check" value="5" name="rating" id="btnradio5" autocomplete="off"/>
                         <label className="btn btn-outline-primary" for="btnradio5">5</label>
-                        <input type="radio" className="btn-check" name="btnradio" id="btnradio6" autocomplete="off"/>
+                        <input type="radio" className="btn-check" value="6" name="rating" id="btnradio6" autocomplete="off"/>
                         <label className="btn btn-outline-primary" for="btnradio6">6</label>
-                        <input type="radio" className="btn-check" name="btnradio" id="btnradio6" autocomplete="off"/>
-                        <label className="btn btn-outline-primary" for="btnradio6">6</label>
-                        <input type="radio" className="btn-check" name="btnradio" id="btnradio7" autocomplete="off"/>
+                        <input type="radio" className="btn-check" value="7" name="rating" id="btnradio6" autocomplete="off"/>
                         <label className="btn btn-outline-primary" for="btnradio7">7</label>
-                        <input type="radio" className="btn-check" name="btnradio" id="btnradio8" autocomplete="off"/>
+                        <input type="radio" className="btn-check" value="8" name="rating" id="btnradio8" autocomplete="off"/>
                         <label className="btn btn-outline-primary" for="btnradio8">8</label>
-                        <input type="radio" className="btn-check" name="btnradio" id="btnradio9" autocomplete="off"/>
+                        <input type="radio" className="btn-check" value="9" name="rating" id="btnradio9" autocomplete="off"/>
                         <label className="btn btn-outline-primary" for="btnradio9">9</label>
-                        <input type="radio" className="btn-check" name="btnradio" id="btnradio10" autocomplete="off"/>
+                        <input type="radio" className="btn-check" value="10" name="rating" id="btnradio10" autocomplete="off"/>
                         <label className="btn btn-outline-primary" for="btnradio10">10</label>
                     </div>
-                    <input className="form-control" placeholder="Add a review..."></input>
+                    <input className="form-control" placeholder="Add a review..." name="review" onChange={handleRate}></input>
+                    <input type="submit" value="Submit" onClick={handleReviewSubmit}/>
                 </div>
+            </div>
+            <div>
+                <h1>Reviews</h1>
+                {
+                    store.reviews.map((item) => {
+                console.log(store.reviews)
+
+                        return(
+                            <div>{item.review}</div>
+                        )
+                    })
+                }
             </div>
             </div>
             }

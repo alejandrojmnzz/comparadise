@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User, Game
+from api.models import db, User, Game, Review
 from api.utils import generate_sitemap, APIException, compare_game_and_api
 from flask_cors import CORS
 from base64 import b64encode
@@ -726,3 +726,28 @@ def get_user_games():
     except Exception as error:
         print(error.args)
         return jsonify(False)
+
+@api.route('/add-review', methods=['POST'])
+@jwt_required()
+def add_review():
+    body = request.json
+    body_review = body["review"]
+    body_rating = body["rating"]
+    review = Review()
+    review.rating = body_rating
+    review.review = body_review
+    review.user_id = int(get_jwt_identity())
+    db.session.add(review)
+    try:
+        db.session.commit()
+    except Exception as error:
+        print(error)
+        return jsonify("Error")
+    # all_reviews = Review.query.all()
+    # print(list(map(lambda item: item.serialize(), all_reviews)))
+    return jsonify(body)
+
+@api.route('/get-all-reviews/<id:int>', methods=['GET'])
+def get_reviews(id):
+    all_reviews = Review.query.filter_by(game_id = id).first()
+    return jsonify(list(map(lambda item: item.serialize(), all_reviews)))
