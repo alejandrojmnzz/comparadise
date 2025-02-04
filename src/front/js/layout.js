@@ -12,9 +12,9 @@ import { GameView } from "./component/GameView.jsx";
 import { Cart } from "./component/Cart.jsx"
 import { MyGames } from "./component/MyGames.jsx";
 import { UserGames } from "./component/UserGames.jsx";
-import SearchResults from "./component/SearchResults.jsx";
+import {SearchResults} from "./component/SearchResults.jsx";
 import injectContext from "./store/appContext";
-import SearchResults from "./component/SearchResults.jsx";
+
 
 
 //create your first component

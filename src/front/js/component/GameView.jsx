@@ -74,7 +74,7 @@ export function GameView() {
                 setErrorMessage(null);
             }
         } 
-            if (Object.keys(store.singleGame).length == 0) return
+            if (Object.keys(store.singleGame).length == 0)
             handleRelation()
             // setTimeout(() => {
             //     setLoading(false)
