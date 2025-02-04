@@ -102,6 +102,7 @@ export function Navbar() {
                                     Cart {store.cart?.length > 0 && `(${store.cart.length})`}
                                 </button>
                                 <button className="btn btn-danger" onClick={logOut}>Log Out</button>
+                                <NavLink to="/my-games" className="btn btn-primary ms-2">My Games</NavLink>
                             </>
                         )}
                     </div>

@@ -37,6 +37,7 @@ class Game(db.Model):
     rating = db.Column(db.String(10), nullable=True)
     players = db.Column(db.Integer, nullable=False)
     related_games = db.Column(db.Text, nullable=True)
+    auto_related_games = db.Column(db.String(100), nullable=False)
     language = db.Column(db.String(250), nullable=False)
     summary = db.Column(db.String(150), nullable=True)
     description = db.Column(db.Text, nullable=True)
@@ -65,6 +66,7 @@ class Game(db.Model):
             "rating": self.rating,
             "players": self.players,
             "related_games": self.related_games,
+            "auto_related_games": json.loads(self.auto_related_games) if self.auto_related_games else [],
             "language": self.language,
             "summary": self.summary,
             "description": self.description,

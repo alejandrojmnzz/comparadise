@@ -3,7 +3,7 @@ This module takes care of starting the API Server, Loading the DB and Adding the
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
 from api.models import db, User, Game, Cart
-from api.utils import generate_sitemap, APIException
+from api.utils import generate_sitemap, APIException, compare_game_and_api
 from flask_cors import CORS
 from base64 import b64encode
 import os
@@ -106,6 +106,7 @@ def submit_game():
     additional_files = request.files.getlist("additional_images[]")
 
     data = request.form
+    auto_related_games = compare_game_and_api(data)
     # print("Request data",data)
     # print("Request files", request.files)
     if not data.get('name') or not data.get('genres') or not data.get('release_date') or not data.get('modes') or not data.get('players') or not data.get('language') or not data.get('system_requirements'):
@@ -139,6 +140,7 @@ def submit_game():
     rating=data['rating'],
     players=int(data['players']),
     related_games=data.get('related_games', ''),
+    auto_related_games=json.dumps(auto_related_games),
     language=data['language'],
     summary=data['summary'],
     description=data['description'],
@@ -201,6 +203,7 @@ def populate_games():
 
     db.session.add(user)
     db.session.commit()
+
 
 
     game_populate = [
@@ -736,3 +739,25 @@ def remove_from_cart(cart_id):
     db.session.delete(cart_item)
     db.session.commit()
     return jsonify({"message": "Game removed from cart"}), 200
+@api.route('/my-games', methods=['GET'])
+@jwt_required()
+def get_current_user_games():
+    try: 
+        current_user = get_jwt_identity()
+        user_games = Game.query.filter_by(user_id = current_user)
+
+        return jsonify(list(map(lambda item: item.serialize(), user_games)))
+    except Exception as error:
+        print(error.args)
+        return jsonify(False)
+    
+@api.route('/user-games', methods=['POST'])
+def get_user_games():
+    try: 
+        user_id = request.json
+        user_games = Game.query.filter_by(user_id = user_id)
+        print(user_id)
+        return jsonify(list(map(lambda item: item.serialize(), user_games)))
+    except Exception as error:
+        print(error.args)
+        return jsonify(False)

@@ -10,6 +10,9 @@ import { Login } from "./component/Login.jsx";
 import { GameForm } from "./component/GameForm.jsx"
 import { GameView } from "./component/GameView.jsx";
 import { Cart } from "./component/Cart.jsx"
+import { MyGames } from "./component/MyGames.jsx";
+import { UserGames } from "./component/UserGames.jsx";
+import SearchResults from "./component/SearchResults.jsx";
 import injectContext from "./store/appContext";
 import SearchResults from "./component/SearchResults.jsx";
 
@@ -36,6 +39,8 @@ const Layout = () => {
                         <Route element={<GameView/>} path="/game/:theid"/>
                         <Route element={<SearchResults/>} path="/search-results"/>
                         <Route element={<Cart/>} path="/cart"/>
+                        <Route element={<MyGames/>} path="/my-games"/>
+                        <Route element={<UserGames/>} path="/user-games/:theid"/>
                     </Routes>
                 </ScrollToTop>
             </BrowserRouter>
