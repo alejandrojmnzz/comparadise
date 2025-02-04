@@ -10,7 +10,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 			relatedGames: [],
 			currentUserGames: null,
 			userGames: null,
-			reviews: []
+			reviews: [],
+			userReviewName: []
 		},
 		actions: {
 			register: async (user) => {
@@ -114,6 +115,27 @@ const getState = ({ getStore, getActions, setStore }) => {
 						singleUser: data
 					})
 					console.log(data)
+				} catch (error) {
+					console.log(error)
+				}
+			},
+			getLocalUser: async (id) => {
+				try {
+					console.log(id)
+
+					let response = await fetch(`${process.env.BACKEND_URL}/get-user`,
+						{
+						method: 'POST',
+						headers: {
+							"Content-Type": "application/json"
+						},
+						body: JSON.stringify(id)
+					}
+					)
+					let data = await response.json()
+					setStore({...getStore().userReviewName,
+						"name": data.name})
+					return(data)
 				} catch (error) {
 					console.log(error)
 				}
@@ -275,22 +297,51 @@ const getState = ({ getStore, getActions, setStore }) => {
 					)
 					let data = await response.json()
 					console.log(data)
-					return data
+					return response.status
 				}
 				catch (error) {
 					console.log(error)
 				}
 			},
-			getAllReviews: async () => {
-				let response = await fetch(`${process.nextTick.BACKEND_URL}/get-all-reviews`,
+			getAllReviews: async (id) => {
+				let response = await fetch(`${process.env.BACKEND_URL}/get-all-reviews/${id}`,
 					{
 						method: 'GET'
 					}
 				)
 				let data = await response.json()
-				console.log(data)
-				setStore({reviews: data})
+				let review = 0
+				for (let item of data) {
+					review = review + item.rating
+				}
+
+				setStore({reviews: data,
+					totalRating: (review / data.length)
+				})
 				return data
+			},
+			addLike: async (id) => {
+				let response = await fetch(`${process.env.BACKEND_URL}/like-game/${id}`,
+					{
+					method: 'GET',
+					
+					headers: {
+						'Authorization': `Bearer ${getStore().token}`
+					}
+				}
+				)
+				return response.status
+			},
+			updateLike: async (id) => {
+				let response = await fetch(`${process.env.BACKEND_URL}/update-like/${id}`,
+					{
+						method: 'GET',
+						headers: {
+						'Authorization': `Bearer ${getStore().token}`
+						}
+					}
+				)
+				return response.status
 			}
 		}
 	};

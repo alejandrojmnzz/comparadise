@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User, Game, Review
+from api.models import db, User, Game, Review, Like
 from api.utils import generate_sitemap, APIException, compare_game_and_api
 from flask_cors import CORS
 from base64 import b64encode
@@ -733,10 +733,12 @@ def add_review():
     body = request.json
     body_review = body["review"]
     body_rating = body["rating"]
+    body_game_id = body["game_id"]
     review = Review()
     review.rating = body_rating
     review.review = body_review
     review.user_id = int(get_jwt_identity())
+    review.game_id = body_game_id
     db.session.add(review)
     try:
         db.session.commit()
@@ -747,7 +749,70 @@ def add_review():
     # print(list(map(lambda item: item.serialize(), all_reviews)))
     return jsonify(body)
 
-@api.route('/get-all-reviews/<id:int>', methods=['GET'])
+@api.route('/get-all-reviews/<int:id>', methods=['GET'])
 def get_reviews(id):
-    all_reviews = Review.query.filter_by(game_id = id).first()
-    return jsonify(list(map(lambda item: item.serialize(), all_reviews)))
+    try: 
+        user_reviews = Review.query.filter_by(game_id = id)
+        return jsonify(list(map(lambda item: item.serialize(), user_reviews)))
+    except Exception as error:
+        print(error)
+        return False
+    
+@api.route('/like-game/<int:id>', methods=['GET'])
+@jwt_required()
+def like_game(id):
+    like = Like()
+    like_exists = like.query.filter(Like.user_id == int(get_jwt_identity()), Like.game_id == id).one_or_none()
+
+    if like_exists == []:
+        like.user_id = int(get_jwt_identity())
+        like.game_id = id
+        like.is_liked = True
+
+        db.session.add(like)
+        try:
+            db.session.commit()
+            return jsonify("done")
+        except Exception as error:
+            print(error.args)
+            return jsonify('Error')
+    else:
+        print("User already liked this game")
+
+        return jsonify("User already liked this game"), 208
+    
+
+@api.route('update-like/<int:id>', methods=['GET'])
+@jwt_required()
+def update_like(id):
+    like = Like.query.filter(Like.user_id == int(get_jwt_identity()), Like.game_id == id).one_or_none()
+    if like != []:
+        if like.is_liked == True:
+            like.is_liked = False
+        else:
+            like.is_liked = True
+        try:
+            db.session.commit()
+            return jsonify("Disliked")
+        except Exception as error:
+            print(error.args)
+            return jsonify("error")
+    else:
+        print("does not exist")
+        return jsonify("Like doesn't exist")
+    
+
+@api.route('/get-game-likes', methods=['GET'])
+def get_game_likes():
+    all_likes = Like.query.all()
+    game_likes = {}
+    for like in all_likes:
+        game_likes[like.game_id] = game_likes.get(like.game_id, 0) + 1
+        
+    game_likes_array = []
+    for item in game_likes:
+        game_likes_array.append({item: game_likes.get(item)})
+
+    sorted_games = sorted(game_likes_array, key=lambda x: list(x.values())[0], reverse=True)
+    print(sorted_games)
+    return jsonify(list(map(lambda item: item.serialize(), all_likes)))
