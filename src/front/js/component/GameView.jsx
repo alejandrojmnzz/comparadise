@@ -109,6 +109,7 @@ export function GameView() {
                                     <span>{genres}</span>
                                 </div>
                             </div>
+                            <div></div>
                             <div className="d-flex justify-content-center">
                                 <img src={cover_image} className="w-25" />
                             </div>
