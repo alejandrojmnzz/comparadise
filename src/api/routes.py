@@ -560,6 +560,7 @@ def populate_games():
         game.summary = single_populate['summary']
         game.description = single_populate['description']
         game.trailer = single_populate['trailer']
+        game.is_liked = True
         db.session.add(game)
     try:
         db.session.commit()
@@ -824,9 +825,10 @@ def get_game_likes():
         game_likes[like.game_id] = game_likes.get(like.game_id, 0) + 1
         
     game_likes_array = []
+    count = 0
     for item in game_likes:
-        game_likes_array.append({item: game_likes.get(item)})
+        game_likes_array.append({"likes": game_likes.get(item), "game": all_likes[count].game.serialize()})
+        count = count + 1
 
-    sorted_games = sorted(game_likes_array, key=lambda x: list(x.values())[0], reverse=True)
-    print(sorted_games)
-    return jsonify(list(map(lambda item: item.serialize(), all_likes)))
+    sorted_games = sorted(game_likes_array, key=lambda x: x["likes"], reverse=True)
+    return jsonify(list(map(lambda item: item, sorted_games)))

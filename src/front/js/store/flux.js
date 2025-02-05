@@ -11,7 +11,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 			currentUserGames: null,
 			userGames: null,
 			reviews: [],
-			userReviewName: []
+			userReviewName: [],
+			featuredGames: null
 		},
 		actions: {
 			register: async (user) => {
@@ -342,6 +343,16 @@ const getState = ({ getStore, getActions, setStore }) => {
 					}
 				)
 				return response.status
+			},
+			getFeaturedGames: async () => {
+				let response = await fetch(`${process.env.BACKEND_URL}/get-game-likes`,
+					{
+						method: 'GET'
+					}
+				)
+				let data = await response.json()
+				setStore({featuredGames: [data[0], data[1], data[2], data[3], data[4]]})
+				return data
 			}
 		}
 	};

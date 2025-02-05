@@ -87,6 +87,7 @@ export function GameView() {
         if (!user_id) return
         actions.getUser(user_id)
         actions.getAllReviews(id)
+        console.log(store.reviews.totalRating)
 
     }, [user_id])
 
@@ -129,6 +130,7 @@ export function GameView() {
                             </div>
                             <div className="col-6 d-flex justify-content-center">
                                 <p>{summary}</p>
+                                <h2>Rating: {store.totalRating}</h2>                                
                             </div>
                             <div className="col-6 d-flex justify-content-center">
                                 <div>
