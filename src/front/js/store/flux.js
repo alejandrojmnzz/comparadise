@@ -11,10 +11,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 			isLoading: false,
 			relatedGames: [],
 			cart: [],
+			library: [],
 			currentUserGames: null,
 			userGames: null,
-			library:[],
-			reviews: []
+			reviews: [],
+			userReviewName: [],
+			featuredGames: null
 		},
 		actions: {
 			register: async (user) => {
@@ -122,6 +124,27 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log(error)
 				}
 			},
+			getLocalUser: async (id) => {
+				try {
+					console.log(id)
+
+					let response = await fetch(`${process.env.BACKEND_URL}/get-user`,
+						{
+						method: 'POST',
+						headers: {
+							"Content-Type": "application/json"
+						},
+						body: JSON.stringify(id)
+					}
+					)
+					let data = await response.json()
+					setStore({...getStore().userReviewName,
+						"name": data.name})
+					return(data)
+				} catch (error) {
+					console.log(error)
+				}
+			},
 			fetchSearchResults: async (query) => {
 				setStore({isLoading: true});
 
@@ -190,7 +213,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						}
 					)
 					let data = await response.json()
-					console.log(data)
+					console.log(id)
 					return data[0].result[0]
 				} catch (error) {
 					console.log(error)
@@ -364,21 +387,60 @@ const getState = ({ getStore, getActions, setStore }) => {
 					)
 					let data = await response.json()
 					console.log(data)
-					return data
+					return response.status
 				}
 				catch (error) {
 					console.log(error)
 				}
 			},
-			getAllReviews: async () => {
-				let response = await fetch(`${process.nextTick.BACKEND_URL}/get-all-reviews`,
+			getAllReviews: async (id) => {
+				let response = await fetch(`${process.env.BACKEND_URL}/get-all-reviews/${id}`,
 					{
 						method: 'GET'
 					}
 				)
 				let data = await response.json()
-				console.log(data)
-				setStore({reviews: data})
+				let review = 0
+				for (let item of data) {
+					review = review + item.rating
+				}
+
+				setStore({reviews: data,
+					totalRating: (review / data.length)
+				})
+				return data
+			},
+			addLike: async (id) => {
+				let response = await fetch(`${process.env.BACKEND_URL}/like-game/${id}`,
+					{
+					method: 'GET',
+					
+					headers: {
+						'Authorization': `Bearer ${getStore().token}`
+					}
+				}
+				)
+				return response.status
+			},
+			updateLike: async (id) => {
+				let response = await fetch(`${process.env.BACKEND_URL}/update-like/${id}`,
+					{
+						method: 'GET',
+						headers: {
+						'Authorization': `Bearer ${getStore().token}`
+						}
+					}
+				)
+				return response.status
+			},
+			getFeaturedGames: async () => {
+				let response = await fetch(`${process.env.BACKEND_URL}/get-game-likes`,
+					{
+						method: 'GET'
+					}
+				)
+				let data = await response.json()
+				setStore({featuredGames: [data[0], data[1], data[2], data[3], data[4]]})
 				return data
 			}
 		}

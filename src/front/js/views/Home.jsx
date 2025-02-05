@@ -4,6 +4,7 @@ import rigoImageUrl from "../../img/rigo-baby.jpg";
 import "../../styles/home.css";
 import "../../styles/api-search.css";
 import { GamePreview } from "../component/GamePreview.jsx";
+import { FeaturedGames } from "../component/FeaturedGames.jsx";
 import "../../styles/index.css"
 
 export const Home = () => {
@@ -44,7 +45,7 @@ export const Home = () => {
 
 	return (
 		<>
-		
+		<FeaturedGames/>
 		<div className="h-100 align-items-end">
 			<div className="d-flex justify-content-center">
 				<input type="search" value={query} className="form-control w-50" onChange={handleChange} onKeyDown={handleEnter} placeholder="Search for a game to compare"/>
