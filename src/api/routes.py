@@ -763,7 +763,7 @@ def get_user_games():
         print(error.args)
         return jsonify(False)
 
-@api.rout('/purchase', methods=['POST'])
+@api.route('/purchase', methods=['POST'])
 @jwt_required()
 def purchase_games():
     user_id = get_jwt_identity()

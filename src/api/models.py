@@ -101,7 +101,7 @@ class Cart(db.Model):
 class Purchase(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
-    game_id = db.Column(db.Integer, db.ForeinKey("game.id"), nullable=False)
+    game_id = db.Column(db.Integer, db.ForeignKey("game.id"), nullable=False)
     purchase_date = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
 
     user = db.relationship("User", back_populates="purchases")
