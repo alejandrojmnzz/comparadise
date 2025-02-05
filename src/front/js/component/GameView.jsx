@@ -69,17 +69,18 @@ export function GameView() {
     }
 
     async function handleLike() {
-        let response = await actions.addLike(id)
-        if (response == 200) {
-            alert("Liked succesfully")
-            actions.getGame(theid)
-        }
         let updateResponse = await actions.updateLike(id)
         if (updateResponse == 200) {
             alert("Updated succesfully")
             actions.getGame(theid)
             console.log(store.singleGame)
         }
+        let response = await actions.addLike(id)
+        if (response == 200) {
+            alert("Liked succesfully")
+            actions.getGame(theid)
+        }
+
     }
 
     useEffect(() => {
@@ -195,7 +196,7 @@ export function GameView() {
                                     <label className="btn btn-outline-primary" htmlFor="btnradio5">5</label>
                                     <input type="radio" className="btn-check" value="6" name="rating" id="btnradio6" autocomplete="off" />
                                     <label className="btn btn-outline-primary" htmlFor="btnradio6">6</label>
-                                    <input type="radio" className="btn-check" value="7" name="rating" id="btnradio6" autocomplete="off" />
+                                    <input type="radio" className="btn-check" value="7" name="rating" id="btnradio7" autocomplete="off" />
                                     <label className="btn btn-outline-primary" htmlFor="btnradio7">7</label>
                                     <input type="radio" className="btn-check" value="8" name="rating" id="btnradio8" autocomplete="off" />
                                     <label className="btn btn-outline-primary" htmlFor="btnradio8">8</label>

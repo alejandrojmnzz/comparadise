@@ -251,6 +251,7 @@ def populate_games():
             "rating": "7/10",
             "players": 1,
             "related_games": "x, x, x",
+            "auto_related_games": json.dumps([134, 573, 468]),
             "language": "Spanish, English",
             "summary": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aliquid, odit!",
             "description": " Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas excepturi accusantium quasi at. Explicabo provident doloribus et tempora, facere facilis ullam debitis recusandae magnam eum ad, error nemo aliquam architecto aut asperiores? Commodi ad accusamus placeat ab? Iste nesciunt ducimus sapiente accusamus totam adipisci, facilis ullam, fugit saepe reiciendis optio!",
@@ -281,6 +282,7 @@ def populate_games():
             "rating": "9/10",
             "players": 1,
             "related_games": "x, x, x",
+            "auto_related_games": json.dumps([134, 573, 468]),
             "language": "Spanish, English",
             "summary": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aliquid, odit!",
             "description": " Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas excepturi accusantium quasi at. Explicabo provident doloribus et tempora, facere facilis ullam debitis recusandae magnam eum ad, error nemo aliquam architecto aut asperiores? Commodi ad accusamus placeat ab? Iste nesciunt ducimus sapiente accusamus totam adipisci, facilis ullam, fugit saepe reiciendis optio!",
@@ -311,6 +313,7 @@ def populate_games():
             "rating": "10/10",
             "players": 1,
             "related_games": "x, x, x",
+            "auto_related_games": json.dumps([134, 573, 468]),
             "language": "Spanish, English",
             "summary": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aliquid, odit!",
             "description": " Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas excepturi accusantium quasi at. Explicabo provident doloribus et tempora, facere facilis ullam debitis recusandae magnam eum ad, error nemo aliquam architecto aut asperiores? Commodi ad accusamus placeat ab? Iste nesciunt ducimus sapiente accusamus totam adipisci, facilis ullam, fugit saepe reiciendis optio!",
@@ -341,6 +344,7 @@ def populate_games():
             "rating": "6/10",
             "players": 1,
             "related_games": "x, x, x",
+            "auto_related_games": json.dumps([134, 573, 468]),
             "language": "Spanish, English",
             "summary": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aliquid, odit!",
             "description": " Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas excepturi accusantium quasi at. Explicabo provident doloribus et tempora, facere facilis ullam debitis recusandae magnam eum ad, error nemo aliquam architecto aut asperiores? Commodi ad accusamus placeat ab? Iste nesciunt ducimus sapiente accusamus totam adipisci, facilis ullam, fugit saepe reiciendis optio!",
@@ -371,6 +375,7 @@ def populate_games():
             "rating": "6/10",
             "players": 1,
             "related_games": "x, x, x",
+            "auto_related_games": json.dumps([134, 573, 468]),
             "language": "Spanish, English",
             "summary": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aliquid, odit!",
             "description": " Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas excepturi accusantium quasi at. Explicabo provident doloribus et tempora, facere facilis ullam debitis recusandae magnam eum ad, error nemo aliquam architecto aut asperiores? Commodi ad accusamus placeat ab? Iste nesciunt ducimus sapiente accusamus totam adipisci, facilis ullam, fugit saepe reiciendis optio!",
@@ -401,6 +406,7 @@ def populate_games():
             "rating": "6/10",
             "players": 1,
             "related_games": "x, x, x",
+            "auto_related_games": json.dumps([134, 573, 468]),
             "language": "Spanish, English",
             "summary": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aliquid, odit!",
             "description": " Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas excepturi accusantium quasi at. Explicabo provident doloribus et tempora, facere facilis ullam debitis recusandae magnam eum ad, error nemo aliquam architecto aut asperiores? Commodi ad accusamus placeat ab? Iste nesciunt ducimus sapiente accusamus totam adipisci, facilis ullam, fugit saepe reiciendis optio!",
@@ -431,6 +437,7 @@ def populate_games():
             "rating": "9/10",
             "players": 1,
             "related_games": "x, x, x",
+            "auto_related_games": json.dumps([134, 573, 468]),
             "language": "Spanish, English",
             "summary": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aliquid, odit!",
             "description": " Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas excepturi accusantium quasi at. Explicabo provident doloribus et tempora, facere facilis ullam debitis recusandae magnam eum ad, error nemo aliquam architecto aut asperiores? Commodi ad accusamus placeat ab? Iste nesciunt ducimus sapiente accusamus totam adipisci, facilis ullam, fugit saepe reiciendis optio!",
@@ -461,6 +468,7 @@ def populate_games():
             "rating": "6/10",
             "players": 4,
             "related_games": "x, x, x",
+            "auto_related_games": json.dumps([134, 573, 468]),
             "language": "Spanish, English",
             "summary": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aliquid, odit!",
             "description": " Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas excepturi accusantium quasi at. Explicabo provident doloribus et tempora, facere facilis ullam debitis recusandae magnam eum ad, error nemo aliquam architecto aut asperiores? Commodi ad accusamus placeat ab? Iste nesciunt ducimus sapiente accusamus totam adipisci, facilis ullam, fugit saepe reiciendis optio!",
@@ -491,6 +499,7 @@ def populate_games():
             "rating": "9/10",
             "players": 4,
             "related_games": "x, x, x",
+            "auto_related_games": json.dumps([134, 573, 468]),
             "language": "Spanish, English",
             "summary": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aliquid, odit!",
             "description": " Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas excepturi accusantium quasi at. Explicabo provident doloribus et tempora, facere facilis ullam debitis recusandae magnam eum ad, error nemo aliquam architecto aut asperiores? Commodi ad accusamus placeat ab? Iste nesciunt ducimus sapiente accusamus totam adipisci, facilis ullam, fugit saepe reiciendis optio!",
@@ -521,6 +530,7 @@ def populate_games():
             "rating": "9/10",
             "players": 1,
             "related_games": "x, x, x",
+            "auto_related_games": json.dumps([134, 573, 468]),
             "language": "Spanish, English",
             "summary": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aliquid, odit!",
             "description": " Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas excepturi accusantium quasi at. Explicabo provident doloribus et tempora, facere facilis ullam debitis recusandae magnam eum ad, error nemo aliquam architecto aut asperiores? Commodi ad accusamus placeat ab? Iste nesciunt ducimus sapiente accusamus totam adipisci, facilis ullam, fugit saepe reiciendis optio!",
@@ -545,6 +555,7 @@ def populate_games():
         game.rating = single_populate['rating']
         game.players = single_populate['players']
         game.related_games = single_populate['related_games']
+        game.auto_related_games=single_populate['auto_related_games']
         game.language = single_populate['language']
         game.summary = single_populate['summary']
         game.description = single_populate['description']
@@ -554,7 +565,6 @@ def populate_games():
         db.session.commit()
         return jsonify({"message": "Populated succesfully"}), 201
     except Exception as error:
-        print("hi")
         return jsonify ("Error"), 400
 
 @api.route('/get-api-games', methods=['POST'])
@@ -577,21 +587,25 @@ def get_api_games():
 
 @api.route('/multiquery-game', methods=['POST'])
 def multiquery_game():
-    id = request.json
-    url = "https://api.igdb.com/v4/multiquery"
-    headers = {
-        'Accept': 'application/json',
-        'Client-ID': os.getenv("CLIENT_ID"),
-        'Authorization': f'Bearer {os.getenv("ACCESS_TOKEN")}',
-        'Content-Type': 'text/plain'
-        }
-    data = f'''query games "Multiquery" {{
-	fields name,genres.name, themes.name, game_modes.name, player_perspectives.name, cover.url;
-    where id = {id};
-    }};'''
-    response = requests.post(url, headers=headers, data=data)
-    response = response.json()
-    return jsonify(response)
+    try:
+        id = request.json
+        url = "https://api.igdb.com/v4/multiquery"
+        headers = {
+            'Accept': 'application/json',
+            'Client-ID': os.getenv("CLIENT_ID"),
+            'Authorization': f'Bearer {os.getenv("ACCESS_TOKEN")}',
+            'Content-Type': 'text/plain'
+            }
+        data = f'''query games "Multiquery" {{
+        fields name,genres.name, themes.name, game_modes.name, player_perspectives.name, cover.url;
+        where id = {id};
+        }};'''
+        response = requests.post(url, headers=headers, data=data)
+        response = response.json()
+        return jsonify(response)
+    except Exception as error:
+        print(error.args)
+        return jsonify(error.args)
 
 @api.route('/compare-api-and-game', methods=['POST'])
 def compare_api_and_game():
@@ -764,7 +778,7 @@ def like_game(id):
     like = Like()
     like_exists = like.query.filter(Like.user_id == int(get_jwt_identity()), Like.game_id == id).one_or_none()
 
-    if like_exists == []:
+    if like_exists is None:
         like.user_id = int(get_jwt_identity())
         like.game_id = id
         like.is_liked = True
@@ -786,20 +800,20 @@ def like_game(id):
 @jwt_required()
 def update_like(id):
     like = Like.query.filter(Like.user_id == int(get_jwt_identity()), Like.game_id == id).one_or_none()
-    if like != []:
+    if like is not None:
         if like.is_liked == True:
             like.is_liked = False
         else:
             like.is_liked = True
         try:
             db.session.commit()
-            return jsonify("Disliked")
+            return jsonify("Disliked"), 200
         except Exception as error:
             print(error.args)
             return jsonify("error")
     else:
         print("does not exist")
-        return jsonify("Like doesn't exist")
+        return jsonify("Like doesn't exist"), 208
     
 
 @api.route('/get-game-likes', methods=['GET'])

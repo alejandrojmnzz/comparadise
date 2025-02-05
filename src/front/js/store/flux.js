@@ -208,7 +208,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						}
 					)
 					let data = await response.json()
-					console.log(data)
+					console.log(id)
 					return data[0].result[0]
 				} catch (error) {
 					console.log(error)
