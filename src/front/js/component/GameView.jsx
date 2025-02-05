@@ -205,6 +205,7 @@ export function GameView() {
                                     <input type="radio" className="btn-check" value="10" name="rating" id="btnradio10" autocomplete="off" />
                                     <label className="btn btn-outline-primary" htmlFor="btnradio10">10</label>
                                 </div>
+                                
                                 <input className="form-control" placeholder="Add a review..." name="review" onChange={handleRate}></input>
                                 <input type="submit" value="Submit" onClick={handleReviewSubmit} />
                             </div>
