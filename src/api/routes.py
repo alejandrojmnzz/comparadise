@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User, Game, Cart
+from api.models import db, User, Game, Cart, Purchase
 from api.utils import generate_sitemap, APIException, compare_game_and_api
 from flask_cors import CORS
 from base64 import b64encode
@@ -10,6 +10,7 @@ import os
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 from werkzeug.utils import secure_filename
+from datetime import datetime
 import cloudinary.uploader as uploader
 import requests
 import json
@@ -761,3 +762,29 @@ def get_user_games():
     except Exception as error:
         print(error.args)
         return jsonify(False)
+
+@api.rout('/purchase', methods=['POST'])
+@jwt_required()
+def purchase_games():
+    user_id = get_jwt_identity()
+
+    cart_items = Cart.query.filter_by(user_id=user_id).all()
+    if not cart_items:
+        return jsonify({"succes": False, "message": "Cart is empty"}), 400
+    for item in cart_items:
+        purchased_game = Purchase(user_id=user_id, game_id=item.game_id)
+        db.session.add(purchased_game)
+        db.session.delete(item)
+
+    db.session.commit()
+
+    return jsonify({"sucess": True, "message": "Purchase completed"}), 200
+
+@api.route('/library', method=['GET'])
+@jwt_required()
+def get_library():
+    user_id = get_jwt_identity()
+    purchased_games = Purchase.query.filter_by(user_id=user_id).all()
+    games = [Game.query.get(purchase.game.id).serialize() for purchase in purchased_games]
+
+    return jsonify(games), 200

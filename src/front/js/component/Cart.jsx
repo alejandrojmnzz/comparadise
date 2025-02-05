@@ -1,10 +1,12 @@
 import React, { useContext, useEffect, useState} from "react";
 import { Context } from "../store/appContext";
+import { useNavigate } from "react-router-dom";
 
 export function Cart() {
     const {store, actions} = useContext(Context);
     const [errorMessage, setErrorMessage] = useState(null);
     const [successMessage, setSuccessMessage] = useState(null);
+    const navigate = useNavigate();
 
     useEffect(() =>{
         actions.fetchCart();
@@ -25,6 +27,19 @@ export function Cart() {
         }
     }
 
+    async function handlePurchase() {
+        const response = await actions.purchaseGames();
+        if (response.success) {
+            setSuccessMessage("Purchase successful! You can view your games in the Library.");
+            setErrorMessage(null);
+            actions.fetchCart();
+            navigate("/library");
+        } else {
+            setErrorMessage("Failed to complete purchase.");
+            setSuccessMessage(null);
+        }
+    }
+
     return (
         <div className="container">
             <h1 className="text-center">Your Cart</h1>
@@ -41,6 +56,10 @@ export function Cart() {
                             <button className="btn btn-danger" onClick={() => handleRemoveFromCart(item.id)}>Remove</button>
                         </div>
                     ))}
+
+                    <div className="text-center mt-4">
+                        <button className="btn btn-success" onClick={handlePurchase}>Purchase</button>
+                    </div>
                 </div>
             )}
 

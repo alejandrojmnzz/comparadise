@@ -1,4 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime
 import json
 
 db = SQLAlchemy()
@@ -12,6 +13,7 @@ class User(db.Model):
 
     games = db.relationship('Game', back_populates='user')
     cart = db.relationship('Cart', back_populates='user', cascade='all, delete-orphan')
+    purchases = db.relationship("Purchase", back_populates="user", cascade="all, delete-orphan")
 
     def serialize(self):
         return {
@@ -88,4 +90,21 @@ class Cart(db.Model):
             "user_id": self.user_id,
             "game": self.game.serialize(),
         }
-    
+
+class Purchase(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
+    game_id = db.Column(db.Integer, db.ForeinKey("game.id"), nullable=False)
+    purchase_date = db.Column(db.DateTime, default=datetime.utcnow)
+
+    user = db.relationship("User", back_populates="purchases")
+    game = db.relationship("Game", backref="purchased_by")
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "user_id": self.user_id,
+            "game_id": self.game_id,
+            "purchase_date": self.purchase_date.strftime("%Y-%m-%d"),
+            "game": Game.query.get(self.game_id).serialize()
+        }

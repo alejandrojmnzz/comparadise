@@ -1,3 +1,5 @@
+import { library } from "webpack";
+
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
@@ -10,7 +12,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 			relatedGames: [],
 			cart: [],
 			currentUserGames: null,
-			userGames: null
+			userGames: null,
+			library:[]
 		},
 		actions: {
 			register: async (user) => {
@@ -266,6 +269,30 @@ const getState = ({ getStore, getActions, setStore }) => {
 				} catch (error) {
 					console.error("Error removing from cart:", error);
 					return { success: false, message: "An error occurred." };
+				}
+			},
+			fetchLibrary: async () => {
+				try {
+					let response = await fetch(`${process.env.BACKEND_URL}/library`, {
+						method: "GET",
+						headers: {"Authorization": `Bearer ${getStore().token}`}
+					});
+					let data = await response.json();
+					setStore({library: data});
+				} catch (error) {
+					console.log(error);
+				}
+			},
+			purchaseGames: async () => {
+				try {
+					let response = await fetch(`${process.env.BACKEND_URL}/purchase`, {
+						method: "POST",
+						headers: {"Authorization": `Bearer ${getStore().token}`}
+					});
+					return await response.json();
+				} catch (error) {
+					console.log(error);
+					return {success: false};
 				}
 			},
 			compareGameAndAPI: async (game) => {
