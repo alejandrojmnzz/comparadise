@@ -207,6 +207,7 @@ export function GameView() {
                                 </div>
                                 
                                 <input className="form-control" placeholder="Add a review..." name="review" onChange={handleRate}></input>
+                                
                                 <input type="submit" value="Submit" onClick={handleReviewSubmit} />
                             </div>
                         </div>
