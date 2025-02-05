@@ -83,6 +83,22 @@ export function GameView() {
 
     }
 
+    async function handleAddToCart() {
+        try {
+            const response = await actions.addToCart(theid);
+            if (response.success) {
+                setSuccessMessage("Game added to cart successfully!");
+                setErrorMessage(null);
+            } else {
+                setErrorMessage(response.message);
+                setSuccessMessage(null);
+            }
+        } catch (error) {
+            setErrorMessage("An error occurred while adding to cart.");
+            setSuccessMessage(null);
+        }
+    }
+
     useEffect(() => {
         if (!user_id) return
         actions.getUser(user_id)
@@ -182,6 +198,15 @@ export function GameView() {
                                     </div>
                                 </div>
                             )}
+                                <div className="d-flex justify-content-center mt-3">
+                                    <button className="btn btn-primary" onClick={handleAddToCart}>Add to Cart</button>
+                                </div>
+                                {errorMessage && (
+                                    <div className="alert alert-danger mt-3 text-center">{errorMessage}</div>
+                                )}
+                                {successMessage && (
+                                    <div className="alert alert-success mt-3 text-center">{successMessage}</div>
+                                )}
                             <div>
                                 <h1>Rate this game</h1>
                                 <form className=""></form>

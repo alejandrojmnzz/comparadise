@@ -795,7 +795,7 @@ def purchase_games():
 
     return jsonify({"sucess": True, "message": "Purchase completed"}), 200
 
-@api.route('/library', method=['GET'])
+@api.route('/library', methods=['GET'])
 @jwt_required()
 def get_library():
     user_id = get_jwt_identity()
