@@ -19,7 +19,7 @@ export function SearchResults() {
                     {store.searchResults.map((game) => (
                         <li key={game.id} className="list-group-item">
                             <h5>{game.name}</h5>
-                            {game.cover_image && <img src={game.cover_image} alt={game.name} className="img-thumbnail" />}
+                            {game.cover_image && <img src={game.cover_image} alt={game.name} className="img-thumbnail" onClick={() => navigate(`/game/${item.id}`)}/>}
                             <p>Release Date: {game.release_date}</p>
                         </li>
                     ))}

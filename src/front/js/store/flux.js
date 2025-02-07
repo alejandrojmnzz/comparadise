@@ -1,3 +1,4 @@
+
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
@@ -8,6 +9,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 			searchResults: [],
 			isLoading: false,
 			relatedGames: [],
+			cart: [],
+			library: [],
 			currentUserGames: null,
 			userGames: null,
 			reviews: [],
@@ -223,6 +226,102 @@ const getState = ({ getStore, getActions, setStore }) => {
 				let data = await response.json()
 				return data
 			},
+			fetchCart: async () => {
+				try{
+					let response = await fetch(`${process.env.BACKEND_URL}/cart`, {
+						method:"GET",
+						headers: {
+							"Content-Type": "application/json",
+                			"Authorization": `Bearer ${getStore().token}`
+						}
+					});
+					let data = await response.json();
+					if (response.ok) {
+						console.log("Hi")
+					setStore({cart: data})
+				} else {
+					setStore({cart: []})
+				}
+					
+				} catch (error) {
+					console.error("Error fetching cart:", error);
+				}
+			},
+			addToCart: async (gameId) => {
+				try {
+					let response = await fetch(`${process.env.BACKEND_URL}/add-to-cart`, {
+						method: "POST",
+						headers: {
+							"Content-Type": "application/json",
+							"Authorization": `Bearer ${getStore().token}`
+						},
+						body: JSON.stringify({ game_id: gameId })
+					});
+			
+					let data = await response.json();
+			
+					if (!response.ok) {
+						return { success: false, message: data.message || "Failed to add to cart." };
+					}
+					getActions().fetchCart();
+			
+					return { success: true, message: "Game added to cart!" };
+				} catch (error) {
+					console.error("Error adding to cart:", error);
+					return { success: false, message: "An error occurred." };
+				}
+			},
+			removeFromCart: async (cartId) => {
+				try {
+					let response = await fetch(`${process.env.BACKEND_URL}/remove-from-cart/${cartId}`, {
+						method: "DELETE",
+						headers: {
+							"Authorization": `Bearer ${getStore().token}`
+						}
+					});
+				console.log(cartId)
+			
+					if (response.ok) {
+						// Refresh the cart state
+						getActions().fetchCart();
+						return { success: true, message: "Game removed from cart!" };
+					} else {
+						return { success: false, message: "Failed to remove game from cart." };
+					}
+				} catch (error) {
+					console.error("Error removing from cart:", error);
+					return { success: false, message: "An error occurred." };
+				}
+			},
+			fetchLibrary: async () => {
+				try {
+					const response = await fetch(`${process.env.BACKEND_URL}/library`, {
+						method: "GET",
+						headers: {"Authorization": `Bearer ${getStore().token}`}
+					});
+					if (!response.ok) {
+						console.error("Failed to fetch library");
+					}
+					let data = await response.json();
+					console.log("Library Data", data);
+					setStore({library: data});
+				} catch (error) {
+					console.log("Error fetching library", error);
+				}
+			},
+			purchaseGames: async () => {
+				try {
+					let response = await fetch(`${process.env.BACKEND_URL}/purchase`, {
+						method: "POST",
+						headers: {"Authorization": `Bearer ${getStore().token}`}
+					});
+					return {success: true}
+
+				} catch (error) {
+					console.log(error);
+					return {success: false};
+				}
+			},
 			compareGameAndAPI: async (game) => {
 				let response = await fetch(`${process.env.BACKEND_URL}/compare-game-and-api`,
 					{
@@ -346,7 +445,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			}
 		}
 	};
-};
+}
 
 
-export default getState;
+export default getState

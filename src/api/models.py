@@ -1,4 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime, timezone
 import json
 
 db = SQLAlchemy()
@@ -10,6 +11,8 @@ class User(db.Model):
     password = db.Column(db.String(180), unique=False, nullable=False)
     salt = db.Column(db.String(255), unique=False, nullable=False)
     games = db.relationship('Game', back_populates='user')
+    cart = db.relationship('Cart', back_populates='user', cascade='all, delete-orphan')
+    purchases = db.relationship("Purchase", back_populates="user", cascade="all, delete-orphan")
     reviews = db.relationship('Review', back_populates='user')
     like = db.relationship('Like', back_populates='user')
 
@@ -45,6 +48,9 @@ class Game(db.Model):
  
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
     user = db.relationship('User', back_populates='games')
+    cart = db.relationship("Cart", back_populates="game")
+    purchases = db.relationship('Purchase', back_populates='game')
+
     review = db.relationship('Review', back_populates='game')
     like = db.relationship('Like', back_populates='game')
 
@@ -82,6 +88,38 @@ class Game(db.Model):
             "is_liked": result,
             "game_file": self.game_file
         }
+
+class Cart(db.Model):
+    
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
+    game_id = db.Column(db.Integer, db.ForeignKey("game.id"), nullable=False)
+    
+    user = db.relationship("User", back_populates="cart")
+    game = db.relationship("Game", back_populates="cart")
+    
+    def serialize(self):
+        return{
+            "id": self.id,
+            "user_id": self.user_id,
+            "game": self.game.serialize(),
+        }
+
+class Purchase(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
+    game_id = db.Column(db.Integer, db.ForeignKey("game.id"), nullable=False)
+
+    user = db.relationship("User", back_populates="purchases")
+    game = db.relationship("Game", back_populates="purchases")
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "user_id": self.user_id,
+            "game": self.game.serilize() if self.game else None
+        }
+
 class Review(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"))

@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User, Game, Review, Like
+from api.models import db, User, Game, Review, Like, Cart, Purchase
 from api.utils import generate_sitemap, APIException, compare_game_and_api
 from flask_cors import CORS
 from base64 import b64encode
@@ -10,6 +10,7 @@ import os
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 from werkzeug.utils import secure_filename
+from datetime import datetime
 import cloudinary.uploader as uploader
 import requests
 import json
@@ -86,16 +87,6 @@ def login():
             print(error.args)
             return jsonify('Error'), 500
 
-# UPLOAD_FOLDER = os.path.join(os.getcwd(), 'uploads')
-# os.makedirs(UPLOAD_FOLDER, exist_ok=True)
-# app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-# ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
-# app = Flask(__name__)
-# app.config['UPLOAD_FOLDER']= UPLOAD_FOLDER
-
-# def allowed_file(filename):
-#     return '.' in filename and filename.rsplit ('.', 1)[1].lower() in ALLOWED_EXTENSIONS
-
 @api.route('/get-recent-games', methods=['GET'])
 def get_recent_games():
     try:
@@ -170,14 +161,6 @@ def submit_game():
     except Exception as error:
         print(error)
         return jsonify ("Error submitting")
-        # except Exception as e:
-        #     return jsonify({"error": str(e)}), 500
-
-        # return jsonify("added")
-
-    # except Exception as error:
-    #     print(error.args)
-    #     return jsonify("error")
 
 
 @api.route('/games-search', methods=['GET'])
@@ -576,6 +559,8 @@ def populate_games():
 
 @api.route('/get-api-games', methods=['POST'])
 def get_api_games():
+    print(os.getenv("CLIENT_ID"))
+    print(os.getenv("ACCESS_TOKEN"))
     search = request.json
     url = "https://api.igdb.com/v4/games"
     headers = {
@@ -747,6 +732,58 @@ def compare_api_and_game():
     sorted_data = sorted(total_coincidences_array, key=lambda x: list(x.values())[0]['total'], reverse=True)
     return(sorted_data)
 
+@api.route("/add-to-cart", methods=["POST"])
+@jwt_required()
+def add_to_cart():
+    user_id = get_jwt_identity()
+    data = request.json
+    game_id = data.get("game_id")
+
+    if not game_id:
+        return jsonify({"error": "Game ID is required"}), 400
+    
+    existing_cart_item = Cart.query.filter_by(user_id=user_id, game_id=game_id).first()
+    if existing_cart_item:
+        return jsonify({"message": "Game is already in the cart"}), 400
+    
+    new_cart_item = Cart(user_id=user_id, game_id=game_id)
+    db.session.add(new_cart_item)
+    db.session.commit()
+
+    return jsonify({"message": "Game added to cart"}), 200
+
+@api.route("/cart", methods=["GET"])
+@jwt_required()
+def get_cart():
+    user_id = get_jwt_identity()
+    cart_items = Cart.query.filter_by(user_id=user_id).all()
+
+    if not cart_items:
+        return jsonify(["No purchased games have been found"]), 404
+    
+    cart_data = []
+    for item in cart_items:
+        game = Game.query.get(item.game_id)
+        if game:
+            cart_data.append ({
+                "id": item.id,
+                "game": game.serialize()
+            })
+    return jsonify(cart_data)
+
+@api.route("/remove-from-cart/<int:cart_id>", methods=["DELETE"])
+@jwt_required()
+def remove_from_cart(cart_id):
+    user_id = get_jwt_identity()
+    cart_item = Cart.query.filter_by(id=cart_id, user_id=user_id).first()
+
+    if not cart_item:
+        return jsonify({"error": "Item not found"}), 404
+    
+    db.session.delete(cart_item)
+    db.session.commit()
+    return jsonify({"message": "Game removed from cart"}), 200
+
 @api.route('/my-games', methods=['GET'])
 @jwt_required()
 def get_current_user_games():
@@ -769,6 +806,43 @@ def get_user_games():
     except Exception as error:
         print(error.args)
         return jsonify(False)
+
+@api.route('/purchase', methods=['POST'])
+@jwt_required()
+def purchase_games():
+    user_id = get_jwt_identity()
+
+    cart_items = Cart.query.filter_by(user_id=user_id).all()
+    if not cart_items:
+        return jsonify({"success": False, "message": "Cart is empty"}), 400
+    for item in cart_items:
+        game = Game.query.get(item.game_id)
+        if not game:
+            return jsonify({"success": False, "message": "Game ID not found"}), 404
+        purchased_game = Purchase(user_id=user_id, game_id=item.game_id)
+        db.session.add(purchased_game)
+        db.session.delete(item)
+
+    db.session.commit()
+
+    return jsonify({"success": True, "message": "Purchase completed"}), 200
+
+@api.route('/library', methods=['GET'])
+@jwt_required()
+def get_library():
+    try:
+        user_id = get_jwt_identity()
+        purchase_games = Purchase.query.filter_by(user_id=user_id).all()
+        games = []
+        for purchase in purchase_games:
+            game = Game.query.get(purchase.game_id)
+            if game:
+                games.append(game.serialize())
+
+        return jsonify(games), 200
+    except Exception as error:
+        print("Error fetching library: {error}")
+        return jsonify(False), 500
 
 @api.route('/add-review', methods=['POST'])
 @jwt_required()

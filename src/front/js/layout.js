@@ -9,10 +9,13 @@ import { Register } from "./component/Register.jsx";
 import { Login } from "./component/Login.jsx";
 import { GameForm } from "./component/GameForm.jsx"
 import { GameView } from "./component/GameView.jsx";
+import { Cart } from "./component/Cart.jsx"
 import { MyGames } from "./component/MyGames.jsx";
 import { UserGames } from "./component/UserGames.jsx";
-import SearchResults from "./component/SearchResults.jsx";
+import {SearchResults} from "./component/SearchResults.jsx";
+import { Library} from "./component/Library.jsx"
 import injectContext from "./store/appContext";
+
 
 
 //create your first component
@@ -36,8 +39,10 @@ const Layout = () => {
                         <Route element={<GameForm/>} path="/submit-game"/>
                         <Route element={<GameView/>} path="/game/:theid"/>
                         <Route element={<SearchResults/>} path="/search-results"/>
+                        <Route element={<Cart/>} path="/cart"/>
                         <Route element={<MyGames/>} path="/my-games"/>
                         <Route element={<UserGames/>} path="/user-games/:theid"/>
+                        <Route element={<Library/>} path="/library"/>
                     </Routes>
                 </ScrollToTop>
             </BrowserRouter>
