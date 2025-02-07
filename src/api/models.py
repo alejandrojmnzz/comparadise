@@ -48,6 +48,7 @@ class Game(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
     user = db.relationship('User', back_populates='games')
     cart = db.relationship("Cart", back_populates="game")
+    purchases = db.relationship('Purchase', back_populates='game')
 
     review = db.relationship('Review', back_populates='game')
     like = db.relationship('Like', back_populates='game')
@@ -106,19 +107,17 @@ class Purchase(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
     game_id = db.Column(db.Integer, db.ForeignKey("game.id"), nullable=False)
-    purchase_date = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
 
     user = db.relationship("User", back_populates="purchases")
-    game = db.relationship("Game", backref="purchased_by")
+    game = db.relationship("Game", back_populates="purchases")
 
     def serialize(self):
         return {
             "id": self.id,
             "user_id": self.user_id,
-            "game_id": self.game_id,
-            "purchase_date": self.purchase_date.strftime("%Y-%m-%d"),
-            "game": Game.query.get(self.game_id).serialize()
+            "game": self.game.serilize() if self.game else None
         }
+
 class Review(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"))

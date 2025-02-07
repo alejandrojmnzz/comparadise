@@ -1,4 +1,3 @@
-import { library } from "webpack";
 
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
@@ -234,7 +233,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				console.log(data)
 				return data
 			},
-			fetchCart: async (userId) => {
+			fetchCart: async () => {
 				try{
 					let response = await fetch(`${process.env.BACKEND_URL}/cart`, {
 						method:"GET",
@@ -244,10 +243,15 @@ const getState = ({ getStore, getActions, setStore }) => {
 						}
 					});
 					let data = await response.json();
-					setStore({cart: data});
+					if (response.ok) {
+						console.log("Hi")
+					setStore({cart: data})
+				} else {
+					setStore({cart: []})
+				}
+					
 				} catch (error) {
 					console.error("Error fetching cart:", error);
-					setStore({ cart: []});
 				}
 			},
 			addToCart: async (gameId) => {
@@ -282,6 +286,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 							"Authorization": `Bearer ${getStore().token}`
 						}
 					});
+				console.log(cartId)
 			
 					if (response.ok) {
 						// Refresh the cart state
@@ -297,14 +302,18 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 			fetchLibrary: async () => {
 				try {
-					let response = await fetch(`${process.env.BACKEND_URL}/library`, {
+					const response = await fetch(`${process.env.BACKEND_URL}/library`, {
 						method: "GET",
 						headers: {"Authorization": `Bearer ${getStore().token}`}
 					});
+					if (!response.ok) {
+						console.error("Failed to fetch library");
+					}
 					let data = await response.json();
+					console.log("Library Data", data);
 					setStore({library: data});
 				} catch (error) {
-					console.log(error);
+					console.log("Error fetching library", error);
 				}
 			},
 			purchaseGames: async () => {
@@ -313,7 +322,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 						method: "POST",
 						headers: {"Authorization": `Bearer ${getStore().token}`}
 					});
-					return await response.json();
+					return {success: true}
+
 				} catch (error) {
 					console.log(error);
 					return {success: false};

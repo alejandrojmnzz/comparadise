@@ -785,24 +785,36 @@ def purchase_games():
 
     cart_items = Cart.query.filter_by(user_id=user_id).all()
     if not cart_items:
-        return jsonify({"succes": False, "message": "Cart is empty"}), 400
+        return jsonify({"success": False, "message": "Cart is empty"}), 400
     for item in cart_items:
+        game = Game.query.get(item.game_id)
+        if not game:
+            return jsonify({"success": False, "message": "Game ID not found"}), 404
         purchased_game = Purchase(user_id=user_id, game_id=item.game_id)
         db.session.add(purchased_game)
         db.session.delete(item)
 
     db.session.commit()
 
-    return jsonify({"sucess": True, "message": "Purchase completed"}), 200
+    return jsonify({"success": True, "message": "Purchase completed"}), 200
 
 @api.route('/library', methods=['GET'])
 @jwt_required()
 def get_library():
-    user_id = get_jwt_identity()
-    purchased_games = Purchase.query.filter_by(user_id=user_id).all()
-    games = [Game.query.get(purchase.game.id).serialize() for purchase in purchased_games]
+    try:
+        user_id = get_jwt_identity()
+        purchase_games = Purchase.query.filter_by(user_id=user_id).all()
+        games = []
+        for purchase in purchase_games:
+            game = Game.query.get(purchase.game_id)
+            if game:
+                games.append(game.serialize())
 
-    return jsonify(games), 200
+        return jsonify(games), 200
+    except Exception as error:
+        print("Error fetching library: {error}")
+        return jsonify(False), 500
+
 @api.route('/add-review', methods=['POST'])
 @jwt_required()
 def add_review():

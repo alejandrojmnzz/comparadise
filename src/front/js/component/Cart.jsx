@@ -33,7 +33,7 @@ export function Cart() {
             setSuccessMessage("Purchase successful! You can view your games in the Library.");
             setErrorMessage(null);
             actions.fetchCart();
-            navigate("/library");
+            // navigate("/library");
         } else {
             setErrorMessage("Failed to complete purchase.");
             setSuccessMessage(null);
@@ -50,8 +50,8 @@ export function Cart() {
                     {store.cart.map((item, index) => (
                         <div key={index} className="col-12 d-flex justify-content-between aligns-items-center border-bottom py-2">
                             <div className="d-flex align-items-center">
-                                <img src={item.game.cover_image} alt={item.game.name} style={{ width: "50px", height: "50px", objectFit: "cover"}} className="me-3"/>
-                                <p className="m-0">{item.game.name}</p>
+                                <img src={item.game?.cover_image} alt={item.game?.name} style={{ width: "50px", height: "50px", objectFit: "cover"}} className="me-3"/>
+                                <p className="m-0">{item.game?.name}</p>
                             </div>
                             <button className="btn btn-danger" onClick={() => handleRemoveFromCart(item.id)}>Remove</button>
                         </div>

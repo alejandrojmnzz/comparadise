@@ -13,6 +13,7 @@ import { Cart } from "./component/Cart.jsx"
 import { MyGames } from "./component/MyGames.jsx";
 import { UserGames } from "./component/UserGames.jsx";
 import {SearchResults} from "./component/SearchResults.jsx";
+import { Library} from "./component/Library.jsx"
 import injectContext from "./store/appContext";
 
 
@@ -41,6 +42,7 @@ const Layout = () => {
                         <Route element={<Cart/>} path="/cart"/>
                         <Route element={<MyGames/>} path="/my-games"/>
                         <Route element={<UserGames/>} path="/user-games/:theid"/>
+                        <Route element={<Library/>} path="/library"/>
                     </Routes>
                 </ScrollToTop>
             </BrowserRouter>
