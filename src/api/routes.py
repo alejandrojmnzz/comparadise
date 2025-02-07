@@ -755,6 +755,7 @@ def remove_from_cart(cart_id):
     db.session.delete(cart_item)
     db.session.commit()
     return jsonify({"message": "Game removed from cart"}), 200
+
 @api.route('/my-games', methods=['GET'])
 @jwt_required()
 def get_current_user_games():
