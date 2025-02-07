@@ -114,6 +114,8 @@ def submit_game():
     body_file = request.files
     cover_file =body_file.get("cover_image", None)
     additional_files = request.files.getlist("additional_images[]")
+    game_file = body_file.get("game_file", None)
+    print(cover_file)
 
     data = request.form
     auto_related_games = compare_game_and_api(data)
@@ -125,6 +127,8 @@ def submit_game():
     try:
         cover_file = uploader.upload(cover_file)
         cover_file = cover_file["secure_url"]
+        game_file = uploader.upload(game_file)
+        game_file = game_file["secure_url"]
         
         additional_files_urls =[]
         for file in additional_files:
@@ -154,7 +158,8 @@ def submit_game():
     language=data['language'],
     summary=data['summary'],
     description=data['description'],
-    trailer=data['trailer']
+    trailer=data['trailer'],
+    game_file=game_file
 )
 
     db.session.add(game)
@@ -561,6 +566,7 @@ def populate_games():
         game.description = single_populate['description']
         game.trailer = single_populate['trailer']
         game.is_liked = True
+        game.game_file = "https://res.cloudinary.com/dcdymggxx/raw/upload/v1738861007/blacklist_za4hif.txt"
         db.session.add(game)
     try:
         db.session.commit()
@@ -578,13 +584,34 @@ def get_api_games():
             'Authorization': f'Bearer {os.getenv("ACCESS_TOKEN")}',
             'Content-Type': 'text/plain'
             }
-    data = f'''fields name; where name ~ "{search}"*;
+    data = f'''fields name, genres, game_modes, player_perspectives, themes; where name ~ "{search}"*;
+    
         sort rating desc;
         limit 100;'''
-
+    
     response = requests.post(url, headers=headers, data=data)
     response = response.json()
-    return jsonify(response)
+    response_array = []
+    for game in response:
+        genre_exists = False
+        mode_exists = False
+        perspective_exists = False
+        theme_exists = False
+        for item in game:
+            print(item)
+            if item == "genres":
+                genre_exists = True
+            if item == "game_modes":
+                mode_exists = True
+            if item == "player_perspectives":
+                perspective_exists = True
+            if item == "themes":
+                theme_exists = True            
+        if genre_exists == True and mode_exists == True and perspective_exists == True and theme_exists == True:
+            response_array.append(game)
+
+    print(response_array)
+    return jsonify(response_array)
 
 @api.route('/multiquery-game', methods=['POST'])
 def multiquery_game():
@@ -600,6 +627,7 @@ def multiquery_game():
         data = f'''query games "Multiquery" {{
         fields name,genres.name, themes.name, game_modes.name, player_perspectives.name, cover.url;
         where id = {id};
+ 
         }};'''
         response = requests.post(url, headers=headers, data=data)
         response = response.json()
@@ -819,7 +847,7 @@ def update_like(id):
 
 @api.route('/get-game-likes', methods=['GET'])
 def get_game_likes():
-    all_likes = Like.query.all()
+    all_likes = Like.query.filter_by(is_liked = True)
     game_likes = {}
     for like in all_likes:
         game_likes[like.game_id] = game_likes.get(like.game_id, 0) + 1

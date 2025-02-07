@@ -57,7 +57,6 @@ export function GameView() {
             [target.name]: target.value,
             ["game_id"]: id
         })
-        console.log(review)
 
     }
 
@@ -73,7 +72,6 @@ export function GameView() {
         if (updateResponse == 200) {
             alert("Updated succesfully")
             actions.getGame(theid)
-            console.log(store.singleGame)
         }
         let response = await actions.addLike(id)
         if (response == 200) {
@@ -87,7 +85,6 @@ export function GameView() {
         if (!user_id) return
         actions.getUser(user_id)
         actions.getAllReviews(id)
-        console.log(store.reviews.totalRating)
 
     }, [user_id])
 
@@ -105,8 +102,8 @@ export function GameView() {
         <>
             {
                 loading ?
-                    <div class="spinner-border text-primary" role="status">
-                        <span class="visually-hidden">Loading...</span>
+                    <div className="spinner-border text-primary" role="status">
+                        <span className="visually-hidden">Loading...</span>
                     </div>
                     :
                     <div className="container">
@@ -122,11 +119,11 @@ export function GameView() {
                                 <img src={cover_image} className="w-25" />
                             </div>
                             <div className="d-flex justify-content-between">
-                                <p>A game by {store.singleUser.name}</p>
+                                <p>A game by <NavLink to={`/user-games/${store.singleUser.id}`}>{store.singleUser.name}</NavLink></p>
                                 <button className={is_liked ? "btn btn-danger" : "btn btn-primary"} onClick={() => handleLike()}>Like</button>
                             </div>
                             <div className="d-flex justify-content-center mt-2">
-                                <iframe className="trailer" width="560" height="415" src={`https://www.youtube.com/embed/${trailer}`} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                                <iframe className="trailer" width="560" height="415" src={`https://www.youtube.com/embed/${trailer}`} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
                             </div>
                             <div className="col-6 d-flex justify-content-center">
                                 <p>{summary}</p>
@@ -186,25 +183,25 @@ export function GameView() {
                                 <h1>Rate this game</h1>
                                 <form className=""></form>
                                 <div onChange={handleRate} className="btn-group" role="group" aria-label="Basic radio toggle button group">
-                                    <input type="radio" className="btn-check" value="1" name="rating" id="btnradio1" autocomplete="off" />
+                                    <input type="radio" className="btn-check" value="1" name="rating" id="btnradio1" autoComplete="off" />
                                     <label className="btn btn-outline-primary" htmlFor="btnradio1">1</label>
-                                    <input type="radio" className="btn-check" value="2" name="rating" id="btnradio2" autocomplete="off" />
+                                    <input type="radio" className="btn-check" value="2" name="rating" id="btnradio2" autoComplete="off" />
                                     <label className="btn btn-outline-primary" htmlFor="btnradio2">2</label>
-                                    <input type="radio" className="btn-check" value="3" name="rating" id="btnradio3" autocomplete="off" />
+                                    <input type="radio" className="btn-check" value="3" name="rating" id="btnradio3" autoComplete="off" />
                                     <label className="btn btn-outline-primary" htmlFor="btnradio3">3</label>
-                                    <input type="radio" className="btn-check" value="4" name="rating" id="btnradio4" autocomplete="off" />
+                                    <input type="radio" className="btn-check" value="4" name="rating" id="btnradio4" autoComplete="off" />
                                     <label className="btn btn-outline-primary" htmlFor="btnradio4">4</label>
-                                    <input type="radio" className="btn-check" value="5" name="rating" id="btnradio5" autocomplete="off" />
+                                    <input type="radio" className="btn-check" value="5" name="rating" id="btnradio5" autoComplete="off" />
                                     <label className="btn btn-outline-primary" htmlFor="btnradio5">5</label>
-                                    <input type="radio" className="btn-check" value="6" name="rating" id="btnradio6" autocomplete="off" />
+                                    <input type="radio" className="btn-check" value="6" name="rating" id="btnradio6" autoComplete="off" />
                                     <label className="btn btn-outline-primary" htmlFor="btnradio6">6</label>
-                                    <input type="radio" className="btn-check" value="7" name="rating" id="btnradio7" autocomplete="off" />
+                                    <input type="radio" className="btn-check" value="7" name="rating" id="btnradio7" autoComplete="off" />
                                     <label className="btn btn-outline-primary" htmlFor="btnradio7">7</label>
-                                    <input type="radio" className="btn-check" value="8" name="rating" id="btnradio8" autocomplete="off" />
+                                    <input type="radio" className="btn-check" value="8" name="rating" id="btnradio8" autoComplete="off" />
                                     <label className="btn btn-outline-primary" htmlFor="btnradio8">8</label>
-                                    <input type="radio" className="btn-check" value="9" name="rating" id="btnradio9" autocomplete="off" />
+                                    <input type="radio" className="btn-check" value="9" name="rating" id="btnradio9" autoComplete="off" />
                                     <label className="btn btn-outline-primary" htmlFor="btnradio9">9</label>
-                                    <input type="radio" className="btn-check" value="10" name="rating" id="btnradio10" autocomplete="off" />
+                                    <input type="radio" className="btn-check" value="10" name="rating" id="btnradio10" autoComplete="off" />
                                     <label className="btn btn-outline-primary" htmlFor="btnradio10">10</label>
                                 </div>
                                 
@@ -216,14 +213,14 @@ export function GameView() {
                         <div>
                             <h1>Reviews</h1>
                             {
-                                store.reviews.map((item) => {
+                                store.reviews.map((item, index) => {
                                     return (
-                                        <>
+                                        <div key={index}>
                                         {/* <h1>{userName}</h1> */}
                                             <h1>{item.user.name}</h1>
                                             <h2>{item.rating}</h2>
                                             <div>{item.review}</div>
-                                        </>
+                                        </div>
                                     )
                                 })
                             }

@@ -41,6 +41,7 @@ class Game(db.Model):
     description = db.Column(db.Text, nullable=True)
     trailer = db.Column(db.String(255), nullable=True)
     rate = db.Column(db.Integer, nullable=True)
+    game_file = db.Column(db.String(255), nullable=False)
  
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
     user = db.relationship('User', back_populates='games')
@@ -78,7 +79,8 @@ class Game(db.Model):
             "summary": self.summary,
             "description": self.description,
             "trailer": self.trailer,
-            "is_liked": result
+            "is_liked": result,
+            "game_file": self.game_file
         }
 class Review(db.Model):
     id = db.Column(db.Integer, primary_key=True)

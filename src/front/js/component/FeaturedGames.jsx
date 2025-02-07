@@ -33,14 +33,14 @@ export function FeaturedGames() {
       {
 
         loading ?
-          <div class="spinner-border text-primary" role="status">
-            <span class="visually-hidden">Loading...</span>
+          <div className="spinner-border text-primary" role="status">
+            <span className="visually-hidden">Loading...</span>
           </div>
           :
           store.featuredGames.map((item, index) => {
 
             return (
-              <>
+              <div key={index}>
                 {
                   item &&
                   <div id="container" key={item.game.id} onClick={() => navigate(`/game/${item.game.id}`)}>
@@ -52,7 +52,7 @@ export function FeaturedGames() {
                     </div>
                   </div>
                 }
-              </>
+              </div>
 
             )
 

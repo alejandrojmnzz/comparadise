@@ -20,12 +20,12 @@ export function GamePreview() {
                 {
 				store.recentGames.map((item) => {
 					return (
-                        
 						<div key={item.id}
-                        className="game-preview col-2 border rounded mx-2 mb-4 p-0 d-flex"
+                        className="game-preview col-12 col-md-6 col-lg-4 col-xl-3 col-xxl-2 mx-1 border border-secondary rounded mb-4 p-0 d-flex position-relative"
                         onClick={() => navigate(`/game/${item.id}`)}
                         >
-                            <img src={item.cover_image} className="game-image border rounded"/>
+
+                            <img src={item.cover_image} className="game-image rounded"/>
                             <div className="tooltip d-flex">
                                 <div className="tooltip-bg pb-2">
                                     <h5 className="d-flex justify-content-center m-0">{item.name}</h5>
