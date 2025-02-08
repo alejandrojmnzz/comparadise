@@ -51,7 +51,9 @@ export const Home = () => {
 			<FeaturedGames />
 
 			<div className="container api-searchbar">
-				<h4>Looking for a certain experience?</h4>
+				<div className="d-flex justify-content-center">
+					<h4>Looking for a certain adventure?</h4>
+				</div>
 
 				<div className="d-flex justify-content-center">
 					<div className="d-flex w-75 search-api">

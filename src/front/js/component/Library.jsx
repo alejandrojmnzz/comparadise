@@ -31,6 +31,7 @@ export function Library() {
                                 <div className="card-body" >
                                     <h5 className="card-title">{item.name}</h5>
                                     <p className="card-text">{item.summary}</p>
+                                    <a href={item.game_file} download={`${item.name}`} target="_blank">Download</a>
                                 </div>
                             </div>
                         </div>
