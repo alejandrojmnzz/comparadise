@@ -35,7 +35,8 @@ const navigate = useNavigate()
       language: "",
       summary: "",
       description: "",
-      trailer: ""
+      trailer: "",
+      game_file: ""
   });
   // const [coverImage, setCoverImage] = useState(null);
   // const [mediaFiles, setMediaFiles] = useState([]);
@@ -69,6 +70,8 @@ const navigate = useNavigate()
       formDataObj.append("genres", formData.genres.join())
       formDataObj.append("player_perspective", formData.player_perspective.join())
       formDataObj.append("themes", formData.themes.join())
+      formDataObj.append("game_file", formData.game_file)
+    
 
       Object.keys(formData).forEach(key => formDataObj.append(key, formData[key]));
         alert("Game successfully added")
@@ -150,95 +153,95 @@ const navigate = useNavigate()
       
       <div>
         <label>Genre:</label>
-        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseGenres" aria-expanded="false" aria-controls="collapseExample">
+        <button className="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseGenres" aria-expanded="false" aria-controls="collapseExample">
           Select a genre
         </button>
-        <div class="collapse" id="collapseGenres">
-        <div class="card card-body w-25">
-          <ul class="list-group" onChange={handleCheckboxes}>
-              <li class="list-group-item">
-                <input class="form-check-input me-1" name="genres" type="checkbox" value="Point-and-click" id="Point-and-click"/>
-                <label class="form-check-label stretched-link" for="Point-and-click">Point-and-click</label>
+        <div className="collapse" id="collapseGenres">
+        <div className="card card-body w-25">
+          <ul className="list-group" onChange={handleCheckboxes}>
+              <li className="list-group-item">
+                <input className="form-check-input me-1" name="genres" type="checkbox" value="Point-and-click" id="Point-and-click"/>
+                <label className="form-check-label stretched-link" htmlFor="Point-and-click">Point-and-click</label>
               </li>
-              <li class="list-group-item">
-                <input class="form-check-input me-1" name="genres" type="checkbox" value="Fighting" id="Fighting"/>
-                <label class="form-check-label stretched-link" for="Fighting">Fighting</label>
+              <li className="list-group-item">
+                <input className="form-check-input me-1" name="genres" type="checkbox" value="Fighting" id="Fighting"/>
+                <label className="form-check-label stretched-link" htmlFor="Fighting">Fighting</label>
               </li>
-              <li class="list-group-item">
-                <input class="form-check-input me-1" name="genres" type="checkbox" value="Shooter" id="Shooter"/>
-                <label class="form-check-label stretched-link" for="Shooter">Shooter</label>
+              <li className="list-group-item">
+                <input className="form-check-input me-1" name="genres" type="checkbox" value="Shooter" id="Shooter"/>
+                <label className="form-check-label stretched-link" htmlFor="Shooter">Shooter</label>
               </li>
-              <li class="list-group-item">
-                <input class="form-check-input me-1" name="genres" type="checkbox" value="Music" id="Music"/>
-                <label class="form-check-label stretched-link" for="Music">Music</label>
+              <li className="list-group-item">
+                <input className="form-check-input me-1" name="genres" type="checkbox" value="Music" id="Music"/>
+                <label className="form-check-label stretched-link" htmlFor="Music">Music</label>
               </li>
-              <li class="list-group-item">
-                <input class="form-check-input me-1" name="genres" type="checkbox" value="Platform" id="Platform"/>
-                <label class="form-check-label stretched-link" for="Platform">Platform</label>
+              <li className="list-group-item">
+                <input className="form-check-input me-1" name="genres" type="checkbox" value="Platform" id="Platform"/>
+                <label className="form-check-label stretched-link" htmlFor="Platform">Platform</label>
               </li>
-              <li class="list-group-item">
-                <input class="form-check-input me-1" name="genres" type="checkbox" value="Puzzle" id="Puzzle"/>
-                <label class="form-check-label stretched-link" for="Puzzle">Puzzle</label>
+              <li className="list-group-item">
+                <input className="form-check-input me-1" name="genres" type="checkbox" value="Puzzle" id="Puzzle"/>
+                <label className="form-check-label stretched-link" htmlFor="Puzzle">Puzzle</label>
               </li>
-              <li class="list-group-item">
-                <input class="form-check-input me-1" name="genres" type="checkbox" value="Racing" id="Racing"/>
-                <label class="form-check-label stretched-link" for="Racing">Racing</label>
+              <li className="list-group-item">
+                <input className="form-check-input me-1" name="genres" type="checkbox" value="Racing" id="Racing"/>
+                <label className="form-check-label stretched-link" htmlFor="Racing">Racing</label>
               </li>
-              <li class="list-group-item">
-                <input class="form-check-input me-1" name="genres" type="checkbox" value="Real Time Strategy (RTS)" id="Real Time Strategy (RTS)"/>
-                <label class="form-check-label stretched-link" for="Real Time Strategy (RTS)">Real Time Strategy (RTS)</label>
+              <li className="list-group-item">
+                <input className="form-check-input me-1" name="genres" type="checkbox" value="Real Time Strategy (RTS)" id="Real Time Strategy (RTS)"/>
+                <label className="form-check-label stretched-link" htmlFor="Real Time Strategy (RTS)">Real Time Strategy (RTS)</label>
               </li>
-              <li class="list-group-item">
-                <input class="form-check-input me-1" name="modgenreses" type="checkbox" value="Role-playing (RPG)" id="Role-playing (RPG)"/>
-                <label class="form-check-label stretched-link" for="Role-playing (RPG)">Role-playing (RPG)</label>
+              <li className="list-group-item">
+                <input className="form-check-input me-1" name="modgenreses" type="checkbox" value="Role-playing (RPG)" id="Role-playing (RPG)"/>
+                <label className="form-check-label stretched-link" htmlFor="Role-playing (RPG)">Role-playing (RPG)</label>
               </li>
-              <li class="list-group-item">
-                <input class="form-check-input me-1" name="genres" type="checkbox" value="Simulator" id="Simulator"/>
-                <label class="form-check-label stretched-link" for="Simulator">Simulator</label>
+              <li className="list-group-item">
+                <input className="form-check-input me-1" name="genres" type="checkbox" value="Simulator" id="Simulator"/>
+                <label className="form-check-label stretched-link" htmlFor="Simulator">Simulator</label>
               </li>
-              <li class="list-group-item">
-                <input class="form-check-input me-1" name="genres" type="checkbox" value="Sport" id="Sport"/>
-                <label class="form-check-label stretched-link" for="Sport">Sport</label>
+              <li className="list-group-item">
+                <input className="form-check-input me-1" name="genres" type="checkbox" value="Sport" id="Sport"/>
+                <label className="form-check-label stretched-link" htmlFor="Sport">Sport</label>
               </li>
-              <li class="list-group-item">
-                <input class="form-check-input me-1" name="genres" type="checkbox" value="Strategy" id="Strategy"/>
-                <label class="form-check-label stretched-link" for="Strategy">Strategy</label>
+              <li className="list-group-item">
+                <input className="form-check-input me-1" name="genres" type="checkbox" value="Strategy" id="Strategy"/>
+                <label className="form-check-label stretched-link" htmlFor="Strategy">Strategy</label>
               </li>
-              <li class="list-group-item">
-                <input class="form-check-input me-1" name="genres" type="checkbox" value="Turn-based strategy (TBS)" id="Turn-based strategy (TBS)"/>
-                <label class="form-check-label stretched-link" for="Turn-based strategy (TBS)">Turn-based strategy (TBS)</label>
+              <li className="list-group-item">
+                <input className="form-check-input me-1" name="genres" type="checkbox" value="Turn-based strategy (TBS)" id="Turn-based strategy (TBS)"/>
+                <label className="form-check-label stretched-link" htmlFor="Turn-based strategy (TBS)">Turn-based strategy (TBS)</label>
               </li>
-              <li class="list-group-item">
-                <input class="form-check-input me-1" name="genres" type="checkbox" value="Tactical" id="Tactical"/>
-                <label class="form-check-label stretched-link" for="Tactical">Tactical</label>
+              <li className="list-group-item">
+                <input className="form-check-input me-1" name="genres" type="checkbox" value="Tactical" id="Tactical"/>
+                <label className="form-check-label stretched-link" htmlFor="Tactical">Tactical</label>
               </li>
-              <li class="list-group-item">
-                <input class="form-check-input me-1" name="genres" type="checkbox" value="Hack and slash/Beat 'em up" id="Hack and slash/Beat 'em up"/>
-                <label class="form-check-label stretched-link" for="Hack and slash/Beat 'em up">Hack and slash/Beat 'em up</label>
+              <li className="list-group-item">
+                <input className="form-check-input me-1" name="genres" type="checkbox" value="Hack and slash/Beat 'em up" id="Hack and slash/Beat 'em up"/>
+                <label className="form-check-label stretched-link" htmlFor="Hack and slash/Beat 'em up">Hack and slash/Beat 'em up</label>
               </li>
-              <li class="list-group-item">
-                <input class="form-check-input me-1" name="genres" type="checkbox" value="Quiz/Trivia" id="Quiz/Trivia"/>
-                <label class="form-check-label stretched-link" for="Quiz/Trivia">Quiz/Trivia</label>
+              <li className="list-group-item">
+                <input className="form-check-input me-1" name="genres" type="checkbox" value="Quiz/Trivia" id="Quiz/Trivia"/>
+                <label className="form-check-label stretched-link" htmlFor="Quiz/Trivia">Quiz/Trivia</label>
               </li>
-              <li class="list-group-item">
-                <input class="form-check-input me-1" name="genres" type="checkbox" value="Pinball" id="Pinball"/>
-                <label class="form-check-label stretched-link" for="Pinball">Pinball</label>
+              <li className="list-group-item">
+                <input className="form-check-input me-1" name="genres" type="checkbox" value="Pinball" id="Pinball"/>
+                <label className="form-check-label stretched-link" htmlFor="Pinball">Pinball</label>
               </li>
-              <li class="list-group-item">
-                <input class="form-check-input me-1" name="genres" type="checkbox" value="Arcade" id="Arcade"/>
-                <label class="form-check-label stretched-link" for="Arcade">Arcade</label>
+              <li className="list-group-item">
+                <input className="form-check-input me-1" name="genres" type="checkbox" value="Arcade" id="Arcade"/>
+                <label className="form-check-label stretched-link" htmlFor="Arcade">Arcade</label>
               </li>
-              <li class="list-group-item">
-                <input class="form-check-input me-1" name="genres" type="checkbox" value="Visual Novel" id="Visual Novel"/>
-                <label class="form-check-label stretched-link" for="Visual Novel">Visual Novel</label>
+              <li className="list-group-item">
+                <input className="form-check-input me-1" name="genres" type="checkbox" value="Visual Novel" id="Visual Novel"/>
+                <label className="form-check-label stretched-link" htmlFor="Visual Novel">Visual Novel</label>
               </li>
-              <li class="list-group-item">
-                <input class="form-check-input me-1" name="genres" type="checkbox" value="Card & Board Game" id="Card & Board Game"/>
-                <label class="form-check-label stretched-link" for="Card & Board Game">Card & Board Game</label>
+              <li className="list-group-item">
+                <input className="form-check-input me-1" name="genres" type="checkbox" value="Card & Board Game" id="Card & Board Game"/>
+                <label className="form-check-label stretched-link" htmlFor="Card & Board Game">Card & Board Game</label>
               </li>
-              <li class="list-group-item">
-                <input class="form-check-input me-1" name="genres" type="checkbox" value="MOBA" id="MOBA"/>
-                <label class="form-check-label stretched-link" for="MOBA">MOBA</label>
+              <li className="list-group-item">
+                <input className="form-check-input me-1" name="genres" type="checkbox" value="MOBA" id="MOBA"/>
+                <label className="form-check-label stretched-link" htmlFor="MOBA">MOBA</label>
               </li>
             </ul>
           </div>
@@ -247,35 +250,35 @@ const navigate = useNavigate()
 
       <div>
         <label>Game Modes:</label>
-        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseModes" aria-expanded="false" aria-controls="collapseExample">
+        <button className="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseModes" aria-expanded="false" aria-controls="collapseExample">
           Select a mode
         </button>
-      <div class="collapse" id="collapseModes">
-        <div class="card card-body w-25">
-        <ul class="list-group" onChange={handleCheckboxes}>
-            <li class="list-group-item">
-              <input class="form-check-input me-1" name="modes" type="checkbox" value="Single Player" id="Single Player"/>
-              <label class="form-check-label stretched-link" for="Single Player">Single Player</label>
+      <div className="collapse" id="collapseModes">
+        <div className="card card-body w-25">
+        <ul className="list-group" onChange={handleCheckboxes}>
+            <li className="list-group-item">
+              <input className="form-check-input me-1" name="modes" type="checkbox" value="Single Player" id="Single Player"/>
+              <label className="form-check-label stretched-link" htmlFor="Single Player">Single Player</label>
             </li>
-            <li class="list-group-item">
-              <input class="form-check-input me-1" name="modes" type="checkbox" value="Multiplayer" id="Multiplayer"/>
-              <label class="form-check-label stretched-link" for="Multiplayer">Multiplayer</label>
+            <li className="list-group-item">
+              <input className="form-check-input me-1" name="modes" type="checkbox" value="Multiplayer" id="Multiplayer"/>
+              <label className="form-check-label stretched-link" htmlFor="Multiplayer">Multiplayer</label>
             </li>
-            <li class="list-group-item">
-              <input class="form-check-input me-1" name="modes" type="checkbox" value="Co-operative" id="Co-operative"/>
-              <label class="form-check-label stretched-link" for="Co-operative">Co-operative</label>
+            <li className="list-group-item">
+              <input className="form-check-input me-1" name="modes" type="checkbox" value="Co-operative" id="Co-operative"/>
+              <label className="form-check-label stretched-link" htmlFor="Co-operative">Co-operative</label>
             </li>
-            <li class="list-group-item">
-              <input class="form-check-input me-1" name="modes" type="checkbox" value="Split screen" id="Split screen"/>
-              <label class="form-check-label stretched-link" for="Split screen">Split screen</label>
+            <li className="list-group-item">
+              <input className="form-check-input me-1" name="modes" type="checkbox" value="Split screen" id="Split screen"/>
+              <label className="form-check-label stretched-link" htmlFor="Split screen">Split screen</label>
             </li>
-            <li class="list-group-item">
-              <input class="form-check-input me-1" name="modes" type="checkbox" value="Massively Multiplayer Online (MMO)" id="Massively Multiplayer Online (MMO)"/>
-              <label class="form-check-label stretched-link" for="Massively Multiplayer Online (MMO)">Massively Multiplayer Online (MMO)</label>
+            <li className="list-group-item">
+              <input className="form-check-input me-1" name="modes" type="checkbox" value="Massively Multiplayer Online (MMO)" id="Massively Multiplayer Online (MMO)"/>
+              <label className="form-check-label stretched-link" htmlFor="Massively Multiplayer Online (MMO)">Massively Multiplayer Online (MMO)</label>
             </li>
-            <li class="list-group-item">
-              <input class="form-check-input me-1" name="modes" type="checkbox" value="Battle Royale" id="Battle Royale"/>
-              <label class="form-check-label stretched-link" for="Battle Royale">Battle Royale</label>
+            <li className="list-group-item">
+              <input className="form-check-input me-1" name="modes" type="checkbox" value="Battle Royale" id="Battle Royale"/>
+              <label className="form-check-label stretched-link" htmlFor="Battle Royale">Battle Royale</label>
             </li>
           </ul>
         </div>
@@ -284,39 +287,39 @@ const navigate = useNavigate()
 
       <div>
         <label>Player Perspective:</label>
-          <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePerspective" aria-expanded="false" aria-controls="collapseExample">
+          <button className="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePerspective" aria-expanded="false" aria-controls="collapseExample">
               Select a player perspective
           </button>
-          <div class="collapse" id="collapsePerspective">
-            <div class="card card-body w-25">
-            <ul class="list-group" onChange={handleCheckboxes}>
-                <li class="list-group-item">
-                  <input class="form-check-input me-1" name="player_perspective" type="checkbox" value="First person" id="First person"/>
-                  <label class="form-check-label stretched-link" for="First person">First person</label>
+          <div className="collapse" id="collapsePerspective">
+            <div className="card card-body w-25">
+            <ul className="list-group" onChange={handleCheckboxes}>
+                <li className="list-group-item">
+                  <input className="form-check-input me-1" name="player_perspective" type="checkbox" value="First person" id="First person"/>
+                  <label className="form-check-label stretched-link" htmlFor="First person">First person</label>
                 </li>
-                <li class="list-group-item">
-                  <input class="form-check-input me-1" name="player_perspective" type="checkbox" value="Third person" id="Third person"/>
-                  <label class="form-check-label stretched-link" for="Third person">Third person</label>
+                <li className="list-group-item">
+                  <input className="form-check-input me-1" name="player_perspective" type="checkbox" value="Third person" id="Third person"/>
+                  <label className="form-check-label stretched-link" htmlFor="Third person">Third person</label>
                 </li>
-                <li class="list-group-item">
-                  <input class="form-check-input me-1" name="player_perspective" type="checkbox" value="Bird view / Isometric" id="Bird view / Isometric"/>
-                  <label class="form-check-label stretched-link" for="Bird view / Isometric">Bird view / Isometric</label>
+                <li className="list-group-item">
+                  <input className="form-check-input me-1" name="player_perspective" type="checkbox" value="Bird view / Isometric" id="Bird view / Isometric"/>
+                  <label className="form-check-label stretched-link" htmlFor="Bird view / Isometric">Bird view / Isometric</label>
                 </li>
-                <li class="list-group-item">
-                  <input class="form-check-input me-1" name="player_perspective" type="checkbox" value="Side view" id="Side view"/>
-                  <label class="form-check-label stretched-link" for="Side view">Side view</label>
+                <li className="list-group-item">
+                  <input className="form-check-input me-1" name="player_perspective" type="checkbox" value="Side view" id="Side view"/>
+                  <label className="form-check-label stretched-link" htmlFor="Side view">Side view</label>
                 </li>
-                <li class="list-group-item">
-                  <input class="form-check-input me-1" name="player_perspective" type="checkbox" value="Text" id="Text"/>
-                  <label class="form-check-label stretched-link" for="Text">Text</label>
+                <li className="list-group-item">
+                  <input className="form-check-input me-1" name="player_perspective" type="checkbox" value="Text" id="Text"/>
+                  <label className="form-check-label stretched-link" htmlFor="Text">Text</label>
                 </li>
-                <li class="list-group-item">
-                  <input class="form-check-input me-1" name="player_perspective" type="checkbox" value="Auditory" id="Auditory"/>
-                  <label class="form-check-label stretched-link" for="Auditory">Auditory</label>
+                <li className="list-group-item">
+                  <input className="form-check-input me-1" name="player_perspective" type="checkbox" value="Auditory" id="Auditory"/>
+                  <label className="form-check-label stretched-link" htmlFor="Auditory">Auditory</label>
                 </li>
-                <li class="list-group-item">
-                  <input class="form-check-input me-1" name="player_perspective" type="checkbox" value="Virtual Reality" id="Virtual Reality"/>
-                  <label class="form-check-label stretched-link" for="Virtual Reality">Virtual Reality</label>
+                <li className="list-group-item">
+                  <input className="form-check-input me-1" name="player_perspective" type="checkbox" value="Virtual Reality" id="Virtual Reality"/>
+                  <label className="form-check-label stretched-link" htmlFor="Virtual Reality">Virtual Reality</label>
                 </li>
               </ul>
             </div>
@@ -325,87 +328,87 @@ const navigate = useNavigate()
 
       <div>
         <label>Themes:</label>
-        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThemes" aria-expanded="false" aria-controls="collapseExample">
+        <button className="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThemes" aria-expanded="false" aria-controls="collapseExample">
           Select a theme
         </button>
-          <div class="collapse" id="collapseThemes">
-            <div class="card card-body w-25">
-            <ul class="list-group" onChange={handleCheckboxes}>
-                <li class="list-group-item">
-                  <input class="form-check-input me-1" name="themes" type="checkbox" value="Non-fiction" id="Non-fiction"/>
-                  <label class="form-check-label stretched-link" for="Non-fiction">Non-fiction</label>
+          <div className="collapse" id="collapseThemes">
+            <div className="card card-body w-25">
+            <ul className="list-group" onChange={handleCheckboxes}>
+                <li className="list-group-item">
+                  <input className="form-check-input me-1" name="themes" type="checkbox" value="Non-fiction" id="Non-fiction"/>
+                  <label className="form-check-label stretched-link" htmlFor="Non-fiction">Non-fiction</label>
                 </li>
-                <li class="list-group-item">
-                  <input class="form-check-input me-1" name="themes" type="checkbox" value="Sandbox" id="Sandbox"/>
-                  <label class="form-check-label stretched-link" for="Sandbox">Sandbox</label>
+                <li className="list-group-item">
+                  <input className="form-check-input me-1" name="themes" type="checkbox" value="Sandbox" id="Sandbox"/>
+                  <label className="form-check-label stretched-link" htmlFor="Sandbox">Sandbox</label>
                 </li>
-                <li class="list-group-item">
-                  <input class="form-check-input me-1" name="themes" type="checkbox" value="Educational" id="Educational"/>
-                  <label class="form-check-label stretched-link" for="Educational">Educational</label>
+                <li className="list-group-item">
+                  <input className="form-check-input me-1" name="themes" type="checkbox" value="Educational" id="Educational"/>
+                  <label className="form-check-label stretched-link" htmlFor="Educational">Educational</label>
                 </li>
-                <li class="list-group-item">
-                  <input class="form-check-input me-1" name="themes" type="checkbox" value="Open world" id="Open world"/>
-                  <label class="form-check-label stretched-link" for="Open world">Open world</label>
+                <li className="list-group-item">
+                  <input className="form-check-input me-1" name="themes" type="checkbox" value="Open world" id="Open world"/>
+                  <label className="form-check-label stretched-link" htmlFor="Open world">Open world</label>
                 </li>
-                <li class="list-group-item">
-                  <input class="form-check-input me-1" name="themes" type="checkbox" value="Warfare" id="Warfare"/>
-                  <label class="form-check-label stretched-link" for="Warfare">Warfare</label>
+                <li className="list-group-item">
+                  <input className="form-check-input me-1" name="themes" type="checkbox" value="Warfare" id="Warfare"/>
+                  <label className="form-check-label stretched-link" htmlFor="Warfare">Warfare</label>
                 </li>
-                <li class="list-group-item">
-                  <input class="form-check-input me-1" name="themes" type="checkbox" value="Party" id="Party"/>
-                  <label class="form-check-label stretched-link" for="Party">Party</label>
+                <li className="list-group-item">
+                  <input className="form-check-input me-1" name="themes" type="checkbox" value="Party" id="Party"/>
+                  <label className="form-check-label stretched-link" htmlFor="Party">Party</label>
                 </li>
-                <li class="list-group-item">
-                  <input class="form-check-input me-1" name="themes" type="checkbox" value="4X (explore, expand, exploit, and exterminate)" id="4X (explore, expand, exploit, and exterminate)"/>
-                  <label class="form-check-label stretched-link" for="4X (explore, expand, exploit, and exterminate)">4X (explore, expand, exploit, and exterminate)</label>
+                <li className="list-group-item">
+                  <input className="form-check-input me-1" name="themes" type="checkbox" value="4X (explore, expand, exploit, and exterminate)" id="4X (explore, expand, exploit, and exterminate)"/>
+                  <label className="form-check-label stretched-link" htmlFor="4X (explore, expand, exploit, and exterminate)">4X (explore, expand, exploit, and exterminate)</label>
                 </li>
-                <li class="list-group-item">
-                  <input class="form-check-input me-1" name="themes" type="checkbox" value="Mystery" id="Mystery"/>
-                  <label class="form-check-label stretched-link" for="Mystery">Mystery</label>
+                <li className="list-group-item">
+                  <input className="form-check-input me-1" name="themes" type="checkbox" value="Mystery" id="Mystery"/>
+                  <label className="form-check-label stretched-link" htmlFor="Mystery">Mystery</label>
                 </li>
-                <li class="list-group-item">
-                  <input class="form-check-input me-1" name="themes" type="checkbox" value="Action" id="Action"/>
-                  <label class="form-check-label stretched-link" for="Action">Action</label>
+                <li className="list-group-item">
+                  <input className="form-check-input me-1" name="themes" type="checkbox" value="Action" id="Action"/>
+                  <label className="form-check-label stretched-link" htmlFor="Action">Action</label>
                 </li>
-                <li class="list-group-item">
-                  <input class="form-check-input me-1" name="themes" type="checkbox" value="Fantasy" id="Fantasy"/>
-                  <label class="form-check-label stretched-link" for="Fantasy">Fantasy</label>
+                <li className="list-group-item">
+                  <input className="form-check-input me-1" name="themes" type="checkbox" value="Fantasy" id="Fantasy"/>
+                  <label className="form-check-label stretched-link" htmlFor="Fantasy">Fantasy</label>
                 </li>
-                <li class="list-group-item">
-                  <input class="form-check-input me-1" name="themes" type="checkbox" value="Science fiction" id="Science fiction"/>
-                  <label class="form-check-label stretched-link" for="Science fiction">Science fiction</label>
+                <li className="list-group-item">
+                  <input className="form-check-input me-1" name="themes" type="checkbox" value="Science fiction" id="Science fiction"/>
+                  <label className="form-check-label stretched-link" htmlFor="Science fiction">Science fiction</label>
                 </li>
-                <li class="list-group-item">
-                  <input class="form-check-input me-1" name="themes" type="checkbox" value="Horror" id="Horror"/>
-                  <label class="form-check-label stretched-link" for="Horror">Horror</label>
+                <li className="list-group-item">
+                  <input className="form-check-input me-1" name="themes" type="checkbox" value="Horror" id="Horror"/>
+                  <label className="form-check-label stretched-link" htmlFor="Horror">Horror</label>
                 </li>
-                <li class="list-group-item">
-                  <input class="form-check-input me-1" name="themes" type="checkbox" value="Thriller" id="Thriller"/>
-                  <label class="form-check-label stretched-link" for="Thriller">Thriller</label>
+                <li className="list-group-item">
+                  <input className="form-check-input me-1" name="themes" type="checkbox" value="Thriller" id="Thriller"/>
+                  <label className="form-check-label stretched-link" htmlFor="Thriller">Thriller</label>
                 </li>
-                <li class="list-group-item">
-                  <input class="form-check-input me-1" name="themes" type="checkbox" value="Survival" id="Survival"/>
-                  <label class="form-check-label stretched-link" for="Survival">Survival</label>
+                <li className="list-group-item">
+                  <input className="form-check-input me-1" name="themes" type="checkbox" value="Survival" id="Survival"/>
+                  <label className="form-check-label stretched-link" htmlFor="Survival">Survival</label>
                 </li>
-                <li class="list-group-item">
-                  <input class="form-check-input me-1" name="themes" type="checkbox" value="Historical" id="Historical"/>
-                  <label class="form-check-label stretched-link" for="Historical">Historical</label>
+                <li className="list-group-item">
+                  <input className="form-check-input me-1" name="themes" type="checkbox" value="Historical" id="Historical"/>
+                  <label className="form-check-label stretched-link" htmlFor="Historical">Historical</label>
                 </li>
-                <li class="list-group-item">
-                  <input class="form-check-input me-1" name="themes" type="checkbox" value="Stealth" id="Stealth"/>
-                  <label class="form-check-label stretched-link" for="Stealth">Stealth</label>
+                <li className="list-group-item">
+                  <input className="form-check-input me-1" name="themes" type="checkbox" value="Stealth" id="Stealth"/>
+                  <label className="form-check-label stretched-link" htmlFor="Stealth">Stealth</label>
                 </li>
-                <li class="list-group-item">
-                  <input class="form-check-input me-1" name="themes" type="checkbox" value="Comedy" id="Comedy"/>
-                  <label class="form-check-label stretched-link" for="Comedy">Comedy</label>
+                <li className="list-group-item">
+                  <input className="form-check-input me-1" name="themes" type="checkbox" value="Comedy" id="Comedy"/>
+                  <label className="form-check-label stretched-link" htmlFor="Comedy">Comedy</label>
                 </li>
-                <li class="list-group-item">
-                  <input class="form-check-input me-1" name="themes" type="checkbox" value="Business" id="Business"/>
-                  <label class="form-check-label stretched-link" for="Business">Business</label>
+                <li className="list-group-item">
+                  <input className="form-check-input me-1" name="themes" type="checkbox" value="Business" id="Business"/>
+                  <label className="form-check-label stretched-link" htmlFor="Business">Business</label>
                 </li>
-                <li class="list-group-item">
-                  <input class="form-check-input me-1" name="themes" type="checkbox" value="Romance" id="Romance"/>
-                  <label class="form-check-label stretched-link" for="Romance">Romance</label>
+                <li className="list-group-item">
+                  <input className="form-check-input me-1" name="themes" type="checkbox" value="Romance" id="Romance"/>
+                  <label className="form-check-label stretched-link" htmlFor="Romance">Romance</label>
                 </li>
               </ul>
             </div>
@@ -494,6 +497,19 @@ const navigate = useNavigate()
       <div>
         <label>Trailer (Link del navegador de YouTube)</label>
         <input type="text" name="trailer" value={formData.trailer} onChange={handleChange} />
+      </div>
+      
+      <div>
+        <label>
+          Game File:
+          <input 
+          type="file" 
+          name="game_file" 
+          onChange={(event) => {
+            setFormData({...formData, game_file: event.target.files[0] })
+          }}  
+          />
+        </label>
       </div>
 
       <button type="submit">Submit</button>

@@ -48,11 +48,11 @@ export function Login() {
         <div className="container">
             <form onSubmit={handleSubmit}>
                     <div className="mb-3">
-                        <label for="exampleInputEmail1" className="form-label">Email address</label>
+                        <label htmlFor="exampleInputEmail1" className="form-label">Email address</label>
                         <input name="email" type="email" onChange={handleChange} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
                     </div>
                     <div className="mb-3">
-                        <label for="exampleInputPassword1" className="form-label">Password</label>
+                        <label htmlFor="exampleInputPassword1" className="form-label">Password</label>
                         <input name="password" type="password" onChange={handleChange} className="form-control" id="exampleInputPassword1" />
                     </div>
                     <button type="submit" className="btn btn-primary mb-2">Submit</button>

@@ -33,7 +33,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return response.status
 				}
 				catch (error) {
-					console.log(error.args)
+					console.log(error)
 					return false
 					
 				}
@@ -97,7 +97,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 					setStore({
 						singleGame: data
 					})
-					console.log(data)
 					return data
 				} catch (error) {
 					console.log(error)
@@ -118,14 +117,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 					setStore({
 						singleUser: data
 					})
-					console.log(data)
 				} catch (error) {
 					console.log(error)
 				}
 			},
 			getLocalUser: async (id) => {
 				try {
-					console.log(id)
 
 					let response = await fetch(`${process.env.BACKEND_URL}/get-user`,
 						{
@@ -176,7 +173,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 						}
 					)
 					let data = await response.json()
-					console.log(data)
 					return data
 				} catch (error) {
 					console.log(error)	
@@ -212,14 +208,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 						}
 					)
 					let data = await response.json()
-					console.log(id)
 					return data[0].result[0]
 				} catch (error) {
 					console.log(error)
 				}
 			},
 			compareAPIAndGame: async (game) => {
-				console.log(game)
 				let response = await fetch(`${process.env.BACKEND_URL}/compare-api-and-game`,
 					{
 					method: 'POST',
@@ -230,7 +224,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 					}
 				)
 				let data = await response.json()
-				console.log(data)
 				return data
 			},
 			fetchCart: async () => {
@@ -340,7 +333,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					}
 				)
 				let data = await response.json()
-				console.log(game)
+
 				return data
 			},
 			getCurrentUserGames: async () => {
@@ -356,7 +349,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 				)
 				let data = await response.json()
 				setStore({currentUserGames: data})
-				console.log(data)
 				return data
 			}
 			catch (error) {
@@ -376,7 +368,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 				)
 				let data = await response.json()
 				setStore({userGames: data})
-				console.log(data)
 				return data
 			}
 			catch (error) {
@@ -396,7 +387,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 						}
 					)
 					let data = await response.json()
-					console.log(data)
 					return response.status
 				}
 				catch (error) {

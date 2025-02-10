@@ -1,9 +1,7 @@
 import React from "react";
 import '../../styles/featured.css'
-import { useEffect } from "react";
+import { useEffect, useContext, useState } from "react";
 import { Context } from "../store/appContext";
-import { useContext } from "react"
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export function FeaturedGames() {
@@ -31,36 +29,60 @@ export function FeaturedGames() {
   return (
     <>
       {
-
         loading ?
-          <div class="spinner-border text-primary" role="status">
-            <span class="visually-hidden">Loading...</span>
+          <div className="spinner-border text-primary" role="status">
+            <span className="visually-hidden">Loading...</span>
           </div>
+
           :
-          store.featuredGames.map((item, index) => {
+          <div id="carouselExampleIndicators" className="carousel slide">
+            <div className="carousel-indicators">
 
-            return (
-              <>
-                {
-                  item &&
-                  <div id="container" key={item.game.id} onClick={() => navigate(`/game/${item.game.id}`)}>
-                    <div id="left">
-                      <img src={item.game.cover_image} />
+              {
+                store.featuredGames.filter((item) => item != undefined).map((item, index) => {
+
+                  return (
+                    <button
+                      type="button"
+                      data-bs-target="#carouselExampleIndicators"
+                      data-bs-slide-to={index}
+                      className={index == 0 ? "active" : ""}
+
+                      aria-current={index == 0 ? "true" : ""}
+                      aria-label={`Slide ${Number(index) + 1}`}></button>
+                  )
+                })
+              }
+
+            </div>
+            <div className="carousel-inner">
+              {
+                store.featuredGames.filter((item) => item != undefined).map((item, index) => {
+                  return (
+                    <div className={index == 0 ? "carousel-item active" : "carousel-item"}>
+                      <div id="container" onClick={() => navigate(`/game/${item.game?.id}`)}>
+                        <div id="left">
+                          <img src={item?.game?.cover_image} />
+                        </div>
+                        <div id="right">
+                          <img src={`https://images.igdb.com/igdb/image/upload/t_1080p/${relatedGame[index]?.cover?.url.split("/")[7]}`} />
+                        </div>
+                      </div>
                     </div>
-                    <div id="right">
-                      <img src={`https://images.igdb.com/igdb/image/upload/t_1080p/${relatedGame[index].cover.url.split("/")[7]}`} />
-                    </div>
-                  </div>
-                }
-              </>
-
-            )
-
-          })
+                  )
+                })
+              }
+            </div>
+            <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+              <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span className="visually-hidden">Previous</span>
+            </button>
+            <button className="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+              <span className="carousel-control-next-icon" aria-hidden="true"></span>
+              <span className="visually-hidden">Next</span>
+            </button>
+          </div >
       }
     </>
   )
-
-
-
 }
