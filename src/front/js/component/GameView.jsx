@@ -15,6 +15,7 @@ export function GameView() {
     const [loading, setLoading] = useState(true)
     const [errorMessage, setErrorMessage] = useState(null);
     const [successMessage, setSuccessMessage] = useState(null);
+    const [image, setImage] = useState()
 
     let {
         id,
@@ -23,6 +24,8 @@ export function GameView() {
         cover_image,
         genres,
         modes,
+        player_perspective,
+        themes,
         release_date,
         system_requirements,
         achievements,
@@ -80,6 +83,7 @@ export function GameView() {
             alert("Liked succesfully")
             actions.getGame(theid)
         }
+        console.log(autoRelatedGames)
 
     }
 
@@ -103,7 +107,7 @@ export function GameView() {
         if (!user_id) return
         actions.getUser(user_id)
         actions.getAllReviews(id)
-
+        setImage(additional_images[0])
     }, [user_id])
 
 
@@ -127,29 +131,38 @@ export function GameView() {
                     <div className="container">
                         <div className="row">
                             <div className="d-flex justify-content-center">
-                                <div>
-                                    <h1 className="d-flex justify-content-center">{name}</h1>
-                                    <span>{genres}</span>
-                                </div>
+
+                                <h1 className="col-2 d-flex justify-content-center text-center">{name}</h1>
                             </div>
-                            <div></div>
                             <div className="d-flex justify-content-center">
-                                <img src={cover_image} className="w-25" />
+                            <p>{summary}</p>
+
                             </div>
-                            <div className="d-flex justify-content-between">
-                                <p>A game by <NavLink to={`/user-games/${store.singleUser.id}`}>{store.singleUser.name}</NavLink></p>
-                                <button className={is_liked ? "btn btn-danger" : "btn btn-primary"} onClick={() => handleLike()}>Like</button>
-                            </div>
+  
+                      
                             <div className="d-flex justify-content-center mt-2">
                                 <iframe className="trailer" width="560" height="415" src={`https://www.youtube.com/embed/${trailer}`} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
                             </div>
-                            <div className="col-6 d-flex justify-content-center">
+                            <div className="d-flex justify-content-center">
+                                <div className="d-flex justify-content-between col-7">
+                                    <p>A game by <NavLink to={`/user-games/${store.singleUser.id}`}>{store.singleUser.name}</NavLink></p>
+                                    <button className="like fs-2 text-danger" onClick={() => handleLike()}>{is_liked ? <i class="fa-solid fa-heart"></i> : <i class="fa-regular fa-heart"></i>}</button>
+                                </div>
+                            </div>
+                            <div className="col-12 d-flex justify-content-center">
                                 <p>{summary}</p>
                                 <h2>Rating: {store.totalRating}</h2>                                
                             </div>
-                            <div className="col-6 d-flex justify-content-center">
-                                <div>
+                            <div className="border rounded d-flex justify-content-center bg-secondary">
+                                <div className="col-6 d-flex justify-content-center">
+                                    <div>
+                                    <p>Genres: {genres}</p>
                                     <p>Game modes: {modes?.split(',').join(', ')}</p>
+                                    <p>Player perspectives: {player_perspective}</p>
+                                    <p>Themes: {themes}</p>
+                                    </div>
+                                </div>
+                                <div className="col-6">
                                     <p>Release date: {release_date}</p>
                                     <p>PEGI: {rating}</p>
                                     <p>Number of players: {players}</p>
@@ -157,12 +170,38 @@ export function GameView() {
                                     <p>Language: {language}</p>
                                 </div>
                             </div>
+                            
+                            {additional_images && additional_images.length > 0 && (
+                                <div className="additional-images mt-4">
+                                    <div className="d-flex justify-content-center">
+                                        <img src={image} className="additional-image"/>
+                                    </div>
+                                    <div className="d-flex flex-wrap justify-content-center">
+                                        {additional_images.map((item, index) => {
+                                    
+                                        // if (index == 0) {
+                                        //     setImage(item)
+                                        // }
+                                        return (
+                                                <img
+                                                    key={index}
+                                                    src={item}
+                                                    alt={`Additional image ${index + 1}`}
+                                                    className={`m-2 hover-zoom rounded ${item == image && "hover-add-images"}`}
+                                                    style={{ width: "150px", height: "100px", objectFit: "cover", cursor:"pointer" }}
+                                                    onClick={({target}) => setImage(target.src)}
+                                                />
+                                        )})}
+                                    </div>
+                                </div>
+                            )}
                             <div className="d-flex justify-content-center">
                                 <h1 onClick={() => handleRelation()}>Related Games</h1>
                             </div>
 
                             {
                                 autoRelatedGames &&
+                                
                                 <div className="d-flex gap-3 justify-content-center">
                                     <div>
                                         <img src={autoRelatedGames[0].cover.url}></img>
@@ -181,22 +220,7 @@ export function GameView() {
                             <div className="d-flex justify-content-center">
                                 {system_requirements}
                             </div>
-                            {additional_images && additional_images.length > 0 && (
-                                <div className="additional-images mt-4">
-                                    <h2>Additional Images</h2>
-                                    <div className="d-flex flex-wrap justify-content-center">
-                                        {additional_images.map((image, index) => (
-                                            <img
-                                                key={index}
-                                                src={image}
-                                                alt={`Additional image ${index + 1}`}
-                                                className="m-2 hover-zoom"
-                                                style={{ width: "150px", height: "100px", objectFit: "cover" }}
-                                            />
-                                        ))}
-                                    </div>
-                                </div>
-                            )}
+                            
                                 <div className="d-flex justify-content-center mt-3">
                                     <button className="btn btn-primary" onClick={handleAddToCart}>Add to Cart</button>
                                 </div>
