@@ -1,0 +1,16 @@
+.first-part, .second-part, .third-part, .fourth-part, .fifth-part{
+    padding-top: 20px;
+    color: white;
+    border-bottom: 1px solid black;
+}
+.fifth-part{
+    justify-content: center;
+    display: flex;
+}
+input, select, textarea{
+    border-radius: 5px;
+    padding-left: 3px;
+}
+label{
+    padding-right: 5px;
+}
