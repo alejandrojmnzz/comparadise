@@ -609,7 +609,7 @@ def multiquery_game():
             'Content-Type': 'text/plain'
             }
         data = f'''query games "Multiquery" {{
-        fields name,genres.name, themes.name, game_modes.name, player_perspectives.name, cover.url;
+        fields name,genres.name, themes.name, game_modes.name, player_perspectives.name, cover.url, rating;
         where id = {id};
  
         }};'''

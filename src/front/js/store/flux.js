@@ -402,7 +402,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				let data = await response.json()
 				let review = 0
 				for (let item of data) {
-					review = review + item.rating
+					
 				}
 
 				setStore({reviews: data,

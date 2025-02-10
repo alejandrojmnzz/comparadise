@@ -62,10 +62,19 @@ export function FeaturedGames() {
                     <div className={index == 0 ? "carousel-item active" : "carousel-item"}>
                       <div id="container" onClick={() => navigate(`/game/${item.game?.id}`)}>
                         <div id="left">
-                          <img src={item?.game?.cover_image} />
+                          <img src={item?.game?.cover_image}/>
+                            <div className="content">
+                                <p className="name fs-1">{item.game.name}</p>
+                                <p className="genres fs-5">{item.game.genres.split(',')[0]}{item.game.genres.split(',')[1] ? ", " : ""}{item.game.genres.split(',')[1]}{item.game.genres.split(',')[2] ? ", " : ""}{item.game.genres.split(',')[2]}</p>
+                            </div>
                         </div>
+    
                         <div id="right">
                           <img src={`https://images.igdb.com/igdb/image/upload/t_1080p/${relatedGame[index]?.cover?.url.split("/")[7]}`} />
+                            <div className="content">
+                            <p className="name fs-1">{relatedGame[index]?.name}</p>
+                            <p className="genres fs-4">Rating: {Math.round(relatedGame[index]?.rating)}/100</p>
+                            </div>
                         </div>
                       </div>
                     </div>
