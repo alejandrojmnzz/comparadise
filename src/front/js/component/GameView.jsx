@@ -29,7 +29,7 @@ export function GameView() {
         release_date,
         system_requirements,
         achievements,
-        rating,
+        pegi,
         players,
         related_games,
         auto_related_games,
@@ -164,7 +164,7 @@ export function GameView() {
                                 </div>
                                 <div className="col-6">
                                     <p>Release date: {release_date}</p>
-                                    <p>PEGI: {rating}</p>
+                                    <p>PEGI: {pegi}</p>
                                     <p>Number of players: {players}</p>
                                     <p>Achievements: {achievements}</p>
                                     <p>Language: {language}</p>
