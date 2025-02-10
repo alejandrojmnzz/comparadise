@@ -2,6 +2,7 @@ import React, {useState, useContext, useEffect} from "react";
 import { Context } from "../store/appContext";
 import { useNavigate } from "react-router-dom";
 import { array } from "prop-types";
+import "../../styles/form.css"
 
 
 
@@ -28,7 +29,7 @@ const navigate = useNavigate()
       release_date: "",
       system_requirements: "",
       achievements: "",
-      rating: "",
+      pegi: "",
       players: "",
       related_games: "",
       language: "",
@@ -110,27 +111,44 @@ const navigate = useNavigate()
 //form info
   return (
     <form onSubmit={handleSubmit}>
-      <label>
-        Game Name:
-        <input 
-        type="text"
-        name="name" 
-        value={formData.name} 
-        onChange={handleChange} 
-        required />
-      </label>
+      <div className="first-part row">
+        <div className="col">
+          <label>
+          Game Name:
+          <input 
+          type="text"
+          name="name" 
+          value={formData.name} 
+          onChange={handleChange} 
+          required />
+        </label>
+        </div>
 
-      <label>
-        Cover Image:
-        <input 
-        type="file" 
-        name="cover_image" 
-        onChange={(event) => {
-          setFormData({...formData, cover_image: event.target.files[0] })
-        }}  
-        />
-      </label>
+      <div className="col">
+        <label>
+          Cover Image:
+          <input 
+          type="file" 
+          name="cover_image" 
+          onChange={(event) => {
+            setFormData({...formData, cover_image: event.target.files[0] })
+          }}  
+          />
+        </label>
+      </div>
 
+        <div className="col">
+          <label>Additional Images:</label>
+          <input
+          type="file" 
+          name="additional_images" 
+          multiple 
+          onChange={(event) => {
+            setFormData({ ...formData, additional_images: event.target.files });
+          }}
+          />
+        </div>
+      </div>
       {/* Second Section */}
       
       <div>
@@ -396,7 +414,7 @@ const navigate = useNavigate()
             </div>
           </div>
       <div>
-        <label>
+        {/* <label>
             Keywords/Tags:
             <input 
             type="text"
@@ -404,7 +422,7 @@ const navigate = useNavigate()
             value={formData.keywords} 
             onChange={handleChange} 
             required />
-          </label>
+          </label> */}
       </div>
 
        
@@ -422,27 +440,14 @@ const navigate = useNavigate()
       </div>
 
       <div>
-        <label>Achievements:</label>
-        <input type="text" name="achievements" value={formData.achievements} onChange={handleChange} />
-      </div>
- 
-      <div>
-        <label>Additional Images:</label>
-        <input
-        type="file" 
-        name="additional_images" 
-        multiple 
-        onChange={(event) => {
-          setFormData({ ...formData, additional_images: event.target.files });
-        }}
-        />
+        {/* <label>Achievements:</label>
+        <input type="text" name="achievements" value={formData.achievements} onChange={handleChange} /> */}
       </div>
 
-
       <div>
-        <label>Rating:</label>
-        <select name="rating" value={formData.rating} onChange={handleChange} required>
-          <option value="">Select a rating</option>
+        <label>PEGI:</label>
+        <select name="pegi" value={formData.pegi} onChange={handleChange} required>
+          <option value="">Select a pegi</option>
           <option value="G">G</option>
           <option value="PG">PG</option>
           <option value="PG-13">PG-13</option>

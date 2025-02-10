@@ -30,12 +30,12 @@ class Game(db.Model):
     modes = db.Column(db.Text, nullable=False)
     player_perspective = db.Column(db.Text, nullable=False)
     themes = db.Column(db.Text, nullable=False)
-    keywords = db.Column(db.String(100), nullable=False)
+    # keywords = db.Column(db.String(100), nullable=False)
     release_date = db.Column(db.Date, nullable=True)
     system_requirements = db.Column(db.Text, nullable=True)
-    achievements = db.Column(db.Text, nullable=True)
+    # achievements = db.Column(db.Text, nullable=True)
     additional_images = db.Column(db.Text, nullable=True)
-    rating = db.Column(db.String(10), nullable=True)
+    pegi = db.Column(db.String(10), nullable=True)
     players = db.Column(db.Integer, nullable=False)
     related_games = db.Column(db.Text, nullable=True)
     auto_related_games = db.Column(db.String(100), nullable=True)
@@ -72,12 +72,12 @@ class Game(db.Model):
             "modes": self.modes,
             "player_perspective": self.player_perspective,
             "themes": self.themes,
-            "keywords": self.keywords,
+            # "keywords": self.keywords,
             "release_date": self.release_date.strftime("%Y-%m-%d"),
             "system_requirements": self.system_requirements,
-            "achievements": self.achievements,
+            # "achievements": self.achievements,
             "additional_images": json.loads(self.additional_images) if self.additional_images else [],
-            "rating": self.rating,
+            "pegi": self.pegi,
             "players": self.players,
             "related_games": self.related_games,
             "auto_related_games": json.loads(self.auto_related_games) if self.auto_related_games else [],
