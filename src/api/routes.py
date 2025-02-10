@@ -10,7 +10,6 @@ import os
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 from werkzeug.utils import secure_filename
-from datetime import datetime
 import cloudinary.uploader as uploader
 import requests
 import json
@@ -132,13 +131,13 @@ def submit_game():
     genres=data['genres'],
     modes=data.get('modes', ''),
     themes=data['themes'],
-    keywords=data['keywords'],
+    # keywords=data['keywords'],
     player_perspective=data['player_perspective'],
     release_date=data['release_date'],
     system_requirements=data['system_requirements'],
-    achievements=data.get('achievements', ''),
+    # achievements=data.get('achievements', ''),
     additional_images=json.dumps(additional_files_urls),
-    rating=data['rating'],
+    pegi=data['pegi'],
     players=int(data['players']),
     related_games=data.get('related_games', ''),
     auto_related_games=json.dumps(auto_related_games),
@@ -217,7 +216,7 @@ def populate_games():
             "player_perspective": "Bird view / Isometric",
             "themes": "Action,Fantasy,Comedy",
             "additional_images": json.dumps(["https://res.cloudinary.com/dcdymggxx/image/upload/v1737148333/images_oyidub.jpg", "https://res.cloudinary.com/dcdymggxx/image/upload/v1737153499/WWlywV3UCoEbldP1k7eR6sH5-Yk13rUm3KiXLI_cBSo_ndxgsa.webp", "https://res.cloudinary.com/dcdymggxx/image/upload/v1737153186/2JSde8PFCF6B4nO2EECrcR1m_s6xclp.webp"]),
-            "keywords": "animals",
+            # "keywords": "animals",
             "release_date": '07/21/2020',
             "system_requirements": """OS *: Windows 7 (64bit)
                                     Processor: Intel Core 2 Duo E5200.
@@ -226,12 +225,12 @@ def populate_games():
                                     DirectX: Version 10.
                                     Storage: 9 GB available space.
                                     Additional Notes: 1080p, 16:9 recommended.""",
-            "achievements": """Achievement 1
-                            Achievement 2
-                            Achievement 3
-                            Achievement 4
-                            Achievement 5""",
-            "rating": "7/10",
+            # "achievements": """Achievement 1
+            #                 Achievement 2
+            #                 Achievement 3
+            #                 Achievement 4
+            #                 Achievement 5""",
+            "pegi": "7/10",
             "players": 1,
             "related_games": "x, x, x",
             "auto_related_games": json.dumps([134, 573, 468]),
@@ -248,7 +247,7 @@ def populate_games():
             "player_perspective": "Side view",
             "themes": "Action, Fantasy",
             "additional_images": json.dumps(["https://res.cloudinary.com/dcdymggxx/image/upload/v1737148333/images_oyidub.jpg", "https://res.cloudinary.com/dcdymggxx/image/upload/v1737153499/WWlywV3UCoEbldP1k7eR6sH5-Yk13rUm3KiXLI_cBSo_ndxgsa.webp", "https://res.cloudinary.com/dcdymggxx/image/upload/v1737153186/2JSde8PFCF6B4nO2EECrcR1m_s6xclp.webp"]),
-            "keywords": "animals",
+            # "keywords": "animals",
             "release_date": '03/24/2017',
             "system_requirements": """OS *: Windows 7 (64bit)
                                     Processor: Intel Core 2 Duo E5200.
@@ -257,12 +256,12 @@ def populate_games():
                                     DirectX: Version 10.
                                     Storage: 9 GB available space.
                                     Additional Notes: 1080p, 16:9 recommended.""",
-            "achievements": """Achievement 1
-                            Achievement 2
-                            Achievement 3
-                            Achievement 4
-                            Achievement 5""",
-            "rating": "9/10",
+            # "achievements": """Achievement 1
+            #                 Achievement 2
+            #                 Achievement 3
+            #                 Achievement 4
+            #                 Achievement 5""",
+            "pegi": "9/10",
             "players": 1,
             "related_games": "x, x, x",
             "auto_related_games": json.dumps([134, 573, 468]),
@@ -279,7 +278,7 @@ def populate_games():
             "modes": "Single player",
             "themes": "Action,Horror,Survival",
             "additional_images": json.dumps(["https://res.cloudinary.com/dcdymggxx/image/upload/v1737148333/images_oyidub.jpg", "https://res.cloudinary.com/dcdymggxx/image/upload/v1737153499/WWlywV3UCoEbldP1k7eR6sH5-Yk13rUm3KiXLI_cBSo_ndxgsa.webp", "https://res.cloudinary.com/dcdymggxx/image/upload/v1737153186/2JSde8PFCF6B4nO2EECrcR1m_s6xclp.webp"]),
-            "keywords": "animals",
+            # "keywords": "animals",
             "release_date": '04/06/2023',
             "system_requirements": """OS *: Windows 7 (64bit)
                                     Processor: Intel Core 2 Duo E5200.
@@ -288,12 +287,12 @@ def populate_games():
                                     DirectX: Version 10.
                                     Storage: 9 GB available space.
                                     Additional Notes: 1080p, 16:9 recommended.""",
-            "achievements": """Achievement 1
-                            Achievement 2
-                            Achievement 3
-                            Achievement 4
-                            Achievement 5""",
-            "rating": "10/10",
+            # "achievements": """Achievement 1
+            #                 Achievement 2
+            #                 Achievement 3
+            #                 Achievement 4
+            #                 Achievement 5""",
+            "pegi": "10/10",
             "players": 1,
             "related_games": "x, x, x",
             "auto_related_games": json.dumps([134, 573, 468]),
@@ -310,7 +309,7 @@ def populate_games():
             "player_perspective": "Side view",
             "themes": "Action,Fantasy,Science fiction,Drama",
             "additional_images": json.dumps(["https://res.cloudinary.com/dcdymggxx/image/upload/v1737148333/images_oyidub.jpg", "https://res.cloudinary.com/dcdymggxx/image/upload/v1737153499/WWlywV3UCoEbldP1k7eR6sH5-Yk13rUm3KiXLI_cBSo_ndxgsa.webp", "https://res.cloudinary.com/dcdymggxx/image/upload/v1737153186/2JSde8PFCF6B4nO2EECrcR1m_s6xclp.webp"]),
-            "keywords": "animals",
+            # "keywords": "animals",
             "release_date": '09/07/2012',
             "system_requirements": """OS *: Windows 7 (64bit)
                                     Processor: Intel Core 2 Duo E5200.
@@ -319,12 +318,12 @@ def populate_games():
                                     DirectX: Version 10.
                                     Storage: 9 GB available space.
                                     Additional Notes: 1080p, 16:9 recommended.""",
-            "achievements": """Achievement 1
-                            Achievement 2
-                            Achievement 3
-                            Achievement 4
-                            Achievement 5""",
-            "rating": "6/10",
+            # "achievements": """Achievement 1
+            #                 Achievement 2
+            #                 Achievement 3
+            #                 Achievement 4
+            #                 Achievement 5""",
+            "pegi": "6/10",
             "players": 1,
             "related_games": "x, x, x",
             "auto_related_games": json.dumps([134, 573, 468]),
@@ -341,7 +340,7 @@ def populate_games():
             "player_perspective": "Bird view / Isometric",
             "themes": "Action",
             "additional_images": json.dumps(["https://res.cloudinary.com/dcdymggxx/image/upload/v1737148333/images_oyidub.jpg", "https://res.cloudinary.com/dcdymggxx/image/upload/v1737153499/WWlywV3UCoEbldP1k7eR6sH5-Yk13rUm3KiXLI_cBSo_ndxgsa.webp", "https://res.cloudinary.com/dcdymggxx/image/upload/v1737153186/2JSde8PFCF6B4nO2EECrcR1m_s6xclp.webp"]),
-            "keywords": "animals",
+            # "keywords": "animals",
             "release_date": '03/10/2013',
             "system_requirements": """OS *: Windows 7 (64bit)
                                     Processor: Intel Core 2 Duo E5200.
@@ -350,12 +349,12 @@ def populate_games():
                                     DirectX: Version 10.
                                     Storage: 9 GB available space.
                                     Additional Notes: 1080p, 16:9 recommended.""",
-            "achievements": """Achievement 1
-                            Achievement 2
-                            Achievement 3
-                            Achievement 4
-                            Achievement 5""",
-            "rating": "6/10",
+            # "achievements": """Achievement 1
+            #                 Achievement 2
+            #                 Achievement 3
+            #                 Achievement 4
+            #                 Achievement 5""",
+            "pegi": "6/10",
             "players": 1,
             "related_games": "x, x, x",
             "auto_related_games": json.dumps([134, 573, 468]),
@@ -372,7 +371,7 @@ def populate_games():
             "player_perspective": "Third person",
             "themes": "Action,Horror",
             "additional_images": json.dumps(["https://res.cloudinary.com/dcdymggxx/image/upload/v1737148333/images_oyidub.jpg", "https://res.cloudinary.com/dcdymggxx/image/upload/v1737153499/WWlywV3UCoEbldP1k7eR6sH5-Yk13rUm3KiXLI_cBSo_ndxgsa.webp", "https://res.cloudinary.com/dcdymggxx/image/upload/v1737153186/2JSde8PFCF6B4nO2EECrcR1m_s6xclp.webp"]),
-            "keywords": "animals",
+            # "keywords": "animals",
             "release_date": '01/22/2023',
             "system_requirements": """OS *: Windows 7 (64bit)
                                     Processor: Intel Core 2 Duo E5200.
@@ -381,12 +380,12 @@ def populate_games():
                                     DirectX: Version 10.
                                     Storage: 9 GB available space.
                                     Additional Notes: 1080p, 16:9 recommended.""",
-            "achievements": """Achievement 1
-                            Achievement 2
-                            Achievement 3
-                            Achievement 4
-                            Achievement 5""",
-            "rating": "6/10",
+            # "achievements": """Achievement 1
+            #                 Achievement 2
+            #                 Achievement 3
+            #                 Achievement 4
+            #                 Achievement 5""",
+            "pegi": "6/10",
             "players": 1,
             "related_games": "x, x, x",
             "auto_related_games": json.dumps([134, 573, 468]),
@@ -403,7 +402,7 @@ def populate_games():
             "player_perspective": "First person",
             "themes": "Action, Science fiction",
             "additional_images": json.dumps(["https://res.cloudinary.com/dcdymggxx/image/upload/v1737148333/images_oyidub.jpg", "https://res.cloudinary.com/dcdymggxx/image/upload/v1737153499/WWlywV3UCoEbldP1k7eR6sH5-Yk13rUm3KiXLI_cBSo_ndxgsa.webp", "https://res.cloudinary.com/dcdymggxx/image/upload/v1737153186/2JSde8PFCF6B4nO2EECrcR1m_s6xclp.webp"]),
-            "keywords": "animals",
+            # "keywords": "animals",
             "release_date": '05/11/2023',
             "system_requirements": """OS *: Windows 7 (64bit)
                                     Processor: Intel Core 2 Duo E5200.
@@ -412,12 +411,12 @@ def populate_games():
                                     DirectX: Version 10.
                                     Storage: 9 GB available space.
                                     Additional Notes: 1080p, 16:9 recommended.""",
-            "achievements": """Achievement 1
-                            Achievement 2
-                            Achievement 3
-                            Achievement 4
-                            Achievement 5""",
-            "rating": "9/10",
+            # "achievements": """Achievement 1
+            #                 Achievement 2
+            #                 Achievement 3
+            #                 Achievement 4
+            #                 Achievement 5""",
+            "pegi": "9/10",
             "players": 1,
             "related_games": "x, x, x",
             "auto_related_games": json.dumps([134, 573, 468]),
@@ -434,7 +433,7 @@ def populate_games():
             "player_perspective": "Bird view / Isometric",
             "themes": "Fantasy,Open world",
             "additional_images": json.dumps(["https://res.cloudinary.com/dcdymggxx/image/upload/v1737148333/images_oyidub.jpg", "https://res.cloudinary.com/dcdymggxx/image/upload/v1737153499/WWlywV3UCoEbldP1k7eR6sH5-Yk13rUm3KiXLI_cBSo_ndxgsa.webp", "https://res.cloudinary.com/dcdymggxx/image/upload/v1737153186/2JSde8PFCF6B4nO2EECrcR1m_s6xclp.webp"]),
-            "keywords": "animals",
+            # "keywords": "animals",
             "release_date": '01/22/2023',
             "system_requirements": """OS *: Windows 7 (64bit)
                                     Processor: Intel Core 2 Duo E5200.
@@ -443,12 +442,12 @@ def populate_games():
                                     DirectX: Version 10.
                                     Storage: 9 GB available space.
                                     Additional Notes: 1080p, 16:9 recommended.""",
-            "achievements": """Achievement 1
-                            Achievement 2
-                            Achievement 3
-                            Achievement 4
-                            Achievement 5""",
-            "rating": "6/10",
+            # "achievements": """Achievement 1
+            #                 Achievement 2
+            #                 Achievement 3
+            #                 Achievement 4
+            #                 Achievement 5""",
+            "pegi": "6/10",
             "players": 4,
             "related_games": "x, x, x",
             "auto_related_games": json.dumps([134, 573, 468]),
@@ -465,7 +464,7 @@ def populate_games():
             "player_perspective": "Side view",
             "themes": "Action,Party",
             "additional_images": json.dumps(["https://res.cloudinary.com/dcdymggxx/image/upload/v1737148333/images_oyidub.jpg", "https://res.cloudinary.com/dcdymggxx/image/upload/v1737153499/WWlywV3UCoEbldP1k7eR6sH5-Yk13rUm3KiXLI_cBSo_ndxgsa.webp", "https://res.cloudinary.com/dcdymggxx/image/upload/v1737153186/2JSde8PFCF6B4nO2EECrcR1m_s6xclp.webp"]),
-            "keywords": "animals",
+            # "keywords": "animals",
             "release_date": '08/22/2017',
             "system_requirements": """OS *: Windows 7 (64bit)
                                     Processor: Intel Core 2 Duo E5200.
@@ -474,12 +473,12 @@ def populate_games():
                                     DirectX: Version 10.
                                     Storage: 9 GB available space.
                                     Additional Notes: 1080p, 16:9 recommended.""",
-            "achievements": """Achievement 1
-                            Achievement 2
-                            Achievement 3
-                            Achievement 4
-                            Achievement 5""",
-            "rating": "9/10",
+            # "achievements": """Achievement 1
+            #                 Achievement 2
+            #                 Achievement 3
+            #                 Achievement 4
+            #                 Achievement 5""",
+            "pegi": "9/10",
             "players": 4,
             "related_games": "x, x, x",
             "auto_related_games": json.dumps([134, 573, 468]),
@@ -496,7 +495,7 @@ def populate_games():
             "player_perspective": "Third person",
             "themes": "Action,Fantasy,Science fiction,Sandbox,Open world",
             "additional_images": json.dumps(["https://res.cloudinary.com/dcdymggxx/image/upload/v1737148333/images_oyidub.jpg", "https://res.cloudinary.com/dcdymggxx/image/upload/v1737153499/WWlywV3UCoEbldP1k7eR6sH5-Yk13rUm3KiXLI_cBSo_ndxgsa.webp", "https://res.cloudinary.com/dcdymggxx/image/upload/v1737153186/2JSde8PFCF6B4nO2EECrcR1m_s6xclp.webp"]),
-            "keywords": "animals",
+            # "keywords": "animals",
             "release_date": '08/22/2017',
             "system_requirements": """OS *: Windows 7 (64bit)
                                     Processor: Intel Core 2 Duo E5200.
@@ -505,12 +504,12 @@ def populate_games():
                                     DirectX: Version 10.
                                     Storage: 9 GB available space.
                                     Additional Notes: 1080p, 16:9 recommended.""",
-            "achievements": """Achievement 1
-                            Achievement 2
-                            Achievement 3
-                            Achievement 4
-                            Achievement 5""",
-            "rating": "9/10",
+            # "achievements": """Achievement 1
+            #                 Achievement 2
+            #                 Achievement 3
+            #                 Achievement 4
+            #                 Achievement 5""",
+            "pegi": "9/10",
             "players": 1,
             "related_games": "x, x, x",
             "auto_related_games": json.dumps([134, 573, 468]),
@@ -531,11 +530,11 @@ def populate_games():
         game.player_perspective = single_populate["player_perspective"]
         game.themes = single_populate["themes"]
         game.additional_images = single_populate["additional_images"]
-        game.keywords = single_populate["keywords"]
+        # game.keywords = single_populate["keywords"]
         game.release_date = single_populate['release_date']
         game.system_requirements = single_populate['system_requirements']
-        game.achievements = single_populate['achievements']
-        game.rating = single_populate['rating']
+        # game.achievements = single_populate['achievements']
+        game.pegi = single_populate['pegi']
         game.players = single_populate['players']
         game.related_games = single_populate['related_games']
         game.auto_related_games=single_populate['auto_related_games']
