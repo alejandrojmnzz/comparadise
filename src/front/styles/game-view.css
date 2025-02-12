@@ -1,0 +1,118 @@
+.game-view-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .like {
+    display: flex;
+    justify-content: end;
+    background-color: transparent;
+    outline: none;
+    border: none;
+    margin-left: 10px;
+    margin-top: 10px;;
+  }
+
+  .additional-image {
+    width: 800px;
+    height: 497px;
+    border-radius: 10px;
+    object-fit: cover;
+  }
+
+  .hover-add-images {
+    border: 3px solid rgb(161, 3, 161);
+  }
+
+  .game-title {
+    font-family: 'Kumbh Sans', serif;
+  }
+
+  .like-icon {
+    animation: latido 0.3s 2 ease-in-out; /* 0.8 segundos, repetición infinita, suavizado */
+  }
+  
+  @keyframes latido {
+    0% {
+      transform: scale(1); /* Tamaño normal */
+    }
+    50% {
+      transform: scale(1.2); /* Aumenta un poco el tamaño */
+    }
+    100% {
+      transform: scale(1); /* Vuelve al tamaño normal */
+    }
+  }
+
+  .aspect {
+    border: 2px solid rgb(66, 47, 136);
+    background-color: rgb(89, 72, 144);
+    border-radius: 10px;
+    padding-top: 10px;
+    width: 100%;
+  }
+
+  .related-game-view {
+    width: 300px;
+  }
+
+  .cart-button {
+    background-color: rgb(166, 2, 166);
+  }
+
+  .review-input {
+    background-color: rgb(90, 61, 195);
+    border-color: black;
+    height: 50px;
+    font-size: 22px;
+  }
+
+  .review-input:focus {
+    background-color: rgb(87, 61, 183);
+
+  }
+
+  .rate-game {
+
+    border-radius: 5px;
+    padding: 10px;
+    width: 50%;
+  }
+
+.review-div {
+  border: 3px solid rgb(39, 30, 80);
+  border-radius: 7px;
+}
+
+.rating-review {
+  background-color: rgb(41, 41, 132);
+  padding: 5px 10px;
+  border-top-left-radius: 7px;
+  border-top-right-radius: 7px;
+
+
+}
+
+.name-review {
+  background-color: rgb(47, 47, 158);
+  padding: 0 10px;
+  border-bottom-left-radius: 7px;
+  border-bottom-right-radius: 7px;
+
+}
+p {
+  color: rgb(158, 158, 158);
+}
+
+.review-text {
+  color: rgb(192, 192, 192);
+}
+
+.additional-info {
+  border: 3px solid rgb(49, 39, 83);
+  border-radius: 5px;
+  background-color: rgb(60, 48, 100);
+
+  padding: 10px;
+}

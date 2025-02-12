@@ -547,7 +547,7 @@ def populate_games():
         game.summary = single_populate['summary']
         game.description = single_populate['description']
         game.trailer = single_populate['trailer']
-        game.is_liked = True
+        game.is_liked = False
         game.game_file = "https://res.cloudinary.com/dcdymggxx/raw/upload/v1738861007/blacklist_za4hif.txt"
         db.session.add(game)
     try:
@@ -933,3 +933,8 @@ def get_game_likes():
 
     sorted_games = sorted(game_likes_array, key=lambda x: x["likes"], reverse=True)
     return jsonify(list(map(lambda item: item, sorted_games)))
+
+@api.route('/get-all-game-likes/<int:id>', methods=['GET'])
+def get_all_game_likes(id): 
+    likes = Like.query.filter(Like.game_id == id, Like.is_liked == True)
+    return jsonify(len(list(map(lambda item: item.serialize()["game_id"], likes))))

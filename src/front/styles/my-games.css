@@ -1,0 +1,25 @@
+.my-games-image {
+    width: 267px;
+    height: 400px;
+    object-fit: cover;
+    border: 1px solid rgb(135, 47, 137);
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.game-stats {
+    display: flex;
+    justify-content: center;
+    height: 60%;
+    width: 130px;
+    background-color: rgb(135, 47, 137);
+    border: 2px solid rgb(76, 1, 76);
+    border-left: none;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+
+}
+
+.my-games-titles {
+    color: rgb(179, 179, 179);
+}
