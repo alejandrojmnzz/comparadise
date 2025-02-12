@@ -512,7 +512,7 @@ const navigate = useNavigate()
           
           <div className="row pt-4">
           <div className="col"></div>
-            <button className="col justify-content-center btn btn-primary" type="button">Submit</button>
+            <button className="col justify-content-center btn btn-primary" type="submit">Submit</button>
           <div className="col"></div>
           </div>
       </div>

@@ -45,7 +45,7 @@ export function Login() {
         }
     }, [])
     return (
-        <div className="container">
+        <div className="container justify-content-center align-items-center col-4 pt-5">
             <form onSubmit={handleSubmit}>
                     <div className="mb-3">
                         <label htmlFor="exampleInputEmail1" className="form-label">Email address</label>
@@ -55,9 +55,11 @@ export function Login() {
                         <label htmlFor="exampleInputPassword1" className="form-label">Password</label>
                         <input name="password" type="password" onChange={handleChange} className="form-control" id="exampleInputPassword1" />
                     </div>
-                    <button type="submit" className="btn btn-primary mb-2">Submit</button>
+                    <button type="submit" className="btn btn-primary mb-2 align-items-center">Submit</button>
                 </form>
+                <div className="aling-items-center">
                 <NavLink to="/register">You don't have an account?</NavLink>
+                </div>
         </div>
     )
 }
