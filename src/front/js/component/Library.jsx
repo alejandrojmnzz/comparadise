@@ -20,8 +20,8 @@ export function Library() {
             ) : ( */}
                 <div className="row">
                     {store.library.map((item, index) => (
-                        <div key={index} className="col-md-4 mb-3">
-                            <div className="card">
+                        <div key={index} className="d-flex justify-content-center gap-3 col-md-4 mb-3">
+                            <div className="card gap-3">
                                 <img 
                                 src={item.cover_image} 
                                 className="card-img-top" 
