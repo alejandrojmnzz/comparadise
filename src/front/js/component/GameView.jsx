@@ -268,21 +268,22 @@ export function GameView() {
 
                             {
                                 autoRelatedGames &&
-
-                                <div className="d-flex gap-3 justify-content-center">
-                                    <div>
+                            <div className="d-flex justify-content-center">
+                                <div className="row ">
+                                    <div className="col-sm-5 col-xl-4">
                                         <img className="related-game-view" src={`https://images.igdb.com/igdb/image/upload/t_1080p/${autoRelatedGames[0].cover.url.split("/")[7]}`}></img>
                                         <p>{autoRelatedGames[0].name}</p>
                                     </div>
-                                    <div>
+                                    <div className="col-sm-5 col-xl-4">
                                         <img className="related-game-view" src={`https://images.igdb.com/igdb/image/upload/t_1080p/${autoRelatedGames[1].cover.url.split("/")[7]}`}></img>
 
                                         <p>{autoRelatedGames[1].name}</p>
                                     </div>
-                                    <div>
+                                    <div className="col-sm-5 col-xl-4">
                                     <img className="related-game-view" src={`https://images.igdb.com/igdb/image/upload/t_1080p/${autoRelatedGames[2].cover.url.split("/")[7]}`}></img>
                                         <p>{autoRelatedGames[2].name}</p>
                                     </div>
+                                </div>
                                 </div>
                             }
                             <div className="d-flex justify-content-center mt-3">
