@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState} from "react";
 import { Context } from "../store/appContext";
 import { useNavigate } from "react-router-dom";
+import "../../styles/cart.css"
 
 export function Cart() {
     const {store, actions} = useContext(Context);
@@ -43,12 +44,15 @@ export function Cart() {
     return (
         <div className="container">
             <h1 className="text-center">Your Cart</h1>
+            <button className="btn btn-secondary mt-2 go-back-button" onClick={() => navigate(-1)}>
+                <i class="fa-solid fa-rotate-left"></i>
+                &nbsp; Go Back</button>
             {store.cart.length === 0 ? (
                 <p className="text-center">Your cart is empty.</p>
             ) : (
                 <div className="row">
                     {store.cart.map((item, index) => (
-                        <div key={index} className="col-12 d-flex justify-content-between aligns-items-center border-bottom py-2">
+                        <div key={index} className="col-12 d-flex justify-content-between align-items-center border-bottom py-2">
                             <div className="d-flex align-items-center">
                                 <img src={item.game?.cover_image} alt={item.game?.name} style={{ width: "50px", height: "50px", objectFit: "cover"}} className="me-3"/>
                                 <p className="m-0">{item.game?.name}</p>

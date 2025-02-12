@@ -10,6 +10,9 @@ export function SearchResults() {
 
     return (
         <div className="container mt-5">
+           <button className="btn btn-secondary mt-2 go-back-button" onClick={() => navigate(-1)}>
+                <i class="fa-solid fa-rotate-left"></i>
+                &nbsp; Go Back</button> 
             <h2>Search Results</h2>
 
             {store.searchResults.length === 0 ? (

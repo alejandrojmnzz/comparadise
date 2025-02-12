@@ -4,6 +4,7 @@ import {Context} from "../store/appContext"
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { NavLink } from "react-router-dom";
+import "../../styles/reg-log.css"
 
 export function Login() {
 
@@ -45,7 +46,13 @@ export function Login() {
         }
     }, [])
     return (
-        <div className="container justify-content-center align-items-center col-4 pt-5">
+        <div>
+            <button className="btn btn-secondary mt-2 go-back-button" onClick={() => navigate(-1)}>
+                <i class="fa-solid fa-rotate-left"></i>
+                    &nbsp; Go Back</button>
+        
+            <div className="container justify-content-center align-items-center col-4 pt-5">
+                <h1 className="text-center">Login</h1>
             <form onSubmit={handleSubmit}>
                     <div className="mb-3">
                         <label htmlFor="exampleInputEmail1" className="form-label">Email address</label>
@@ -60,6 +67,7 @@ export function Login() {
                 <div className="aling-items-center">
                 <NavLink to="/register">You don't have an account?</NavLink>
                 </div>
+        </div>
         </div>
     )
 }

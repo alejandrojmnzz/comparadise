@@ -15,9 +15,9 @@ export function Library() {
     return (
         <div>
             <h1 className="text-center">Your Library</h1>
-            {/* {store.library.length === 0 ? (
-                <p className="text-center">No games purchased yet.</p>
-            ) : ( */}
+            <button className="btn btn-secondary mt-2 go-back-button" onClick={() => navigate(-1)}>
+                <i class="fa-solid fa-rotate-left"></i>
+                &nbsp; Go Back</button>
                 <div className="row">
                     {store.library.map((item, index) => (
                         <div key={index} className="d-flex justify-content-center gap-3 col-md-4 mb-3">

@@ -68,6 +68,9 @@ export function MyGames() {
     return (
 
         <div className="container">
+            <button className="btn btn-secondary mt-2 go-back-button" onClick={() => navigate(-1)}>
+                <i class="fa-solid fa-rotate-left"></i>
+                    &nbsp; Go Back</button>
             {
                 loading ?
 
