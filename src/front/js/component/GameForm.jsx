@@ -359,10 +359,6 @@ const navigate = useNavigate()
                   <label className="form-check-label stretched-link" htmlFor="Party">Party</label>
                 </li>
                 <li className="list-group-item">
-                  <input className="form-check-input me-1" name="themes" type="checkbox" value="4X (explore, expand, exploit, and exterminate)" id="4X (explore, expand, exploit, and exterminate)"/>
-                  <label className="form-check-label stretched-link" htmlFor="4X (explore, expand, exploit, and exterminate)">4X (explore, expand, exploit, and exterminate)</label>
-                </li>
-                <li className="list-group-item">
                   <input className="form-check-input me-1" name="themes" type="checkbox" value="Mystery" id="Mystery"/>
                   <label className="form-check-label stretched-link" htmlFor="Mystery">Mystery</label>
                 </li>

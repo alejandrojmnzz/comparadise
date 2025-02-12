@@ -63,6 +63,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 			logout: () => {
 				setStore({token: null})
+				setStore({currentUserGames: null})
+
 			},
 			recentGames: async () => {
 				try {
@@ -401,12 +403,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 				)
 				let data = await response.json()
 				let review = 0
-				for (let item of data) {
-					
+				for (let item of data) {					
+					review = review + item.rating
 				}
-
+				if (review != 0) {
+					review = review / data.length
+				}
 				setStore({reviews: data,
-					totalRating: (review / data.length)
+					totalRating: Math.round(review)
 				})
 				return data
 			},
@@ -441,6 +445,15 @@ const getState = ({ getStore, getActions, setStore }) => {
 				)
 				let data = await response.json()
 				setStore({featuredGames: [data[0], data[1], data[2], data[3], data[4]]})
+				return data
+			},
+			getAllGameLikes: async (id) => {
+				let response = await fetch(`${process.env.BACKEND_URL}/get-all-game-likes/${id}`,
+					{
+						method: 'GET'
+					}
+				)
+				let data = await response.json()
 				return data
 			}
 		}

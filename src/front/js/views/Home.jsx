@@ -57,7 +57,7 @@ export const Home = () => {
 
 				<div className="d-flex justify-content-center">
 					<div className="d-flex w-75 search-api">
-						<i class="fa-solid fa-magnifying-glass icon-api-search"></i>
+						<i className="fa-solid fa-magnifying-glass icon-api-search"></i>
 						<input type="search" value={query} className="input-api-search w-100" onChange={handleChange} onKeyDown={handleEnter} placeholder="Search for a game to compare" />
 
 
