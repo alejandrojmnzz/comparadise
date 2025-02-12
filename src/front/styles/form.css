@@ -2,6 +2,8 @@
     padding-top: 20px;
     color: white;
     border-bottom: 1px solid black;
+    justify-content: center;
+    padding-bottom: 10px;
 }
 .fifth-part{
     justify-content: center;
@@ -13,4 +15,17 @@ input, select, textarea{
 }
 label{
     padding-right: 5px;
+}
+.card, .list-group-item {
+    background-color: rgb(68, 67, 94);
+    color: rgb(224, 224, 224);
+}
+.form-control{
+    background-color: rgb(24, 24, 34);
+    border-color: rgb(24, 24, 34);
+    color: whitesmoke;
+}
+option, .players-option, .players-option-drop{
+    background-color:rgb(24, 24, 34);
+    color: whitesmoke;
 }

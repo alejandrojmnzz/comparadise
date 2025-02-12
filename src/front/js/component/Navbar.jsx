@@ -3,6 +3,8 @@ import { NavLink } from "react-router-dom";
 import { useContext } from "react";
 import { Context } from "../store/appContext";
 import { useNavigate } from "react-router-dom";
+import ComParadise from "../../img/ComParadise.png"
+import "../../styles/navbar.css"
 
 export function Navbar() {
     const {store, actions} = useContext(Context)
@@ -64,52 +66,79 @@ export function Navbar() {
         navigate(`/game/${game.id}`);
     };
     return (
-        <div className="navbar-color">
-            <div className="container">
-                <div className="d-flex navbar">
-                    <div className="search container" role="search">
-                        <input
-                            className="form-control me-2"
-                            type="search"
-                            placeholder="Search for a game"
-                            value={query}
-                            onChange={handleSearchChange}
-                            aria-label="Search"
-                        />
-                        <button className="btn btn-outline-success" type="button" onClick={handleSearch}>
-                            Search
-                        </button>
+        <div className="navbar navbar-expand-lg navbar-light bg-body-tertiary navbar-color">
+            <div className="container-fluid d-flex justify-content-between align-items-center">
+                
+                    <button className="btn p-0" onClick={goToMainPage}>
+                        <img className="logo-home" src="ComParadise.png" alt="Home"/>
+                    </button>
+                    
+                <div className="d-flex align-items-center flex-grow-1 mx-3" role="search">
+                    <input
+                        className="form-control me-2 navbar-search-bar"
+                        type="search"
+                        placeholder="Search for a game"
+                        value={query}
+                        onChange={handleSearchChange}
+                        aria-label="Search"
+                    />
+                    <button className="btn btn-primary search-button" type="button" onClick={handleSearch}>
+                        Search
+                    </button>
 
                         {suggestions.length > 0 && (
-                            <ul className="suggestions-list">
+                            <ul className="suggestions-list list-group position-absolute bg-white shadow rounded">
                                 {suggestions.map((game) => (
-                                    <li key={game.id} onClick={() => handleSuggestionClick(game)} style={{ cursor: "pointer" }}>
+                                    <li 
+                                    key={game.id} 
+                                    className="list-group-item list-group-item-action"
+                                    onClick={() => handleSuggestionClick(game)} 
+                                    style={{ cursor: "pointer" }}>
                                         {game.name}
                                     </li>
                                 ))}
                             </ul>
                         )}
                     </div>
-
-                    <div className="justify-content-end pt-2">
-                        <button className="btn btn-secondary me-2" onClick={goToMainPage}>Home</button>
+                    
+                    <div className="d-flex align-items-center">
+                        {store.token && (
+                            <NavLink to="/submit-game" className="btn btn-primary submit-button">
+                                <i class="fa-solid fa-rectangle-list"></i>
+                                &nbsp; Submit Game</NavLink>
+                        )}
+                    <div class="dropdown">
+                        <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fa-solid fa-bars"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end">
                         {store.token == null ? (
-                            <NavLink to="/login" className="btn btn-primary">Log In</NavLink>
+                            <li><NavLink to="/login" className="dropdown-item">Log In</NavLink></li>
                         ) : (
                             <>
-                                <NavLink to="/submit-game" className="btn btn-primary me-2">Submit Game</NavLink>
-                                <button className="btn btn-warning me-2" onClick={goToCart}>
-                                    Cart {store.cart?.length > 0 && `(${store.cart.length})`}
+                            <li>
+                                <button className="dropdown-item" onClick={goToCart}>
+                                <i class="fa-solid fa-cart-shopping"></i>
+                                &nbsp; Cart {store.cart?.length > 0 && `(${store.cart.length})`}
                                 </button>
-                                <NavLink to="/library" className="btn btn-info me-2">Library</NavLink>
-                                <button className="btn btn-danger" onClick={logOut}>Log Out</button>
-                                <NavLink to="/my-games" className="btn btn-primary ms-2">My Games</NavLink>
-                            </>
-                        )}
+                            </li>
+                            <li><NavLink to="/library" className="dropdown-item">
+                                <i class="fa-solid fa-compact-disc"></i>
+                                &nbsp; Library</NavLink></li>
+                            <li><NavLink to="/my-games" className="dropdown-item">
+                            <i class="fa-solid fa-gamepad"></i>
+                                &nbsp; My Games</NavLink></li>
+                            <li><hr className="dropdown-divider"/></li>
+                            <li><button className="dropdown-item" onClick={logOut}>
+                                <i class="fa-solid fa-right-from-bracket"></i>
+                                &nbsp; Log Out</button></li>
+                        </> 
+                      )}  
+                        </ul>
+                    </div>
                     </div>
                 </div>
             </div>
-        </div>
     );
 }
 
