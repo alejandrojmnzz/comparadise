@@ -42,7 +42,11 @@ export function UserGames() {
 
     return (
         <>
-
+                <div className="">
+                    <button className="btn btn-secondary mt-2 ms-2 go-back-button" onClick={() => navigate(-1)}>
+                            <i class="fa-solid fa-rotate-left"></i>
+                                &nbsp; Go Back</button>
+                
                     <div className="d-flex justify-content-center my-2">
                         <h1>{store.singleUser["name"]}'s Games</h1>
                     </div>
@@ -166,7 +170,7 @@ export function UserGames() {
                                 )
                             })}
                     </div>
-
+                </div>
         </>
     )
 }

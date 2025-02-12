@@ -1,5 +1,5 @@
 import React, { useEffect, useContext, useState } from "react";
-import { NavLink, useParams, useRoutes } from "react-router-dom";
+import { NavLink, useNavigate, useParams, useRoutes } from "react-router-dom";
 import { Context } from "../store/appContext";
 import '../../styles/game-view.css'
 
@@ -17,6 +17,7 @@ export function GameView() {
     const [errorMessage, setErrorMessage] = useState(null);
     const [successMessage, setSuccessMessage] = useState(null);
     const [image, setImage] = useState()
+    const navigate = useNavigate()
 
     let {
         id,
@@ -139,6 +140,9 @@ export function GameView() {
                     </div>
                     :
                     <div className="container">
+                        <button className="btn btn-secondary mt-2 go-back-button" onClick={() => navigate(-1)}>
+                            <i class="fa-solid fa-rotate-left"></i>
+                                &nbsp; Go Back</button>
                         <div className="row">
                             <div className="d-flex justify-content-center">
 

@@ -109,11 +109,22 @@ export function Navbar() {
                         )}
                     <div class="dropdown">
                         <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fa-solid fa-bars"></i>
+                            <i class="fa-solid fa-bars"></i>
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end">
                         {store.token == null ? (
-                            <li><NavLink to="/login" className="dropdown-item">Log In</NavLink></li>
+                            <>
+                            <li>
+                                <NavLink to="/login" className="dropdown-item">
+                                <i class="fa-solid fa-right-to-bracket"></i>
+                                &nbsp; Log In</NavLink>
+                            </li>
+                            <li>
+                                <NavLink to="/register" className="dropdown-item">
+                                <i class="fa-solid fa-id-card"></i>
+                                &nbsp; Register</NavLink>
+                                </li>
+                            </>
                         ) : (
                             <>
                             <li>
