@@ -84,12 +84,13 @@ export function MyGames() {
                     <div className="d-flex justify-content-center">
                         <h1>Your Games</h1>
                     </div>
-                    <div className="row">
+                    <div className="row d-flex justify-content-center">
 
                         {store.currentUserGames &&
                             store.currentUserGames.map((item, index) => {
                                 return (
-                                    <div className="col-4">
+                                    
+                                    <div className="col-md-6 col-xl-4">
                                         <h2 className="my-games-titles">{item.name}</h2>
                                         <div key={index} className="d-flex align-items-center mb-5">
 

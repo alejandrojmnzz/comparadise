@@ -57,7 +57,7 @@ export function UserGames() {
                                     <div className="mb-4 border user-game-color px-4 pt-4 col-12 rounded" key={index}>
                                         <div className="row d-flex justify-content-between">
 
-                                            <div className="col-3 p-0">
+                                            <div className="col-sm-5 col-md-4 col-xl-3 p-0">
                                                 <div className="d-flex justify-content-center">
                                                     <img src={item["cover_image"]} onClick={() => navigate(`/game/${item.id}`)} className="user-game" />
                                                 </div>
@@ -65,7 +65,7 @@ export function UserGames() {
                                                     <h3 className="user-games-title">{item["name"]}</h3>
                                                 </div>
                                             </div>
-                                            <div className="col-6 col-md-5 d-flex justify-content-center align-items-center">
+                                            <div className="col-sm-10 col-md-8 col-xl-6 d-flex justify-content-center align-items-center">
                                                 <div>
                                                     <div className="d-flex justify-content-center">
                                                         <img className="user-images" src={item.additional_images[0]} />
@@ -80,7 +80,7 @@ export function UserGames() {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className="col-3 d-flex flex-column justify-content-between">
+                                            <div className="col-sm-5 col-md-4 col-xl-3 d-flex flex-column justify-content-between">
                                                 <div>
                                                     <h5 className="p-0 aspect-color">Genres</h5>
                                                     <p className="p-1 user-game-p-color">

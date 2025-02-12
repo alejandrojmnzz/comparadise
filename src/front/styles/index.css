@@ -20,6 +20,8 @@ body {
     -moz-box-shadow: 0px 0px 40px -21px rgba(0,0,0,0.56);
     box-shadow: 0px 0px 40px -21px rgba(0,0,0,0.56);
     flex-direction: column;
+    border-radius: 10px;
+
 
 }
 @media (width >= 1400px) {
@@ -32,20 +34,7 @@ body {
         width: 220px;
     }
 }
-.game-image {
-    /* max-width: 190px;
-    min-width: 190px;
-    min-height: 223px;
-    max-height: 223px; */
-    max-width: 100%;
-    min-width: 100%;
-    min-height: 100%;
-    max-height: 100%;
-    /* min-height: 100%;
-    max-height: 100%; */
-    cursor: pointer;
-    object-fit: cover;
-}
+
 /* .game-preview-row {
     /* padding: 0px 100px; */
 
@@ -187,3 +176,80 @@ body {
     margin-bottom: 5px;
 }
 
+.game-image {
+    left: 0;
+    position: absolute;
+    /* max-width: 190px;
+    min-width: 190px;
+    min-height: 223px;
+    max-height: 223px; */
+    width: 100%;
+    height: 100%;
+    /* min-height: 100%;
+    max-height: 100%; */
+    cursor: pointer;
+    object-fit: cover;
+    border-radius: 10px;
+   
+    background-color: transparent;
+
+}
+/* The flip card container - set the width and height to whatever you want. We have added the border property to demonstrate that the flip itself goes out of the box on hover (remove perspective if you don't want the 3D effect */
+.flip-card {
+    background-color: transparent;
+    width: 100%;
+    height: 342px;
+
+    perspective: 1000px; /* Remove this if you don't want the 3D effect */
+    border-radius: 10px;
+  }
+  
+  /* This container is needed to position the front and back side */
+  .flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+    border-radius: 10px;
+
+  }
+  
+  /* Do an horizontal flip when you move the mouse over the flip box container */
+  .flip-card:hover .flip-card-inner {
+    transform: rotateY(180deg);
+  }
+  
+  /* Position the front and back side */
+  .flip-card-front, .flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden; /* Safari */
+    backface-visibility: hidden;
+    border-radius: 10px;
+
+  }
+  
+  /* Style the front side (fallback if image is missing) */
+  .flip-card-front {
+    background-color: #bbb;
+    color: black;
+    border-radius: 10px;
+
+  }
+  
+  /* Style the back side */
+  .flip-card-back {
+    color: white;
+    transform: rotateY(180deg);
+    border-radius: 10px;
+    background-color: #000000c4;
+  }
+
+  .img-thumbnail {
+    width: 228px;
+    height: 342px;
+    object-fit: cover;
+  }
