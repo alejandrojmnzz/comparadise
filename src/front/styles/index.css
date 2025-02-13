@@ -246,6 +246,7 @@ body {
     transform: rotateY(180deg);
     border-radius: 10px;
     background-color: #000000c4;
+    cursor: pointer;
   }
 
   .img-thumbnail {
