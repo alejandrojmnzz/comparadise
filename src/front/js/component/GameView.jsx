@@ -70,8 +70,12 @@ export function GameView() {
 
     async function handleReviewSubmit() {
         let response = await actions.addReview(review)
+        if (store.token == null) {
+            toast.error("You must be logged ❌")
+        }
         if (response == 200) {
             toast.success("Review submitted! ✔️")
+
             actions.getAllReviews(id)
         }
     }
