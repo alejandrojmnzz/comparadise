@@ -1,6 +1,7 @@
 .navbar-search-bar{
     background-color: rgb(56, 2, 67) !important;
     border-color: purple !important;
+    color: whitesmoke !important;
 }
 .navbar-search-bar::placeholder{
     color: rgb(201, 201, 201);

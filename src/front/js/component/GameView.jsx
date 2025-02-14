@@ -71,6 +71,7 @@ export function GameView() {
     async function handleReviewSubmit() {
         let response = await actions.addReview(review)
         if (response == 200) {
+            toast.success("Review submitted! ✔️")
             actions.getAllReviews(id)
         }
     }
