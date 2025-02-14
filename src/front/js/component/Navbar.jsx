@@ -77,7 +77,6 @@ export function Navbar() {
         setSuggestions("");
     };
 
-    
     const handleSuggestionClick = (game) => {
         setQuery(""); 
         setSuggestions([]); 
