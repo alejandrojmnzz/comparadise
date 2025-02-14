@@ -2,6 +2,8 @@ import React, { useEffect, useContext, useState } from "react";
 import { NavLink, useNavigate, useParams, useRoutes } from "react-router-dom";
 import { Context } from "../store/appContext";
 import '../../styles/game-view.css'
+import { toast, ToastContainer, Flip } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css"
 
 export function GameView() {
     const { theid } = useParams()
@@ -94,15 +96,12 @@ export function GameView() {
         try {
             const response = await actions.addToCart(theid);
             if (response.success) {
-                setSuccessMessage("Game added to cart successfully!");
-                setErrorMessage(null);
+                toast.success("Game added to cart successfully!");
             } else {
-                setErrorMessage(response.message);
-                setSuccessMessage(null);
+                toast.error(response.message);
             }
         } catch (error) {
-            setErrorMessage("An error occurred while adding to cart.");
-            setSuccessMessage(null);
+            toast.error("An error occurred while adding to cart.");
         }
     }
 
@@ -143,6 +142,19 @@ export function GameView() {
                         <button className="btn btn-secondary mt-2 go-back-button" onClick={() => navigate(-1)}>
                             <i class="fa-solid fa-rotate-left"></i>
                                 &nbsp; Go Back</button>
+                        <ToastContainer
+                            position="top-center"
+                            autoClose={2000}
+                            hideProgressBar={false}
+                            newestOnTop
+                            closeOnClick={false}
+                            rtl={false}
+                            pauseOnFocusLoss
+                            draggable
+                            pauseOnHover
+                            theme="dark"
+                            transition={Flip}
+                        />
                         <div className="row">
                             <div className="d-flex justify-content-center">
 

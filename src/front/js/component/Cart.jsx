@@ -1,12 +1,12 @@
 import React, { useContext, useEffect, useState} from "react";
 import { Context } from "../store/appContext";
 import { useNavigate } from "react-router-dom";
+import { toast, ToastContainer, Flip } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css"
 import "../../styles/cart.css"
 
 export function Cart() {
     const {store, actions} = useContext(Context);
-    const [errorMessage, setErrorMessage] = useState(null);
-    const [successMessage, setSuccessMessage] = useState(null);
     const navigate = useNavigate();
 
     useEffect(() =>{
@@ -19,25 +19,21 @@ export function Cart() {
         const response = await actions.removeFromCart(cartId);
 
         if (response.success) {
-            setErrorMessage("Game removed from cart successfully!");
-            setSuccessMessage(null);
+            toast.success("Game removed from cart successfully!");
             actions.fetchCart();
         } else {
-            setSuccessMessage("Failed to remove game from cart.");
-            setErrorMessage(null);
+            toast.error("Failed to remove game from cart.");
         }
     }
 
     async function handlePurchase() {
         const response = await actions.purchaseGames();
         if (response.success) {
-            setSuccessMessage("Purchase successful! You can view your games in the Library.");
-            setErrorMessage(null);
+            toast.success("Purchase successful! You can view your games in the Library.");
             actions.fetchCart();
-            // navigate("/library");
+            setTimeout (() => navigate("/library"), 3000);
         } else {
-            setErrorMessage("Failed to complete purchase.");
-            setSuccessMessage(null);
+            toast.error("Failed to complete purchase.");
         }
     }
 
@@ -47,6 +43,19 @@ export function Cart() {
             <button className="btn btn-secondary mt-2 go-back-button" onClick={() => navigate(-1)}>
                 <i class="fa-solid fa-rotate-left"></i>
                 &nbsp; Go Back</button>
+                <ToastContainer
+                    position="top-center"
+                    autoClose={2000}
+                    hideProgressBar={false}
+                    newestOnTop
+                    closeOnClick={false}
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                    theme="dark"
+                    transition={Flip}
+                />
             {store.cart.length === 0 ? (
                 <p className="text-center">Your cart is empty.</p>
             ) : (
@@ -67,7 +76,7 @@ export function Cart() {
                 </div>
             )}
 
-            {errorMessage && (
+            {/* {errorMessage && (
                 <div className="alert alert-danger mt-3 text-center">
                     {errorMessage}
                 </div>
@@ -77,7 +86,7 @@ export function Cart() {
                 <div className="alert alert-success mt-3 text-center">
                     {successMessage}
                 </div>
-            )}
+            )} */}
         </div>
     );
 }

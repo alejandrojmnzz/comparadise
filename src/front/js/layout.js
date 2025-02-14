@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+// import { ToastContainer, toast } from "react-toastify";
 import ScrollToTop from "./component/scrollToTop";
 import { BackendURL } from "./component/backendURL";
 
@@ -15,6 +16,7 @@ import { UserGames } from "./component/UserGames.jsx";
 import {SearchResults} from "./component/SearchResults.jsx";
 import { Library} from "./component/Library.jsx"
 import injectContext from "./store/appContext";
+// import "react-toastify/dist/ReactToastify.css"
 
 
 
@@ -30,6 +32,19 @@ const Layout = () => {
         <div>
             <BrowserRouter basename={basename}>
                 <ScrollToTop>
+                {/* <ToastContainer
+                position="top-center"
+                autoClose={2000}
+                hideProgressBar={false}
+                newestOnTop
+                closeOnClick={false}
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="dark"
+                transition={Flip}
+                /> */}
                     <Navbar />
                     <Routes>
                         <Route element={<Home />} path="/" />
