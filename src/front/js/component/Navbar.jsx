@@ -5,6 +5,8 @@ import { Context } from "../store/appContext";
 import { useNavigate } from "react-router-dom";
 import ComParadise from "../../img/ComParadise.png"
 import "../../styles/navbar.css"
+import { toast, ToastContainer, Flip } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css"
 
 export function Navbar() {
     const {store, actions} = useContext(Context)
@@ -51,12 +53,28 @@ export function Navbar() {
     
     const handleSearch = async () => {
         if (query.trim() === "") {
-            alert("Please enter something");
+            toast.info("Please enter something");
             return;
         }
 
         actions.fetchSearchResults(query);
         navigate("/search-results");
+
+        setQuery("");
+        setSuggestions("");
+    };
+
+    const handleKeyDown = (event) => {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            handleSearch();
+            setSuggestions("");
+        }
+    };
+
+    const handleClick = () => {
+        handleSearch();
+        setSuggestions("");
     };
 
     
@@ -80,9 +98,10 @@ export function Navbar() {
                         placeholder="Search for a game"
                         value={query}
                         onChange={handleSearchChange}
+                        onKeyDown ={handleKeyDown}
                         aria-label="Search"
                     />
-                    <button className="btn btn-primary search-button" type="button" onClick={handleSearch}>
+                    <button className="btn btn-primary search-button" type="button" onClick={handleClick}>
                         Search
                     </button>
 
