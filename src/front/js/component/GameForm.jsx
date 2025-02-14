@@ -2,6 +2,8 @@ import React, {useState, useContext, useEffect} from "react";
 import { Context } from "../store/appContext";
 import { useNavigate } from "react-router-dom";
 import { array } from "prop-types";
+import { toast, ToastContainer, Flip } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css"
 import "../../styles/form.css"
 
 
@@ -94,16 +96,16 @@ const navigate = useNavigate()
       });
       if (response.ok) {
         const result = await response.json();
-        alert("Game successfully added!");
-        console.log(result);
+        toast.success("Game successfully added! 🎮");
+        // console.log(result);
       } else {
         const error = await response.json();
         console.error("Error submitting game:", error);
-        alert(error.message || "Error submitting game.");
+        toast.error("Error submitting game ❌");
       }
     } catch (error) {
       console.error("Error:", error);
-      alert("Error submitting game.");
+      toast.error("Error submitting game.");
     }
   }
 
@@ -114,6 +116,19 @@ const navigate = useNavigate()
       <button className="btn btn-secondary mt-3 ms-3 go-back-button" onClick={() => navigate(-1)}>
                 <i class="fa-solid fa-rotate-left"></i>
                     &nbsp; Go Back</button>
+      <ToastContainer
+          position="top-center"
+          autoClose={2000}
+          hideProgressBar={false}
+          newestOnTop
+          closeOnClick={false}
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="dark"
+          transition={Flip}
+      />
       <form onSubmit={handleSubmit}>
         <div className="ps-3 pe-3">
             <div className="first-part row">
