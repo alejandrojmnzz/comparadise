@@ -253,6 +253,10 @@ const navigate = useNavigate()
                 <div className="card card-body">
                   <ul className="list-group" onChange={handleCheckboxes}>
                       <li className="list-group-item">
+                        <input className="form-check-input me-1" name="genres" type="checkbox" value="Adventure" id="Adventure"/>
+                        <label className="form-check-label stretched-link" htmlFor="Adventure">Adventure</label>
+                      </li>
+                      <li className="list-group-item">
                         <input className="form-check-input me-1" name="genres" type="checkbox" value="Point-and-click" id="Point-and-click"/>
                         <label className="form-check-label stretched-link" htmlFor="Point-and-click">Point-and-click</label>
                       </li>
