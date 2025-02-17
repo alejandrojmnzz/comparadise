@@ -72,7 +72,7 @@ export function UserGames() {
                                                     </div>
                                                     <div className="d-flex justify-content-center">
                                                         <img className="user-images" src={item.additional_images[2]} />
-                                                        <img className="user-images" src={item.additional_images[2]} />
+                                                        <img className="user-images" src={item.additional_images[3]} />
                                                     </div>
                                                     <div className="d-flex justify-content-center align-items-end fs-5 mt-3">
                                                         <p className="user-game-p-color">{item.summary}</p>
