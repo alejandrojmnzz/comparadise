@@ -129,7 +129,9 @@ export function GameView() {
     }, [auto_related_games])
 
     useEffect(() => {
-        setLiked(is_liked)
+        if (is_liked == true) {
+        setLiked(false)
+        }
     }, [is_liked])
 
     return (
