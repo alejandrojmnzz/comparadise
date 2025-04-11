@@ -45,9 +45,6 @@ export function GameView() {
         is_liked
     } = store.singleGame
 
-    const [liked, setLiked] = useState(is_liked)
-
-
     async function handleRelation() {
 
         let relatedGame1 = await actions.multiQueryGame(auto_related_games[0])
@@ -82,7 +79,6 @@ export function GameView() {
 
     async function handleLike() {
         try {
-            setLiked(!liked)
             let updateResponse = await actions.updateLike(id)
             if (updateResponse == 200) {
                 actions.getGame(theid)
@@ -115,7 +111,7 @@ export function GameView() {
         actions.getUser(user_id)
         actions.getAllReviews(id)
         setImage(additional_images[0])
-    }, [user_id])
+    }, [user_id, id])
 
 
     useEffect(() => {
@@ -127,12 +123,6 @@ export function GameView() {
         handleRelation()
 
     }, [auto_related_games])
-
-    useEffect(() => {
-        if (is_liked == true) {
-        setLiked(false)
-        }
-    }, [is_liked])
 
     return (
         <>
@@ -148,7 +138,7 @@ export function GameView() {
                     <div className="container">
                         <button className="btn btn-secondary mt-2 go-back-button" onClick={() => navigate(-1)}>
                             <i class="fa-solid fa-rotate-left"></i>
-                                &nbsp; Go Back</button>
+                            &nbsp; Go Back</button>
                         <ToastContainer
                             position="top-center"
                             autoClose={2000}
@@ -172,23 +162,23 @@ export function GameView() {
 
                             </div>
 
-                   
+
                             <div className="d-flex justify-content-center">
                                 <div className="col-7 d-flex">
                                     <iframe className="trailer" height="425" src={`https://www.youtube.com/embed/${trailer}`} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
                                     <div>
-                                        <button className="like fs-2 text-danger" onClick={() => handleLike()}>{liked ? <i className={`${liked && "like-icon"} fa-solid fa-heart`}></i> : <i className="fa-regular fa-heart"></i>}</button>
+                                        <button className="like fs-2 text-danger" onClick={() => handleLike()}>{is_liked ? <i className={`${is_liked && "like-icon"} fa-solid fa-heart`}></i> : <i className="fa-regular fa-heart"></i>}</button>
                                     </div>
                                 </div>
-                                    
+
                             </div>
-                          
-                            
-                            
+
+
+
                             <div className="d-flex justify-content-center">
                                 <div className="d-flex justify-content-between col-7">
                                     <p>A game by <NavLink to={`/user-games/${store.singleUser.id}`}>{store.singleUser.name}</NavLink></p>
-                                    
+
                                 </div>
                             </div>
                             <div className="col-12 d-flex justify-content-center mb-3">
@@ -247,7 +237,7 @@ export function GameView() {
                                         </ul>
                                     </div>
                                 </div>
-     
+
                             </div>
                             <div className="d-flex justify-content-center mt-1">
                                 <div className="col-6 d-flex justify-content-between additional-info">
@@ -291,26 +281,26 @@ export function GameView() {
 
                             {
                                 autoRelatedGames &&
-                            <div className="d-flex justify-content-center">
-                                <div className="row ">
-                                    <div className="col-sm-5 col-xl-4">
-                                        <img className="related-game-view" src={`https://images.igdb.com/igdb/image/upload/t_1080p/${autoRelatedGames[0].cover.url.split("/")[7]}`}></img>
-                                        <p>{autoRelatedGames[0].name}</p>
-                                    </div>
-                                    <div className="col-sm-5 col-xl-4">
-                                        <img className="related-game-view" src={`https://images.igdb.com/igdb/image/upload/t_1080p/${autoRelatedGames[1].cover.url.split("/")[7]}`}></img>
+                                <div className="d-flex justify-content-center">
+                                    <div className="row ">
+                                        <div className="col-sm-5 col-xl-4">
+                                            <img className="related-game-view" src={`https://images.igdb.com/igdb/image/upload/t_1080p/${autoRelatedGames[0].cover.url.split("/")[7]}`}></img>
+                                            <p>{autoRelatedGames[0].name}</p>
+                                        </div>
+                                        <div className="col-sm-5 col-xl-4">
+                                            <img className="related-game-view" src={`https://images.igdb.com/igdb/image/upload/t_1080p/${autoRelatedGames[1].cover.url.split("/")[7]}`}></img>
 
-                                        <p>{autoRelatedGames[1].name}</p>
+                                            <p>{autoRelatedGames[1].name}</p>
+                                        </div>
+                                        <div className="col-sm-5 col-xl-4">
+                                            <img className="related-game-view" src={`https://images.igdb.com/igdb/image/upload/t_1080p/${autoRelatedGames[2].cover.url.split("/")[7]}`}></img>
+                                            <p>{autoRelatedGames[2].name}</p>
+                                        </div>
                                     </div>
-                                    <div className="col-sm-5 col-xl-4">
-                                    <img className="related-game-view" src={`https://images.igdb.com/igdb/image/upload/t_1080p/${autoRelatedGames[2].cover.url.split("/")[7]}`}></img>
-                                        <p>{autoRelatedGames[2].name}</p>
-                                    </div>
-                                </div>
                                 </div>
                             }
                             <div className="d-flex justify-content-center mt-3">
-                            <h3>System Requirements</h3>
+                                <h3>System Requirements</h3>
                             </div>
                             <div className="d-flex justify-content-center">
                                 <p>{system_requirements}</p>
@@ -330,42 +320,42 @@ export function GameView() {
                                     <h1>Rate this game</h1>
                                 </div>
                                 <div className="d-flex justify-content-center">
-                                <div className="rate-game">
-                                <div onChange={handleRate} className="btn-group btn-group-lg mb-2 d-flex justify-content-center" role="group" aria-label="Basic radio toggle button group">
-                                    <input type="radio" className="btn-check" value="1" name="rating" id="btnradio1" autoComplete="off" />
-                                    <label className="btn btn-outline-info" htmlFor="btnradio1">1</label>
-                                    <input type="radio" className="btn-check" value="2" name="rating" id="btnradio2" autoComplete="off" />
-                                    <label className="btn btn-outline-info" htmlFor="btnradio2">2</label>
-                                    <input type="radio" className="btn-check" value="3" name="rating" id="btnradio3" autoComplete="off" />
-                                    <label className="btn btn-outline-info" htmlFor="btnradio3">3</label>
-                                    <input type="radio" className="btn-check" value="4" name="rating" id="btnradio4" autoComplete="off" />
-                                    <label className="btn btn-outline-info" htmlFor="btnradio4">4</label>
-                                    <input type="radio" className="btn-check" value="5" name="rating" id="btnradio5" autoComplete="off" />
-                                    <label className="btn btn-outline-info" htmlFor="btnradio5">5</label>
-                                    <input type="radio" className="btn-check" value="6" name="rating" id="btnradio6" autoComplete="off" />
-                                    <label className="btn btn-outline-info" htmlFor="btnradio6">6</label>
-                                    <input type="radio" className="btn-check" value="7" name="rating" id="btnradio7" autoComplete="off" />
-                                    <label className="btn btn-outline-info" htmlFor="btnradio7">7</label>
-                                    <input type="radio" className="btn-check" value="8" name="rating" id="btnradio8" autoComplete="off" />
-                                    <label className="btn btn-outline-info" htmlFor="btnradio8">8</label>
-                                    <input type="radio" className="btn-check" value="9" name="rating" id="btnradio9" autoComplete="off" />
-                                    <label className="btn btn-outline-info" htmlFor="btnradio9">9</label>
-                                    <input type="radio" className="btn-check" value="10" name="rating" id="btnradio10" autoComplete="off" />
-                                    <label className="btn btn-outline-info" htmlFor="btnradio10">10</label>
-                                </div>
+                                    <div className="rate-game">
+                                        <div onChange={handleRate} className="btn-group btn-group-lg mb-2 d-flex justify-content-center" role="group" aria-label="Basic radio toggle button group">
+                                            <input type="radio" className="btn-check" value="1" name="rating" id="btnradio1" autoComplete="off" />
+                                            <label className="btn btn-outline-info" htmlFor="btnradio1">1</label>
+                                            <input type="radio" className="btn-check" value="2" name="rating" id="btnradio2" autoComplete="off" />
+                                            <label className="btn btn-outline-info" htmlFor="btnradio2">2</label>
+                                            <input type="radio" className="btn-check" value="3" name="rating" id="btnradio3" autoComplete="off" />
+                                            <label className="btn btn-outline-info" htmlFor="btnradio3">3</label>
+                                            <input type="radio" className="btn-check" value="4" name="rating" id="btnradio4" autoComplete="off" />
+                                            <label className="btn btn-outline-info" htmlFor="btnradio4">4</label>
+                                            <input type="radio" className="btn-check" value="5" name="rating" id="btnradio5" autoComplete="off" />
+                                            <label className="btn btn-outline-info" htmlFor="btnradio5">5</label>
+                                            <input type="radio" className="btn-check" value="6" name="rating" id="btnradio6" autoComplete="off" />
+                                            <label className="btn btn-outline-info" htmlFor="btnradio6">6</label>
+                                            <input type="radio" className="btn-check" value="7" name="rating" id="btnradio7" autoComplete="off" />
+                                            <label className="btn btn-outline-info" htmlFor="btnradio7">7</label>
+                                            <input type="radio" className="btn-check" value="8" name="rating" id="btnradio8" autoComplete="off" />
+                                            <label className="btn btn-outline-info" htmlFor="btnradio8">8</label>
+                                            <input type="radio" className="btn-check" value="9" name="rating" id="btnradio9" autoComplete="off" />
+                                            <label className="btn btn-outline-info" htmlFor="btnradio9">9</label>
+                                            <input type="radio" className="btn-check" value="10" name="rating" id="btnradio10" autoComplete="off" />
+                                            <label className="btn btn-outline-info" htmlFor="btnradio10">10</label>
+                                        </div>
 
-                                <input className="form-control review-input" placeholder="Add a review..." name="review" onChange={handleRate}></input>
-                            <div className="d-flex justify-content-end">
-                                <input className="btn btn-primary mt-2" type="submit" value="Submit" onClick={handleReviewSubmit} />
-                            </div>
-                            </div>
+                                        <input className="form-control review-input" placeholder="Add a review..." name="review" onChange={handleRate}></input>
+                                        <div className="d-flex justify-content-end">
+                                            <input className="btn btn-primary mt-2" type="submit" value="Submit" onClick={handleReviewSubmit} />
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div className="row">
                             <h1>Reviews</h1>
-                    
-                            
+
+
                             {
                                 store.reviews.map((item, index) => {
                                     return (
@@ -374,19 +364,19 @@ export function GameView() {
                                                 <div className="rating-review">
                                                     <p className="m-0 fs-5">This user rated this game a <b>{item.rating}/10</b></p>
                                                 </div>
-                                            <div className="name-review">
-                                                <h2><b>{item.user.name}</b> says:</h2>
-                                                <div className="review-text">{item.review}</div>
-                                            </div>
+                                                <div className="name-review">
+                                                    <h2><b>{item.user.name}</b> says:</h2>
+                                                    <div className="review-text">{item.review}</div>
+                                                </div>
                                             </div>
                                         </div>
                                     )
                                 })
                             }
-                            </div>
-
                         </div>
-              
+
+                    </div>
+
             }
         </>
     )

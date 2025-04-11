@@ -35,7 +35,6 @@ class Game(db.Model):
     additional_images = db.Column(db.Text, nullable=True)
     pegi = db.Column(db.String(10), nullable=True)
     players = db.Column(db.Integer, nullable=False)
-    # related_games = db.Column(db.Text, nullable=True)
     auto_related_games = db.Column(db.String(100), nullable=True)
     language = db.Column(db.String(250), nullable=False)
     summary = db.Column(db.String(150), nullable=True)
@@ -70,14 +69,11 @@ class Game(db.Model):
             "modes": self.modes,
             "player_perspective": self.player_perspective,
             "themes": self.themes,
-            # "keywords": self.keywords,
             "release_date": self.release_date.strftime("%Y-%m-%d"),
             "system_requirements": self.system_requirements,
-            # "achievements": self.achievements,
             "additional_images": json.loads(self.additional_images) if self.additional_images else [],
             "pegi": self.pegi,
             "players": self.players,
-            # "related_games": self.related_games,
             "auto_related_games": json.loads(self.auto_related_games) if self.auto_related_games else [],
             "language": self.language,
             "summary": self.summary,
