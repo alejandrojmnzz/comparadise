@@ -96,6 +96,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 					}
 					)
 					let data = await response.json()
+					if (getStore().token == null) {
+						data.is_liked = false
+					}
 					setStore({
 						singleGame: data
 					})

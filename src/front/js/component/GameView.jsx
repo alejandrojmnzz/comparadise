@@ -111,6 +111,7 @@ export function GameView() {
         actions.getUser(user_id)
         actions.getAllReviews(id)
         setImage(additional_images[0])
+        
     }, [user_id, id])
 
 
@@ -137,7 +138,7 @@ export function GameView() {
                     :
                     <div className="container">
                         <button className="btn btn-secondary mt-2 go-back-button" onClick={() => navigate(-1)}>
-                            <i class="fa-solid fa-rotate-left"></i>
+                            <i className="fa-solid fa-rotate-left"></i>
                             &nbsp; Go Back</button>
                         <ToastContainer
                             position="top-center"
@@ -191,9 +192,9 @@ export function GameView() {
                                         <ul className="w-100">
                                             {
 
-                                                genres.split(",").map((item) => {
+                                                genres.split(",").map((item, index) => {
                                                     return (
-                                                        <li className="m-0">{item}</li>
+                                                        <li className="m-0" key={index}>{item}</li>
                                                     )
                                                 })
                                             }
@@ -203,9 +204,9 @@ export function GameView() {
                                         <h5><b>Game Modes</b></h5>
                                         <ul className="w-100">
                                             {
-                                                modes.split(",").map((item) => {
+                                                modes.split(",").map((item, index) => {
                                                     return (
-                                                        <li className="m-0">{item}</li>
+                                                        <li className="m-0" key={index}>{item}</li>
                                                     )
                                                 })
                                             }
@@ -216,9 +217,9 @@ export function GameView() {
                                         <h5><b>Player Perspectives</b></h5>
                                         <ul className="w-100">
                                             {
-                                                player_perspective.split(",").map((item) => {
+                                                player_perspective.split(",").map((item, index) => {
                                                     return (
-                                                        <li className="m-0">{item}</li>
+                                                        <li className="m-0" key={index}>{item}</li>
                                                     )
                                                 })
                                             }
@@ -228,9 +229,9 @@ export function GameView() {
                                         <h5><b>Themes</b></h5>
                                         <ul className="w-100">
                                             {
-                                                themes.split(",").map((item) => {
+                                                themes.split(",").map((item, index) => {
                                                     return (
-                                                        <li className="m-0">{item}</li>
+                                                        <li className="m-0" key={index}>{item}</li>
                                                     )
                                                 })
                                             }

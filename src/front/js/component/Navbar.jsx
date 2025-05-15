@@ -122,24 +122,24 @@ export function Navbar() {
                     <div className="d-flex align-items-center">
                         {store.token && (
                             <NavLink to="/submit-game" className="btn btn-primary submit-button">
-                                <i class="fa-solid fa-rectangle-list"></i>
+                                <i className="fa-solid fa-rectangle-list"></i>
                                 &nbsp; Submit Game</NavLink>
                         )}
-                    <div class="dropdown">
-                        <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fa-solid fa-bars"></i>
+                    <div className="dropdown">
+                        <button className="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i className="fa-solid fa-bars"></i>
                         </button>
-                        <ul class="dropdown-menu dropdown-menu-end">
+                        <ul className="dropdown-menu dropdown-menu-end">
                         {store.token == null ? (
                             <>
                             <li>
                                 <NavLink to="/login" className="dropdown-item">
-                                <i class="fa-solid fa-right-to-bracket"></i>
+                                <i className="fa-solid fa-right-to-bracket"></i>
                                 &nbsp; Log In</NavLink>
                             </li>
                             <li>
                                 <NavLink to="/register" className="dropdown-item">
-                                <i class="fa-solid fa-id-card"></i>
+                                <i className="fa-solid fa-id-card"></i>
                                 &nbsp; Register</NavLink>
                                 </li>
                             </>
@@ -147,19 +147,19 @@ export function Navbar() {
                             <>
                             <li>
                                 <button className="dropdown-item" onClick={goToCart}>
-                                <i class="fa-solid fa-cart-shopping"></i>
+                                <i className="fa-solid fa-cart-shopping"></i>
                                 &nbsp; Cart {store.cart?.length > 0 && `(${store.cart.length})`}
                                 </button>
                             </li>
                             <li><NavLink to="/library" className="dropdown-item">
-                                <i class="fa-solid fa-compact-disc"></i>
+                                <i className="fa-solid fa-compact-disc"></i>
                                 &nbsp; Library</NavLink></li>
                             <li><NavLink to="/my-games" className="dropdown-item">
-                            <i class="fa-solid fa-gamepad"></i>
+                            <i className="fa-solid fa-gamepad"></i>
                                 &nbsp; My Games</NavLink></li>
                             <li><hr className="dropdown-divider"/></li>
                             <li><button className="dropdown-item" onClick={logOut}>
-                                <i class="fa-solid fa-right-from-bracket"></i>
+                                <i className="fa-solid fa-right-from-bracket"></i>
                                 &nbsp; Log Out</button></li>
                         </> 
                       )}  

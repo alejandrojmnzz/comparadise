@@ -45,6 +45,7 @@ export function FeaturedGames() {
 
                   return (
                     <button
+                      key={index}
                       type="button"
                       data-bs-target="#carouselExampleIndicators"
                       data-bs-slide-to={index}
@@ -61,7 +62,7 @@ export function FeaturedGames() {
               {
                 store.featuredGames.filter((item) => item != undefined).map((item, index) => {
                   return (
-                    <div className={index == 0 ? "carousel-item active" : "carousel-item"}>
+                    <div className={index == 0 ? "carousel-item active" : "carousel-item"} key={index}>
                       <div id="container" onClick={() => navigate(`/game/${item.game?.id}`)}>
                         <div id="left">
                           <img src={item?.game?.cover_image}/>
