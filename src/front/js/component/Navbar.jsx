@@ -87,7 +87,7 @@ export function Navbar() {
             <div className="container-fluid d-flex justify-content-between align-items-center">
                 
                     <button className="btn p-0" onClick={goToMainPage}>
-                        <img className="logo-home" src="ComParadise.png" alt="Home"/>
+                        <img className="logo-home" src="https://res.cloudinary.com/dcdymggxx/image/upload/v1747279593/ComParadise_lmigov.png" alt="Home"/>
                     </button>
                     
                 <div className="d-flex align-items-center flex-grow-1 mx-3" role="search">
